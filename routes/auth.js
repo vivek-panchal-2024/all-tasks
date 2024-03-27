@@ -4,6 +4,7 @@ const passport = require("passport");
 require("../middleware/passport");
 const router = Router();
 
+router.get("/", authentication.renderRegistrationView);
 router.get("/register", authentication.renderRegistrationView);
 router.get("/login", authentication.renderLoginView);
 router.get("/reset-password", authentication.renderResetPasswordView);

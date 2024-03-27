@@ -24,8 +24,14 @@
         <% if(auth_code !== "" || ( successMessage !== "" || error !== "" )) {%>
             <div class="register w-100 m-auto mt-5">
                 <h4 class="text-center mb-4 text-primary">Reset Password</h4>
-                <h4 class="text-success text-center"><%= successMessage %></h4>
-                <h4 class="text-danger text-center"><%= error %></h4>
+                <% if( error !== ""){ %>
+                    <h4 class="text-danger text-center"><%= error %></h4>
+                <% } %>
+
+                <% if( successMessage !== ""){ %>
+                    <h4 class="text-success text-center"><%= successMessage %></h4> 
+                <% } %>
+
                 <form action="/reset-password"  method="post" onsubmit="return validation()" id="resetPwd">
                     <div class="mb-3 form-floating">
                         <input type="hidden" name="authCode" value="<%= auth_code %>">

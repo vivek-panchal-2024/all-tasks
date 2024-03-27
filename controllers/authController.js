@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const renderRegistrationView = (req, res)=>{
     try {
-        res.render("Register");
+        res.render("./login/RegisterView");
     } catch (error) {
         console.error(error);
     }
@@ -14,7 +14,7 @@ const renderRegistrationView = (req, res)=>{
 
 const renderLoginView = (req, res)=>{
     try {
-        res.render("Login");
+        res.render("./login/LoginView");
     } catch (error) {
         console.error(error);
     }
@@ -22,7 +22,7 @@ const renderLoginView = (req, res)=>{
 
 const renderResetPasswordView = (req, res)=>{
     try {
-        res.render("ResetPwd", {auth_code: "", error: ""});
+        res.render("./login/ResetPwd", {auth_code: "", error: "", successMessage: ""});
     } catch (error) {
         console.error(error);
     }
@@ -30,7 +30,7 @@ const renderResetPasswordView = (req, res)=>{
 
 const renderDashboardView = (req, res)=>{
     try {
-      res.render("LoginResponse", {error: ""});
+      res.render("./login/Dashboard", {error: ""});
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,7 @@ const registerUser = async (req, res)=>{
       let isUserExist = await db.runQuery(sql);
     //   console.log(isUserExist);
       if(isUserExist.length > 0){
-        return res.render("RegistrationResponse", {auth_code: "", link: "", error: "User Already Exist."});
+        return res.render("./login/RegistrationResponse", {auth_code: "", link: "", error: "User Already Exist."});
       } else {
           let salt = random.randomAlphanumeric(4);
           let auth_code = random.randomAlphanumeric(16);
@@ -58,11 +58,11 @@ const registerUser = async (req, res)=>{
           let user = await db.runParameterQuery(sql, values);
           // console.log(user);
     
-          res.render("RegistrationResponse", {auth_code, link: `http://localhost:3000/activate-user/${auth_code}`, error: ""});
+          res.render("./login/RegistrationResponse", {auth_code, link: `http://localhost:3000/activate-user/${auth_code}`, error: ""});
       }
     } catch (error) {
         console.log(error);
-        return res.render("RegistrationResponse", {auth_code: "", link: "", error: "Something Went Wrong"});
+        return res.render("./login/RegistrationResponse", {auth_code: "", link: "", error: "Something Went Wrong"});
     }
 }
 
@@ -88,16 +88,16 @@ const loginUser = async (req, res)=>{
           res.cookie('token', token, {httpOnly: true});
           res.redirect("/dashboard");
         } else if(pwd === login[0].password){
-          res.render("LoginResponse", {error: 'Please activate your account first.'});
+          res.render("./login/Dashboard", {error: 'Please activate your account first.'});
         } else{
-          res.render("LoginResponse", {error: 'Email or Password is wrong.'});
+          res.render("./login/Dashboard", {error: 'Email or Password is wrong.'});
         }
       } else{
-        res.render("LoginResponse", {error: 'Email or Password is wrong.'});
+        res.render("./login/Dashboard", {error: 'Email or Password is wrong.'});
       }
     } catch (error) {
         console.log(error);
-        return res.render("LoginResponse", {error: 'Something Went Wrong'});
+        return res.render("./login/Dashboard", {error: 'Something Went Wrong'});
     }
 }
 
@@ -111,31 +111,31 @@ const activateUser = async (req, res)=>{
       let createdAt = new Date(isActivate[0].created_at);
       
       if(isActivate[0].activate_status === 1){
-        return res.render("ActivateView", {error: "Link is expired.", message: ""});
+        return res.render("./login/ActivateView", {error: "Link is expired.", message: ""});
       } else if(isActivate[0].activate_status === 0 && (currentDate - createdAt)/60000 > 60) {
         // console.log("time expired called");
         sql = `delete from users where auth_code = ?`;
         let deleteUnactivateUser = await db.runParameterQuery(sql, values);
         console.log(deleteUnactivateUser);
         if(deleteUnactivateUser.affectedRows !== 0){
-          return res.render("ActivateView", {error: "Link is expired. Now Register again.", message: ""});
+          return res.render("./login/ActivateView", {error: "Link is expired. Now Register again.", message: ""});
         } else {
-          return res.render("ActivateView", {error: "Link is expired.", message: ""});
+          return res.render("./login/ActivateView", {error: "Link is expired.", message: ""});
         }
       } else{
         sql = `update users SET activate_status = '1' where auth_code = ? and activate_status = '0'`
         let activate = await db.runParameterQuery(sql, values);
         // console.log(activate.message);
         if(activate.changedRows !== 0){
-          return res.render("ActivateView", {error: "", message: "Your account is activated."});
+          return res.render("./login/ActivateView", {error: "", message: "Your account is activated."});
         } else{
-          return res.render("ActivateView", {error: "Something Went Wrong", message: ""});
+          return res.render("./login/ActivateView", {error: "Something Went Wrong", message: ""});
         }
       }
       
     } catch (error) {
       console.error(error);
-      return res.render("ActivateView", {error: "Something Went Wrong", message: ""});
+      return res.render("./login/ActivateView", {error: "Something Went Wrong", message: ""});
     }
 }
 
@@ -147,9 +147,9 @@ const resetPassword = async (req, res)=>{
         let sql = `select email, auth_code from users where email = '${req.body.email}'`;
         let getUser = await db.runQuery(sql);
         if(getUser.length === 1){
-          return res.render("ResetPwd", {auth_code: getUser[0].auth_code, error: "", successMessage: ""});
+          return res.render("./login/ResetPwd", {auth_code: getUser[0].auth_code, error: "", successMessage: ""});
         } else {
-          return res.render("ResetPwd", {auth_code: "", error: "No data found", successMessage: ""});
+          return res.render("./login/ResetPwd", {auth_code: "", error: "No data found", successMessage: ""});
         }
       } else {
 
@@ -165,9 +165,9 @@ const resetPassword = async (req, res)=>{
           let resetPassword = await db.runParameterQuery(sql, values);
           console.log(resetPassword);
           if(resetPassword.changedRows !== 0 || resetPassword.affectedRows !== 0){
-            return res.render("ResetPwd", {auth_code: "", error: "", successMessage: "Updated Password Successfully!"});
+            return res.render("./login/ResetPwd", {auth_code: "", error: "", successMessage: "Updated Password Successfully!"});
           } else{
-            return res.render("ResetPwd", {auth_code: "", error: "Something Went Wrong.", successMessage: ""});
+            return res.render("./login/ResetPwd", {auth_code: "", error: "Something Went Wrong.", successMessage: ""});
           }
         }
         
@@ -175,7 +175,7 @@ const resetPassword = async (req, res)=>{
       
     } catch (error) {
         console.error(error);
-        return res.render("ResetPwd", {auth_code: "", error: "Something Went Wrong.", successMessage: ""});
+        return res.render("./login/ResetPwd", {auth_code: "", error: "Something Went Wrong.", successMessage: ""});
     }
 }
 
