@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        td{
+            min-width: 150px;
+            border: 2px solid black;
+            padding: 15px;
+        }
+
+        #firstCell, #fourCell{
+            background-color: rgb(61, 61, 61);
+        }
+        #secondCell, #thirdCell{
+            background-color: rgb(159 157 157);
+        }
+
+
+    </style>
+    <script>
+        var colLen = 2;
+        var rowNumber = 2;
+
+        function handleAddCol(){
+            colLen++;
+            var table1 = document.getElementById("dynamicTable");
+            var rowLen1 = table1.rows.length;
+            var flag = false;
+            if(colLen % 2 === 0){
+                flag = true;
+            } else{
+                flag = false;
+            }
+            for(let i=0; i<rowLen1; i++){
+                var row1 = table1.rows.item(i);
+                let cell1 = row1.insertCell();
+                if(flag === true){
+                    cell1.style.backgroundColor = "rgb(159 157 157)";
+                    flag = false;
+                } else{
+                    cell1.style.backgroundColor = "rgb(61,61,61)";
+                    flag = true;
+                }
+            }
+            console.log("Column Added!");
+        }
+        function handleRemoveCol(){ 
+            var table2 = document.getElementById("dynamicTable");
+            var rowLen2 = table2.rows.length;
+            if(colLen > 2){
+                console.log(rowLen2);
+                for(let i=0; i<rowLen2; i++){
+                    var row2 = table2.rows[i];
+                    console.log(row2);
+                    row2.deleteCell(-1);
+                }
+                colLen--;  
+            }
+            console.log("Column Removed!");
+        }
+        function handleAddRow(){
+            var table3 = document.getElementById("dynamicTable");
+            var row3 = table3.insertRow(-1);
+            var flag = false;
+            rowNumber++;
+            console.log("Row" + rowNumber);
+            if(rowNumber % 2 === 0){
+                flag = true;
+            } else{
+                flag = false;
+            }
+            console.log(colLen);
+            for(let i=1; i<=colLen; i++){
+                var cell3 = row3.insertCell(-1);
+                if(flag === true){
+                    cell3.style.backgroundColor = "rgb(159,157,157)";
+                    flag = false;
+                } else{
+                    cell3.style.backgroundColor = "rgb(61,61,61)";
+                    flag = true;
+                }
+            }
+            console.log("Row Added!");
+        }
+        function handleRemoveRow(){
+            var table4 = document.getElementById("dynamicTable");
+            var rowLen3 = table4.rows.length;
+            if(rowLen3 > 2){
+                table4.deleteRow(rowLen3-1);
+                rowNumber--;
+            }
+            console.log("Row Removed!");
+        }
+    </script>
+</head>
+<body>
+    <div class="container text-center mt-4">
+        <h1>Vivek Panchal - 24DEV070 - 01/02/2024</h1>
+        <h3>Dynamic Table</h3>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <table class="d-flex mt-4 mb-5" id="dynamicTable">
+                    <tr id="firstRow">
+                        <td id="firstCell"></td>
+                        <td id="secondCell"></td>
+                    </tr>
+                    <tr id="secondRow">
+                        <td id="thirdCell"></td>
+                        <td id="fourCell"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-4 d-flex align-items-center">
+                <button class="circleShape me-4 btn btn-secondary" onclick="handleAddCol()">Add Column</button>
+                <button class="circleShape btn btn-secondary" onclick="handleRemoveCol()">Remove Column</button>
+            </div>
+        </div>
+       
+        <div class="row mt-5">
+            <div class="col-2">
+                <button class="circleShape me-4 btn btn-secondary" onclick="handleAddRow()">Add Row</button> 
+            </div>
+            <div class="col-2">
+                <button class="circleShape btn btn-secondary" onclick="handleRemoveRow()">Remove Row</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

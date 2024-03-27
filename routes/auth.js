@@ -9,7 +9,7 @@ router.get("/register", authentication.renderRegistrationView);
 router.get("/login", authentication.renderLoginView);
 router.get("/reset-password", authentication.renderResetPasswordView);
 
-router.get("/dashboard", passport.authenticate('jwt', {session: false, failureRedirect: "/login"},), authentication.renderDashboardView);
+router.get("/dashboard", passport.authenticate('jwt', {session: false, failureRedirect: "/login"}), authentication.renderDashboardView);
 
 router.post("/register", authentication.registerUser);
 router.post("/login", authentication.loginUser);
