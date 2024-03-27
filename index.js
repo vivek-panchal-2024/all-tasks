@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("./routes/auth");
 const task1 = require("./routes/task1");
 const task2 = require("./routes/task2");
+const task3 = require("./routes/task3");
 const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', auth);
 app.use('/task1', task1);
 app.use('/task2', task2);
+app.use('/task3', task3);
 app.set('view engine', 'ejs');
 
 
