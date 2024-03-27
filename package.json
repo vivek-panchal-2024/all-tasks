@@ -1,0 +1,31 @@
+{
+  "name": "all-tasks",
+  "version": "1.0.0",
+  "description": "It includes all the tasks done so far.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivek-panchal-2024/all-tasks.git"
+  },
+  "author": "Vivek-Panchal-24DEV070",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vivek-panchal-2024/all-tasks/issues"
+  },
+  "homepage": "https://github.com/vivek-panchal-2024/all-tasks#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "random-string-alphanumeric-generator": "^0.12.2"
+  }
+}
