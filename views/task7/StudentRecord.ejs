@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records - 26/02/24</title>
+    <style>
+
+        h1, h3{
+            text-align: center;
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        table{
+            border-collapse: collapse;
+            display: flex;
+            justify-content: center;
+        }
+
+        td,th{
+            border: 1px solid black;
+            padding: 15px;
+        }
+        
+        span{
+            font-size: 29px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 26/02/24</h1>
+        <h2>Task-0 Student Records</h2>
+        <!-- <h3><%= order%></h3> -->
+        <% if(order === 1 && field !== "" || type !== ""){%>
+            <h3>Order by "<%= field%>" in <%= type%> order</h3>
+            <%- include ("./partials/PaginationWithOrder") %>
+        <%} else {%>
+            <%- include ("./partials/PaginationComp") %>
+        <%}%> 
+        
+        <table>
+            <tr>
+                <th>Sr.No.</th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=FirstName&ordered_type=asc">&#8593</a></span> First Name <span> <a href="/task7/student-list?pg=1&fieldName=FirstName&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=LastName&ordered_type=asc">&#8593</a></span> Last Name <span> <a href="/task7/student-list?pg=1&fieldName=LastName&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=Gender&ordered_type=asc">&#8593</a></span> Gender <span> <a href="/task7/student-list?pg=1&fieldName=Gender&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=DOB&ordered_type=asc">&#8593</a></span> DOB <span> <a href="/task7/student-list?pg=1&fieldName=DOB&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=ContactNumber&ordered_type=asc">&#8593</a></span> Contact Number <span> <a href="/task7/student-list?pg=1&fieldName=ContactNumber&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=College_Name&ordered_type=asc">&#8593</a></span> College Name <span> <a href="/task7/student-list?pg=1&fieldName=College_Name&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=Department&ordered_type=asc">&#8593</a></span> Department <span> <a href="/task7/student-list?pg=1&fieldName=Department&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=City&ordered_type=asc">&#8593</a></span> City <span> <a href="/task7/student-list?pg=1&fieldName=City&ordered_type=desc">&#8595</a></span>
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=State&ordered_type=asc">&#8593</a></span> State <span> <a href="/task7/student-list?pg=1&fieldName=State&ordered_type=desc">&#8595</a></span> 
+                </th>
+                <th>
+                    <span><a href="/task7/student-list?pg=1&fieldName=Hobby&ordered_type=asc">&#8593</a></span> Hobby <span> <a href="/task7/student-list?pg=1&fieldName=Hobby&ordered_type=desc">&#8595</a></span>
+                </th>
+            </tr>
+
+        
+            <%result.forEach( (student)=>{%>
+                <tr>
+                    <td><%= number++%></td>
+                    <td><%= student.FirstName%></td>
+                    <td><%= student.LastName%></td>
+                    <td><%= student.Gender%></td>
+                    <td><%= student.DOB.toDateString()%></td>
+                    <td><%= student.ContactNumber%></td>
+                    <td><%= student.College_Name%></td>
+                    <td><%= student.Department%></td>
+                    <td><%= student.City%></td> 
+                    <td><%= student.State%></td>
+                    <td><%= student.Hobby%></td>
+                </tr>
+            <%} ) %>
+        </table>
+    </div>
+</body>
+</html>

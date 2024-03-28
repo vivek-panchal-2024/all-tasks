@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Grid</title>
+    <style>
+         h1, h3{
+            text-align: center;
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        h3{
+            color: red;
+        }
+        
+        #query-form{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #query-form input:first-child{
+            width: 600px;
+            height: 30px;
+        }
+
+        table{
+            display: flex;
+            justify-content: center;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+
+        td,th{
+            border: 1px solid black;
+            padding: 12px;
+        }
+
+        .container{
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 29/02/24</h1>
+        <h2>Task-0 Dynamic Grid</h2>
+
+        <form action="/task7/post-query" id="query-form" method="POST">
+            <input type="text" placeholder=" Enter the SQL query here." name="query" value="<%= query!= "" ? query : '' %>">
+            <input type="submit" value="Go">
+        </form>
+        
+        <% if(error){ %>
+            <h3><%= error%></h3>
+        <% } %>
+        
+
+
+        <% if(result != "" && fields != "" && pg>=1 ){%>
+            <%- include("./partials/PaginationDynamicComp")%>
+        <table>
+                <tr>
+                    <% for(let i=0; i<fields.length; i++){ %>
+                        <th><%= fields[i].name%></th>
+                    <% } %>
+                </tr>
+                
+                <% for(let i=0; i<result.length; i++ ){%>
+                    <tr>
+                        <% for(let j=0; j<fields.length; j++){ %>
+                            <td><%= result[i][fields[j].name] %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+        </table>
+        <% } %>
+        
+    </div>
+
+</body>
+</html>

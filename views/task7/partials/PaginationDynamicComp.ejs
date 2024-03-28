@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Component</title>
+    <style>
+        .pagination-link{
+            text-decoration: none;
+            color: black;
+        }
+
+        button{
+            width: 100px;
+        }
+
+        .row{
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .pagination{
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        .disable-link {
+            pointer-events: none;
+        }
+    </style>
+   
+</head>
+<body>
+
+    <div class="pagination">
+        <div class="row">
+            <button  <%= pg<=1 ? "disabled": "" %> ><a  class="pagination-link <%= pg<=1 ? 'disable-link' : '' %>" href="/task7<%= url['1']%>?pg=1<%= url['2']%><%= url['3']%>">&lt;&lt;</a></button>
+            <button  <%= pg<=1 ? "disabled" : "" %> ><a  class="pagination-link <%= pg<=1 ? 'disable-link' : '' %>" href="/task7<%= url['1']%>?pg=<%= pg-1%><%= url['2']%><%= url['3']%>">&lt;</a></button>
+            <div id="pageNumber"><%= pg%></div>
+            <button  <%= pg>=lastPageNumber ? "disabled" : ""%> ><a  class="pagination-link <%= pg>=lastPageNumber ? 'disable-link' : '' %>" href="/task7<%= url['1']%>?pg=<%= ++pg%><%= url['2']%><%= url['3']%>" >&gt;</a></button>
+            <button  <%= pg>lastPageNumber ? "disabled" : "" %>><a  class="pagination-link <%= pg>lastPageNumber ? 'disable-link' : '' %>" href="/task7<%= url['1']%>?pg=<%= lastPageNumber%><%= url['2']%><%= url['3']%>">&gt;&gt;</a></button>
+        </div>
+    </div>
+    
+</body>
+</html>

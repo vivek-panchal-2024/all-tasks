@@ -7,6 +7,7 @@ const task3 = require("./routes/task3");
 const task4 = require("./routes/task4");
 const task5 = require("./routes/task5");
 const task6 = require("./routes/task6");
+const task7 = require("./routes/task7");
 const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
@@ -23,6 +24,7 @@ app.use('/task3', task3);
 app.use('/task4', task4);
 app.use('/task5', task5);
 app.use('/task6', task6);
+app.use('/task7', task7);
 app.use(express.static(path.join(__dirname + "/views")));
 app.set('view engine', 'ejs');
 

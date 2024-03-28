@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Component</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: black;
+        }
+
+        button{
+            width: 100px;
+        }
+
+        .row{
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .pagination{
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        .disable-link {
+            pointer-events: none;
+        }
+    </style>
+   
+</head>
+<body>
+
+    <div class="pagination">
+        <div class="row">
+            <button id="moveToFirstPage" <%= pg<=1 ? "disabled": "" %> ><a href="/task7/student-list?pg=1&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg<=1 ? 'disable-link' : '' %>">&lt;&lt;</a></button>
+            <button id="pageDecrement" <%= pg<=1 ? "disabled" : "" %> ><a href="/task7/student-list?pg=<%= pg-1%>&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg<=1 ? 'disable-link' : '' %>">&lt;</a></button>
+            <div id="pageNumber"><%= pg%></div>
+            <button id="pageIncrement" <%= pg>=250 ? "disabled" : ""%> ><a href="/task7/student-list?pg=<%= ++pg%>&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>250 ? 'disable-link' : '' %>">&gt;</a></button>
+            <button id="moveToLastPage" <%= pg>250 ? "disabled" : "" %>><a href="/task7/student-list?pg=250&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>250 ? 'disable-link' : '' %>">&gt;&gt;</a></button>
+        </div>
+    </div>
+    
+</body>
+</html>

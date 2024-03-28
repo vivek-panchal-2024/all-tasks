@@ -49,4 +49,4 @@ const runQuery = (sql)=>{
         })
     } )
 }
-module.exports = {runParaQuery, runQuery, runParameterQuery};
+module.exports = {runParaQuery, runQuery, runParameterQuery, connection};
