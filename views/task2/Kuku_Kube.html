@@ -32,11 +32,13 @@
 
         var time = setInterval(function (){
             if(seconds == 0){
-                alert("Time Out & Your score is " + score);
+                alert("Time Out & Your score is " + score + ". To play agian refresh the page.");
                 clearInterval(time);
                 score =0;
+                seconds = 10
+            } else{
+                seconds = seconds -1;
             }
-            seconds = seconds -1;
             document.getElementById("result").innerHTML = score;
             document.getElementById("time").innerHTML = seconds;
         }, 1000);
@@ -110,8 +112,8 @@
         <h1>Vivek Panchal - 24DEV070 - 02/02/2024</h1>
         <h2 class="text-success mt-4">Color Game</h2>
         <div class="mt-4">
-            <h4 class="mb-3">Time - <span id="time"></span> </h4>
-            <h4 >Score:- <span id="result"></span></h4>
+            <h4 class="mb-3">Time : <span id="time"></span> </h4>
+            <h4 >Score: <span id="result"></span></h4>
         </div>
         <table class="mt-5" id="myTable">
             <tr>
