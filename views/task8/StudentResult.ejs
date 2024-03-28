@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance - 28/02/24</title>
+    <style>
+        .container{
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        h1, h3{
+            text-align: center;
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        .month-dropdown{
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        td,th{
+            border: 1px solid black;
+            padding: 15px;
+        }
+
+       
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 28/02/24</h1>
+        <h2>Student Result</h2>
+
+        <table>
+             
+                <th rowspan="2">Student Name</th>
+                <th colspan="2">Terminal</th>
+                <th colspan="2">Prelims</th>
+                <th colspan="2">Final</th>
+                <th rowspan="2">Total (1200)</th>
+                <th rowspan="2">Report Card</th>
+            </tr>           
+            <tr>
+                <th>Theory</th>
+                <th>Practical</th>
+                <th>Theory</th>
+                <th>Practical</th>
+                <th>Theory</th>
+                <th>Practical</th>
+            </tr>
+        
+            <% for(let i=0; i<exam_one.length; i++){%>
+                <tr>
+                    <td><%= exam_one[i].FirstName%> <%=  exam_one[i].LastName %></td>
+                    <td><%= exam_one[i].Theory %></td>
+                    <td><%= exam_one[i].Practical %></td>
+                    <td><%= exam_two[i].Theory %></td>
+                    <td><%= exam_two[i].Practical %></td>
+                    <td><%= exam_three[i].Theory %></td>
+                    <td><%= exam_three[i].Practical %></td>
+                    <td><%= (exam_one[i].Theory + exam_one[i].Practical + exam_two[i].Theory + exam_two[i].Practical + exam_three[i].Theory + exam_three[i].Practical )%></td>
+                    <td><a href="/task8/student-report-card?student=<%= exam_one[i].id%>" target="_blank">Report</a></td>
+                </tr>
+            <%}%>
+                   
+        </table>
+    </div>
+    
+    <%- include ("./partials/PaginationDynamicComp") %>
+
+</body>
+</html>

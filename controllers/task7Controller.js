@@ -8,7 +8,7 @@ var deafaultLimit = 50;
 
 const getStudents = (req, res)=>{
     let sql = "";
-    if(db){
+    if(db.connection){
            
         //Logic for Offsetvalue
         if(req.query.pg === 1 || req.query.pg === undefined){

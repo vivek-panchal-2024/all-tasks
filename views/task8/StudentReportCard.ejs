@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Report Card - 28/02/24</title>
+    <style>
+        .container{
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        h1, h3{
+            text-align: center;
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        .month-dropdown{
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        td,th{
+            border: 1px solid black;
+            padding: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 28/02/24</h1>
+        <h2>Student Report Card</h2>
+        <table>
+             <tr>
+                <th colspan="3">StudentName</th>
+                <th colspan="7"><%= exam_one[0].FirstName%> <%= exam_one[0].LastName%></th>
+             </tr>
+             <tr>
+                <th colspan="3">Attendance</th>
+                <td colspan="7"><%= attendance[0].present_days_of_all_months%> days</td>
+             </tr>
+             <tr>
+                <th rowspan="2" colspan="3">Subject</th>
+                <th colspan="2">Terminal</th>
+                <th colspan="2">Prelims</th>
+                <th colspan="2">Final</th>
+                <th rowspan="2">Total (1200)</th>
+             </tr>
+             <tr>
+                <th>Theory (30)</th>
+                <th>Practical (20)</th>
+                <th>Theory (30)</th>
+                <th>Practical (20)</th>
+                <th>Theory (80)</th>
+                <th>Practical (20)</th>
+             </tr>
+             <% var Total = 0%>
+             <% for(let i=0; i<exam_one.length; i++) {%>
+                <tr>
+                    <td colspan="3"><%= exam_one[i].id%></td>
+                    <td><%= exam_one[i].OTM%></td>
+                    <td><%= exam_one[i].OPM%></td>
+                    <td><%= exam_two[i].OTM%></td>
+                    <td><%= exam_two[i].OPM%></td>
+                    <td><%= exam_three[i].OTM%></td>
+                    <td><%= exam_three[i].OPM%></td>
+                    <td><%= (exam_one[i].OTM + exam_one[i].OPM + exam_two[i].OTM + exam_two[i].OPM + exam_three[i].OTM + exam_three[i].OPM)%></td>
+                    <% Total += (exam_one[i].OTM + exam_one[i].OPM + exam_two[i].OTM + exam_two[i].OPM + exam_three[i].OTM + exam_three[i].OPM)%>
+                </tr>
+             <%}%>  
+             <tr>
+                <th colspan="9">Total</th>
+                <td colspan="1"><%= Total %></td>
+             </tr>
+             <tr>
+                <th colspan="9">Percentage</th>
+                <td colspan="1"><%= parseFloat((Total * 100)/1200).toFixed(2)%> %</td>
+             </tr>
+
+        </table>
+    </div>
+</body>
+</html>
