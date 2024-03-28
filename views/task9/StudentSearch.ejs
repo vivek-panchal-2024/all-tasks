@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Search - 05/03/2024</title>
+    <style>
+        .container{
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        h2{
+          color: green;  
+          text-align: center;
+        }
+
+        h3{
+            color: red;
+        }
+
+        table{
+            border-collapse: collapse;
+        }
+
+        td, th{
+            border: 2px solid black;
+            padding: 10px;
+        }
+
+        .search-parent{
+            margin: 80px 0;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+        }
+
+        #searchInput{
+            width: 480px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        #searchInput + input{
+            height: 25px;
+            padding: 3px 10px;
+        }
+        
+        .search-result{
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 05/03/2024</h1>
+        <h2>Task - 3 Delimeter Search</h2>
+        <div class="search-parent">
+            <div id="search-info">
+                <table >
+                    <tr>
+                        <th>FirstName</th>
+                        <td>_</td>
+                    </tr>
+                    <tr>
+                        <th>LastName</th>
+                        <td>^</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>$</td>
+                    </tr>
+                    <tr>
+                        <th>Contact Number</th>
+                        <td>}</td>
+                    </tr>
+                    <tr>
+                        <th>City</th>
+                        <td>{</td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>:</td>
+                    </tr>
+                   </table>
+            </div>
+            <div class="search">
+                <div class="search-input">
+                    <form action="/task9/student-search" method="POST">
+                        <input type="text" name="searchInput" id="searchInput" placeholder=" Search the Student Record" value="<% if(query){%><%= query%><%}%>">
+                        <input type="submit" value="Go">
+                    </form>
+                </div>
+
+                <% if(error) {%>
+                    <h3><%= error %></h3>
+                <% } %>
+
+                <div class="search-result">
+                    <table>
+                        <tr>
+                            <% if(result !== "" && fields !== "" ){ %>
+                                <% fields.forEach( (field) =>{ %>
+                                    <th><%= field.name%></th>
+                                    <% } ) %>
+                                    
+                            <% } %>
+                        </tr>
+
+                        <% if(result !== "" && fields !== ""){ %>
+                            <% for(let i=0; i<result.length; i++){ %>
+                                <tr>
+                                    <% for(let j=0; j<fields.length; j++){ %>
+                                        <td><%= result[i][fields[j].name] %></td>
+                                    <% } %>
+                                </tr>
+                            <% } %>
+
+                        <% } %>
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
