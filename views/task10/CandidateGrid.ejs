@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Record</title>
+    <style>
+        .container{
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+        h1, h3{
+            text-align: center;
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        table{
+            display: flex;
+            justify-content: center;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+
+        td,th{
+            border: 1px solid black;
+            padding: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 15/03/24</h1>
+        <h2>Candidate Records</h2>
+
+        <table id="candidateTable">
+            <tr>
+                <th>Sr.No.</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>DOB</th>
+                <th>Update</th>
+            </tr>
+            <% result.forEach ( candidate =>{ %>
+                <tr>
+                    <td><%= ++count %></td>
+                    <td><%= candidate.FirstName %></td>
+                    <td><%= candidate.LastName %></td>
+                    <td><%= candidate.Designation %></td>
+                    <td><%= candidate.Email %></td>
+                    <td><%= candidate.PhoneNumber %></td>
+                    <td><%= candidate.DOB.getFullYear() %>-<%= candidate.DOB.getMonth()+1 %>-<%= candidate.DOB.getDate()+1 %></td>
+                    <td><a href="/task10/job-application?student=<%= candidate.Id %>">Update Details</a></td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
