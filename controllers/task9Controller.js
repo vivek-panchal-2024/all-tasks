@@ -12,7 +12,7 @@ const renderSearchView = (req, res)=>{
 const getSearchResult= (req, res)=>{
     if(db.connection){
         let input = req.body.searchInput;
-        console.log(input);
+        // console.log(input);
         let inputObject = {};
         let inputValue = "";
         let delimeter = "";
