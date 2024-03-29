@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone - 20/03/24</title>
+    <style>
+        .container{
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+
+        h1, h2{
+            text-align: center;
+        }
+
+        #displayTime{
+            text-align: center;
+            color: green;
+            font-size: 18px;
+        }
+
+        .row{
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .text-center{
+            text-align: center;
+        }
+
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 20/03/2024</h1>
+        <h2>Task - Time Zone</h2>
+        <h3 class="text-center">Enter the Time in IST Time Zone</h3>
+        <div class="row">
+            <label for="date">Date: </label>
+            <input type="text" name="date" id="date" placeholder="YYYY-MM-DD">
+            <label for="time">Time: </label>
+            <input type="text" name="time" id="time">
+            <select name="city_dropdown" id="city_dropdown" onchange="handleTimeZone(this)">
+                <option value="">Please select the city</option> 
+                <option value="Africa/Accra">(GMT+0000) Africa/Accra</option> 
+                <option value="America/New_York">(GMT-0400) America/New_York</option> 
+                <option value="Asia/Calcutta">(GMT+0530) Asia/Calcutta</option> 
+                <option value="Asia/Dubai">(GMT+0400) Asia/Dubai</option> 
+                <option value="Australia/Sydney">(GMT+1000) Australia/Sydney</option>
+                <option value="Europe/Paris">(GMT+0200) Europe/Paris</option>  
+            </select>
+            <div id="displayTime"></div>
+        </div>
+    </div>
+
+    <script>
+        let timeZone = "";
+        const handleTimeZone = (element)=>{
+            let inputDate = document.getElementById("date").value;
+            let time = document.getElementById("time").value;
+            // console.log(inputDate, time);
+            let d = new Date();
+            timeZone = element;
+            const date = new Date(inputDate + " " + time).toLocaleString('en-us', {
+                timeZone: element.value
+            });
+            document.getElementById("displayTime").innerHTML = date;
+        }
+        
+        setInterval(() => {
+            if(timeZone !== ""){
+                handleTimeZone(timeZone);    
+            }
+        }, 1000);
+
+    </script>
+</body>
+</html>
