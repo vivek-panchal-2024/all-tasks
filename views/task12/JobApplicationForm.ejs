@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        .mandatory-symbol{
+            color: blue;
+        }
+
+        .error{
+            color: red;
+        }
+
+        .nav-item{
+            cursor: pointer;
+        }
+
+        .active{
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 class="text-center mt-2">Vivek Panchal - 24DEV070 - 18/03/2024</h1>
+    <h2 class="text-center mt-2">Task - 6 Job Application Validation using AJAX</h2>
+    <form action="/post-job-application" onsubmit="return dataValidation()" method="post" id="jobApplicationForm">
+        <div class="container">
+            <h2 class="text-center mt-3 mb-3">Job Application</h2>
+            <% if(error !== "") {%>
+                <h4 class="text-center text-danger"><%= error %></h4>
+            <% } %>
+            <h4 class="text-danger text-center" id="errorMesssage"></h4>
+            <!-- Navigation to navigate between the different section of Job Application Form -->
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark rounded" aria-label="Eleventh navbar example">
+                <div class="container-fluid text-light border-primary">
+                  <div class="nav-item active" onclick="navigateFormSection(this)" id="basic">Basic Details</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="education">Education Details</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="work">Work Experience</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="language">Language Known</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="technology">Technologies</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="reference">Reference Contact</div>
+                  <div class="nav-item" onclick="navigateFormSection(this)" id="preference">Preferences</div>
+                </div>
+            </nav>
+
+            <div id="basicDetail" class="mt-4">
+                <h4>Basic Details</h4>
+                <input type="hidden" name="student" value="<% if(student !== ""){%><%= student %> <% } %>">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="firstName">First Name: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="firstName" id="firstName" autofocus class="require" <% if(basicDetails !== "" && basicDetails[0].FirstName) {%> value="<%= basicDetails[0].FirstName %>" <%} %> >
+                    </div>
+                    <div class="col-6">
+                        <label for="lastName">Last Name: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="lastName" id="lastName" class="require" <% if(basicDetails !== "" && basicDetails[0].LastName) {%> value="<%= basicDetails[0].LastName %>" <%} %>>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="designation">Designation: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="designation" id="designation" class="require" <% if(basicDetails !== "" && basicDetails[0].Designation) {%> value="<%= basicDetails[0].Designation %>" <%} %>>
+                    </div>
+                    <div class="col-6">
+                        <label for="address1">Address1: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="address1" id="address1" class="require" <% if(basicDetails !== "" && basicDetails[0].Address1) {%> value="<%= basicDetails[0].Address1 %>" <%} %>>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="email">Email: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="email" id="email" onblur="handleLowerCase()" class="require" <% if(basicDetails !== "" && basicDetails[0].Email) {%> value="<%= basicDetails[0].Email %>" <%} %>>
+                    </div>
+                    <div class="col-6">
+                        <label for="address2">Address2: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="address2" id="address2" class="require" <% if(basicDetails !== "" && basicDetails[0].Address2) {%> value="<%= basicDetails[0].Address2 %>" <%} %>>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="phoneNumber">Phone Number: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="require" <% if(basicDetails !== "" && basicDetails[0].PhoneNumber) {%> value="<%= basicDetails[0].PhoneNumber %>" <%} %>>
+                    </div>
+                    <div class="col-6">
+                        <label for="city">City: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="city" id="city" class="require" <% if(basicDetails !== "" && basicDetails[0].City) {%> value="<%= basicDetails[0].City %>" <%} %>>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6" id="genderComp">
+                        <label for="gender">Gender: <span class="mandatory-symbol">*</span></label>
+                        <input type="radio" name="gender" id="male" value="Male" <% if(basicDetails !== "" && basicDetails[0].Gender === "Male") {%> checked <%} %> >
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female" value="Female" <% if(basicDetails !== "" && basicDetails[0].Gender === "Female") {%> checked <%} %> >
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="col-6">
+                        <label for="state">State: <span class="mandatory-symbol">*</span></label>
+                        <select name="state" id="state">
+                            <option value="Andhra Pradesh" <% if(basicDetails !== "" && basicDetails[0].State === "Andhra Pradesh") {%> selected <%} %>>Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh" <% if(basicDetails !== "" && basicDetails[0].State === "Arunachal Pradesh") {%> selected <%} %>>Arunachal Pradesh</option>
+                            <option value="Asssam" <% if(basicDetails !== "" && basicDetails[0].State === "Asssam") {%> selected <%} %>>Asssam</option>
+                            <option value="Bihar" <% if(basicDetails !== "" && basicDetails[0].State === "Bihar") {%> selected <%} %>>Bihar</option>
+                            <option value="Chhattisgarh" <% if(basicDetails !== "" && basicDetails[0].State === "Chhattisgarh") {%> selected <%} %>>Chhattisgarh</option>
+                            <option value="Goa" <% if(basicDetails !== "" && basicDetails[0].State === "Goa") {%> selected <%} %>>Goa</option>
+                            <option value="Gujarat" <% if(basicDetails !== "" && basicDetails[0].State === "Gujarat") {%> selected <%} %>>Gujarat</option>
+                            <option value="Haryana" <% if(basicDetails !== "" && basicDetails[0].State === "Haryana") {%> selected <%} %>>Haryana</option>
+                            <option value="Himachal Pradesh" <% if(basicDetails !== "" && basicDetails[0].State === "Himachal Pradesh") {%> selected <%} %>>Himachal Pradesh</option>
+                            <option value="Jharkhand" <% if(basicDetails !== "" && basicDetails[0].State === "Jharkhand") {%> selected <%} %>>Jharkhand</option>
+                            <option value="Karnataka" <% if(basicDetails !== "" && basicDetails[0].State === "Karnataka") {%> selected <%} %>>Karnataka</option>
+                            <option value="Kerala" <% if(basicDetails !== "" && basicDetails[0].State === "Kerala") {%> selected <%} %>>Kerala</option>
+                            <option value="Madhya Pradesh" <% if(basicDetails !== "" && basicDetails[0].State === "Madhya Pradesh") {%> selected <%} %>>Madhya Pradesh</option>
+                            <option value="Maharashtra" <% if(basicDetails !== "" && basicDetails[0].State === "Maharashtra") {%> selected <%} %>>Maharashtra</option>
+                            <option value="Manipur" <% if(basicDetails !== "" && basicDetails[0].State === "Manipur") {%> selected <%} %>>Manipur</option>
+                            <option value="Meghalaya" <% if(basicDetails !== "" && basicDetails[0].State === "Meghalaya") {%> selected <%} %>>Meghalaya</option>
+                            <option value="Mizoram" <% if(basicDetails !== "" && basicDetails[0].State === "Mizoram") {%> selected <%} %>>Mizoram</option>
+                            <option value="Nagaland" <% if(basicDetails !== "" && basicDetails[0].State === "Nagaland") {%> selected <%} %>>Nagaland</option>Karnataka
+                            <option value="Odisha" <% if(basicDetails !== "" && basicDetails[0].State === "Odisha") {%> selected <%} %>>Odisha</option>
+                            <option value="Punjab" <% if(basicDetails !== "" && basicDetails[0].State === "Punjab") {%> selected <%} %>>Punjab</option>
+                            <option value="Rajasthan" <% if(basicDetails !== "" && basicDetails[0].State === "Rajasthan") {%> selected <%} %>>Rajasthan</option>
+                            <option value="Sikkim" <% if(basicDetails !== "" && basicDetails[0].State === "Sikkim") {%> selected <%} %>>Sikkim</option>
+                            <option value="Tamil Nadu" <% if(basicDetails !== "" && basicDetails[0].State === "Tamil Nadu") {%> selected <%} %>>Tamil Nadu</option>
+                            <option value="Telangana" <% if(basicDetails !== "" && basicDetails[0].State === "Telangana") {%> selected <%} %>>Telangana</option>
+                            <option value="Tripura" <% if(basicDetails !== "" && basicDetails[0].State === "Tripura") {%> selected <%} %>>Tripura</option>
+                            <option value="Uttarakhand" <% if(basicDetails !== "" && basicDetails[0].State === "Uttarakhand") {%> selected <%} %>>Uttarakhand</option>
+                            <option value="Uttar Pradesh" <% if(basicDetails !== "" && basicDetails[0].State === "Uttar Pradesh") {%> selected <%} %>>Uttar Pradesh</option>
+                            <option value="West Bengal" <% if(basicDetails !== "" && basicDetails[0].State === "West Bengal") {%> selected <%} %>>West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <div class="col-4">
+                        <label for="relationship">RelationShip Status: <span class="mandatory-symbol">*</span></label>
+                        <select name="relationship" id="relationship">
+                            <option value="Single" <% if(basicDetails !== "" && basicDetails[0].RelationShipStatus === "Single") {%> selected <%} %> >Single</option>
+                            <option value="Married" <% if(basicDetails !== "" && basicDetails[0].RelationShipStatus === "Married") {%> selected <%} %> >Married</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="zipCode">Zip Code: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="zipCode" id="zipCode" placeholder=" XXXXXX" class="require" <% if(basicDetails !== "" && basicDetails[0].ZipCode) {%> value="<%= basicDetails[0].ZipCode %>" <%} %>>
+                    </div>
+                    <div class="col-4">
+                        <label for="dob"> Date of Birth <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="dob" id="dob" class="mb-2" placeholder=" YYYY-MM-DD" class="require" <% if(basicDetails !== "" && basicDetails[0].DOB) {%> value="<%= basicDetails[0].DOB.getFullYear()%>-<%= basicDetails[0].DOB.getMonth()+1%>-<%= basicDetails[0].DOB.getDate()%>" <%} %>>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Logic to find the course index -->
+            <% if(educationDetails !== "") { %>
+                <% var sscIndex = educationDetails.findIndex( education =>{ %>
+                    <% return education.CourseName === "SSC"; %>
+                <% } ) %>
+    
+                <% var hscIndex = educationDetails.findIndex( education =>{ %>
+                    <% return education.CourseName === "HSC"; %>
+                <% } ) %>
+    
+                <% var bachelorIndex = educationDetails.findIndex( education =>{ %>
+                    <% return education.CourseName === "Bachelor"; %>
+                <% } ) %>
+    
+                <% var masterIndex = educationDetails.findIndex( education =>{ %>
+                    <% return education.CourseName === "Master"; %>
+                <% } ) %>
+            <% } %>
+
+            <div id="educationDetail" class="mt-4 d-none"> 
+                <h4>Education Details</h4>
+                <div class="row align-items-center">
+                    <h6>SSC Result</h6>
+                    <div class="col-3">
+                        <label for="courseName">CourseName: <span class="mandatory-symbol">*</span></label>
+                        <select name="courseName" id="courseName" class="require">
+                            <option value="SSC">SSC</option>
+                            <option value="HSC">HSC</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor">Bachelor</option>
+                            <option value="Master">Master</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="boardName">Name of Board: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="boardName" id="boardName" class="require" <% if(educationDetails!== "" && sscIndex !== -1 && educationDetails[sscIndex].BoardORUniversity) {%> value="<%= educationDetails[sscIndex].BoardORUniversity %>" <%} %>  >
+                    </div>
+                    <div class="col-3">
+                        <label for="passingYear">Passing Year: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="passingYear" id="passingYear" placeholder=" YYYY" class="require" <% if(educationDetails!== "" && sscIndex !== -1 && educationDetails[sscIndex].PassingYear) {%> value="<%= educationDetails[sscIndex].PassingYear %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="percentage">Percentage: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="percentage" id="percentage" class="require"  <% if(educationDetails!== "" && sscIndex !== -1 &&  educationDetails[sscIndex].PassingYear) {%> value="<%= educationDetails[sscIndex].Percentage %>" <%} %>> 
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <h6 >HSC/Diploma Result</h6>
+                    <div class="col-3">
+                        <label for="courseName2">CourseName: <span class="mandatory-symbol">*</span></label>
+                        <select name="courseName2" id="courseName2" class="require">
+                            <option value="SSC">SSC</option>
+                            <option value="HSC" selected>HSC</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor">Bachelor</option>
+                            <option value="Master">Master</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="boardName2">Name of Board: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="boardName2" id="boardName2" class="require" <% if(educationDetails!== "" && hscIndex !== -1 && educationDetails[hscIndex].BoardORUniversity) {%> value="<%= educationDetails[hscIndex].BoardORUniversity %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="passingYear2">Passing Year: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="passingYear2" id="passingYear2" placeholder=" YYYY" class="require" <% if(educationDetails!== "" && hscIndex !== -1 && educationDetails[hscIndex].BoardORUniversity) {%> value="<%= educationDetails[hscIndex].PassingYear %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="percentage2">Percentage: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="percentage2" id="percentage2" class="require" <% if(educationDetails!== "" &&  hscIndex !== -1 && educationDetails[hscIndex].BoardORUniversity) {%> value="<%= educationDetails[hscIndex].Percentage %>" <%} %> >
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <h6>Bachelor Degree</h6>
+                    <div class="col-3">
+                        <label for="courseName3">CourseName: <span class="mandatory-symbol">*</span></label>
+                        <select name="courseName3" id="courseName3" class="require">
+                            <option value="SSC">SSC</option>
+                            <option value="HSC">HSC</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor" selected>Bachelor</option>
+                            <option value="Master">Master</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="university">University: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="university" id="university" class="require" <% if(educationDetails!== "" && bachelorIndex !== -1 && educationDetails[bachelorIndex].BoardORUniversity) {%> value="<%= educationDetails[bachelorIndex].BoardORUniversity %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="passingYear3">Passing Year: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="passingYear3" id="passingYear3" placeholder=" YYYY" class="require" <% if(educationDetails!== "" && bachelorIndex !== -1 && educationDetails[bachelorIndex].BoardORUniversity) {%> value="<%= educationDetails[bachelorIndex].PassingYear%>" <%} %> > 
+                    </div>
+                    <div class="col-3">
+                        <label for="percentage3">Percentage: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="percentage3" id="percentage3" class="require" <% if(educationDetails!== "" && bachelorIndex !== -1 && educationDetails[bachelorIndex].BoardORUniversity) {%> value="<%= educationDetails[bachelorIndex].Percentage %>" <%} %> >
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center" id="masterDegree">
+                    <h6 >Master Degree</h6>
+                    <div class="col-3">
+                        <label for="courseName4">CourseName: <span class="mandatory-symbol">*</span></label>
+                        <select name="courseName4" id="courseName4">
+                            <option value="">Select</option>
+                            <option value="SSC">SSC</option>
+                            <option value="HSC">HSC</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor">Bachelor</option>
+                            <option value="Master" <% if(educationDetails!== "" && masterIndex !== -1  && educationDetails.length > 3 && educationDetails[masterIndex].CourseName) {%> selected <%} %>>Master</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="university2">University:</label>
+                        <input type="text" name="university2" id="university2" <% if(educationDetails!== "" && masterIndex !== -1  && educationDetails.length > 3 && educationDetails[masterIndex].BoardORUniversity) {%> value="<%= educationDetails[masterIndex].BoardORUniversity %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="passingYear4">Passing Year:</label>
+                        <input type="text" name="passingYear4" id="passingYear4" placeholder=" YYYY" <% if(educationDetails!== "" && masterIndex !== -1 &&  educationDetails.length > 3 && educationDetails[masterIndex].PassingYear) {%> value="<%= educationDetails[masterIndex].PassingYear %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="percentage4">Percentage:</label>
+                        <input type="text" name="percentage4" id="percentage4" <% if(educationDetails!== "" && masterIndex !== -1 && educationDetails.length > 3 && educationDetails[masterIndex].Percentage) {%> value="<%= educationDetails[masterIndex].Percentage %>" <%} %> >
+                    </div>
+                </div>
+            </div>
+    
+            <div id="workExperience" class="mt-4 d-none">
+                <h4>Work Experience</h4>
+                <div class="button-group">
+                    <div class="btn btn-outline-primary btn-sm" onclick="addRow(this)" id="addExperience">Add Experience</div>
+                    <div class="btn btn-outline-primary btn-sm" onclick="removeRow(this)" id="removeExperience">Remove Experience</div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" name="companyName" id="companyName" <% if(workExperience !== "" && workExperience.length > 0 &&  workExperience[0].CompanyName) {%> value="<%= workExperience[0].CompanyName %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="designation2">Designation:</label>
+                        <input type="text" name="designation2" id="designation2" <% if(workExperience !== "" && workExperience.length > 0 && workExperience[0].Designation) {%> value="<%= workExperience[0].Designation %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="startDate">Start Date:</label>
+                        <input type="text" name="startDate" id="startDate" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 0 && workExperience[0].DOJ) {%> value="<%= workExperience[0].DOJ.getFullYear() %>-<%= workExperience[0].DOJ.getMonth()+1 %>-<%= workExperience[0].DOJ.getDate() %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="endDate">End Date:</label>
+                        <input type="text" name="endDate" id="endDate" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 0 &&   workExperience[0].DOR) {%> value="<%= workExperience[0].DOR.getFullYear()%>-<%= workExperience[0].DOR.getMonth()+1%>-<%= workExperience[0].DOR.getDate()%>" <%} %> >
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="companyName2">Company Name:</label>
+                        <input type="text" name="companyName" id="companyName2" <% if(workExperience !== "" && workExperience.length > 1 &&  workExperience[1].CompanyName) {%> value="<%= workExperience[1].CompanyName %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="designation3">Designation:</label>
+                        <input type="text" name="designation2" id="designation3" <% if(workExperience !== "" && workExperience.length > 1 &&  workExperience[1].Designation) {%> value="<%= workExperience[1].Designation %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="startDate2">Start Date:</label>
+                        <input type="text" name="startDate" id="startDate2" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 1 &&  workExperience[1].DOJ) {%> value="<%= workExperience[1].DOJ.getFullYear()%>-<%= workExperience[1].DOJ.getMonth()+1%>-<%= workExperience[1].DOJ.getDate()%>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="endDate2">End Date:</label>
+                        <input type="text" name="endDate" id="endDate2" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 1 &&  workExperience[1].DOJ) {%> value="<%= workExperience[1].DOR.getFullYear()%>-<%= workExperience[1].DOR.getMonth()+1%>-<%= workExperience[1].DOR.getDate()%>" <%} %> >
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="companyName3">Company Name:</label>
+                        <input type="text" name="companyName" id="companyName3" <% if(workExperience !== "" && workExperience.length > 2 &&  workExperience[2].CompanyName) {%> value="<%= workExperience[2].CompanyName %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="designation4">Designation:</label>
+                        <input type="text" name="designation2" id="designation4" <% if(workExperience !== "" && workExperience.length > 2 &&  workExperience[2].Designation) {%> value="<%= workExperience[2].Designation %>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="startDate3">Start Date:</label>
+                        <input type="text" name="startDate" id="startDate3" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 2 &&  workExperience[2].DOJ) {%> value="<%= workExperience[2].DOJ.getFullYear()%>-<%= workExperience[2].DOJ.getMonth()+1%>-<%= workExperience[2].DOJ.getDate()%>" <%} %> >
+                    </div>
+                    <div class="col-3">
+                        <label for="endDate3">End Date:</label>
+                        <input type="text" name="endDate" id="endDate3" placeholder=" YYYY-MM-DD" <% if(workExperience !== "" && workExperience.length > 2 &&  workExperience[2].DOR) {%> value="<%= workExperience[2].DOR.getFullYear()%>-<%= workExperience[2].DOR.getMonth()+1%>-<%= workExperience[2].DOR.getDate() %>" <%} %> >
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Logic to find the language index -->
+            <% if(language !== "") { %>
+                <% var hindiIndex = language.findIndex( lang =>{ %>
+                    <% return lang.LanguageName === "Hindi"; %>
+                <% } ) %>
+    
+                <% var gujaratiIndex = language.findIndex( lang =>{ %>
+                    <% return lang.LanguageName === "Gujarati"; %>
+                <% } ) %>
+    
+                <% var englishIndex = language.findIndex( lang =>{ %>
+                    <% return lang.LanguageName === "English"; %>
+                <% } ) %>
+            <% } %>
+
+           
+
+
+            <div id="languageKnown" class="mt-4 d-none">
+                <h4>Language Known</h4>
+                <div class="row">
+                    <div class="col">
+                        <input type="checkbox" name="hindiLanguage" id="hindiLanguage" value="Hindi" <% if(language !== "" && language.length > 0 && hindiIndex !== -1 ) {%> checked <%} %> >
+                        <label for="hindiLanguage" style="margin-right: 10px;">Hindi</label>
+                        <input type="checkbox" name="hindiRead" id="hindiRead" value="Read" <% if(language !== "" && language.length > 0 && hindiIndex !== -1 && language[hindiIndex].IsRead === "Read" ) {%> checked <%} %> >
+                        <label for="hindiRead" style="margin-right: 10px;">Read</label>
+                        <input type="checkbox" name="hindiWrite" id="hindiWrite" value="Write" <% if(language !== "" && language.length > 0 && hindiIndex !== -1 && language[hindiIndex].IsWrite === "Write" ) {%> checked <%} %> >
+                        <label for="hindiWrite" style="margin-right: 10px;">Write</label>
+                        <input type="checkbox" name="hindiSpeak" id="hindiSpeak" value="Speak" <% if(language !== "" && language.length > 0 && hindiIndex !== -1 && language[hindiIndex].IsSpeak === "Speak" ) {%> checked <%} %> >
+                        <label for="hindiSpeak" style="margin-right: 10px;">Speak</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="checkbox" name="gujaratiLanguage" id="gujaratiLanguage" value="Gujarati" <% if(language !== "" && language.length > 0 && gujaratiIndex!== -1 ) {%> checked <%} %> >
+                        <label for="gujaratiLanguage" style="margin-right: 10px;">Gujarati</label>
+                        <input type="checkbox" name="gujaratiRead" id="gujaratiRead" value="Read" <% if(language !== "" && language.length > 0 && gujaratiIndex !== -1 && language[gujaratiIndex].IsRead === "Read" ) {%> checked <%} %> >
+                        <label for="gujaratiRead" style="margin-right: 10px;">Read</label>
+                        <input type="checkbox" name="gujaratiWrite" id="gujaratiWrite" value="Write" <% if(language !== "" && language.length > 0 && gujaratiIndex !== -1 && language[gujaratiIndex].IsWrite === "Write" ) {%> checked <%} %> >
+                        <label for="gujaratiWrite" style="margin-right: 10px;">Write</label>
+                        <input type="checkbox" name="gujaratiSpeak" id="gujaratiSpeak" value="Speak" <% if(language !== "" && language.length > 0 && gujaratiIndex !== -1 && language[gujaratiIndex].IsSpeak === "Speak" ) {%> checked <%} %> >
+                        <label for="gujaratiSpeak" style="margin-right: 10px;">Speak</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="checkbox" name="englishLanguage" id="englishLanguage" value="English" <% if(language !== "" && language.length > 0 && englishIndex !== -1 ) {%> checked <%} %> >
+                        <label for="englishLanguage" style="margin-right: 10px;">English</label>
+                        <input type="checkbox" name="englishRead" id="englishRead" value="Read" <% if(language !== "" && language.length > 0 && englishIndex !== -1 && language[englishIndex].IsRead === "Read" ) {%> checked <%} %> >
+                        <label for="englishRead" style="margin-right: 10px;">Read</label>
+                        <input type="checkbox" name="englishWrite" id="englishWrite" value="Write" <% if(language !== "" && language.length > 0 && englishIndex !== -1 && language[englishIndex].IsWrite === "Write" ) {%> checked <%} %> >
+                        <label for="englishWrite" style="margin-right: 10px;">Write</label>
+                        <input type="checkbox" name="englishSpeak" id="englishSpeak" value="Speak" <% if(language !== "" && language.length > 0 && englishIndex !== -1 && language[englishIndex].IsSpeak === "Speak" ) {%> checked <%} %> >
+                        <label for="englishSpeak" style="margin-right: 10px;">Speak</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logic to find the language index -->
+            <% if(technology !== "") { %>
+                <% var phpIndex = technology.findIndex( tech =>{ %>
+                    <% return tech.TechnologyName === "PHP"; %>
+                <% } ) %>
+
+                <% var mysqlIndex = technology.findIndex( tech =>{ %>
+                    <% return tech.TechnologyName === "MySQL"; %>
+                <% } ) %>
+
+                <% var laravelIndex = technology.findIndex( tech =>{ %>
+                    <% return tech.TechnologyName === "Laravel"; %>
+                <% } ) %>
+
+                <% var oracleIndex = technology.findIndex( tech =>{ %>
+                    <% return tech.TechnologyName === "Oracle"; %>
+                <% } ) %>
+            <% } %>
+
+            <div id="technologies" class="mt-4 d-none">
+                <h4>Technologies You Know</h4>
+                <div class="row">
+                    <div class="col" id="phpComp">
+                        <input type="checkbox" name="phpTech" id="phpTech" value="PHP" <% if(technology !== "" && technology.length > 0 && phpIndex !== -1 ) {%> checked <%} %> >
+                        <label for="phpTech" style="margin-right: 10px;">PHP</label>
+                        <input type="radio" name="php" id="phpBeginer" value="Beginer" <% if(technology !== "" && technology.length > 0 && phpIndex !== -1 && technology[phpIndex].Proficiency === "Beginer") {%> checked <%} %> >
+                        <label for="phpBeginer" style="margin-right: 10px;">Beginer</label>
+                        <input type="radio" name="php" id="phpMideator" value="Mideator" <% if(technology !== "" && technology.length > 0 && phpIndex !== -1 && technology[phpIndex].Proficiency === "Mideator") {%> checked <%} %> >
+                        <label for="phpMideator" style="margin-right: 10px;">Mideator</label>
+                        <input type="radio" name="php" id="phpExpert" value="Expert" <% if(technology !== "" && technology.length > 0 && phpIndex !== -1 && technology[phpIndex].Proficiency === "Expert") {%> checked <%} %> >
+                        <label for="phpExpert" style="margin-right: 10px;">Expert</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="mysqlComp">
+                        <input type="checkbox" name="mysqlTech" id="mysqlTech" value="MySQL" <% if(technology !== "" && technology.length > 0 && mysqlIndex !== -1 ) {%> checked <%} %> >
+                        <label for="mysqlTech" style="margin-right: 10px;">MySQL</label>
+                        <input type="radio" name="mysql" id="mysqlBeginer" value="Beginer" <% if(technology !== "" && technology.length > 0 && mysqlIndex !== -1 && technology[mysqlIndex].Proficiency === "Beginer") {%> checked <%} %> >
+                        <label for="mysqlBeginer" style="margin-right: 10px;">Beginer</label>
+                        <input type="radio" name="mysql" id="mysqlMideator" value="Mideator" <% if(technology !== "" && technology.length > 0 && mysqlIndex !== -1 && technology[mysqlIndex].Proficiency === "Mideator") {%> checked <%} %> >
+                        <label for="mysqlMideator" style="margin-right: 10px;">Mideator</label>
+                        <input type="radio" name="mysql" id="mysqlExpert" value="Expert" <% if(technology !== "" && technology.length > 0 && mysqlIndex !== -1 && technology[mysqlIndex].Proficiency === "Expert") {%> checked <%} %> >
+                        <label for="mysqlExpert" style="margin-right: 10px;">Expert</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="laravelComp">
+                        <input type="checkbox" name="laravelTech" id="laravelTech" value="Laravel" <% if(technology !== "" && technology.length > 0 && laravelIndex!== -1 ) {%> checked <%} %> >
+                        <label for="laravelTech" style="margin-right: 10px;">Laravel</label>
+                        <input type="radio" name="laravel" id="laravelBeginer" value="Beginer" <% if(technology !== "" && technology.length > 0 && laravelIndex !== -1 && technology[laravelIndex].Proficiency === "Beginer") {%> checked <%} %> > 
+                        <label for="laravelBeginer" style="margin-right: 10px;">Beginer</label>
+                        <input type="radio" name="laravel" id="laravelMideator" value="Mideator" <% if(technology !== "" && technology.length > 0 && laravelIndex !== -1 && technology[laravelIndex].Proficiency === "Mideator") {%> checked <%} %> >
+                        <label for="laravelMideator" style="margin-right: 10px;">Mideator</label>
+                        <input type="radio" name="laravel" id="laravelExpert" value="Expert" <% if(technology !== "" && technology.length > 0 && laravelIndex !== -1 && technology[laravelIndex].Proficiency === "Expert") {%> checked <%} %> >
+                        <label for="laravelExpert" style="margin-right: 10px;">Expert</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="oracleComp">
+                        <input type="checkbox" name="oracleTech" id="oracleTech" value="Oracle" <% if(technology !== "" && technology.length > 0 && oracleIndex !== -1 ) {%> checked <%} %> >
+                        <label for="oracleTech" style="margin-right: 10px;">Oracle</label>
+                        <input type="radio" name="oracle" id="oracleBeginer" value="Beginer" <% if(technology !== "" && technology.length > 0 && oracleIndex !== -1 && technology[oracleIndex].Proficiency === "Beginer") {%> checked <%} %> >
+                        <label for="oracleBeginer" style="margin-right: 10px;">Beginer</label>
+                        <input type="radio" name="oracle" id="oracleMideator" value="Mideator" <% if(technology !== "" && technology.length > 0 && oracleIndex !== -1 && technology[oracleIndex].Proficiency === "Mideator") {%> checked <%} %> >
+                        <label for="oracleMideator" style="margin-right: 10px;">Mideator</label>
+                        <input type="radio" name="oracle" id="oracleExpert" value="Expert" <% if(technology !== "" && technology.length > 0 && oracleIndex !== -1 && technology[oracleIndex].Proficiency === "Expert") {%> checked <%} %> >
+                        <label for="oracleExpert" style="margin-right: 10px;">Expert</label>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="referenceContact" class="mt-4 d-none">
+                <h4>Reference Contact</h4>
+                <div class="button-group">
+                    <div class="btn btn-outline-primary btn-sm" onclick="addRow(this)" id="addReference">Add Reference</div>
+                    <div class="btn btn-outline-primary btn-sm" onclick="removeRow(this)" id="removeReference">Remove Reference</div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="referenceName">Name:</label>
+                        <input type="text" name="referenceName" id="referenceName" <% if(reference !== "" && reference.length > 0 &&  reference[0].FullName) {%> value="<%= reference[0].FullName %>" <%} %> >
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceContactNumber">Contact Number:</label>
+                        <input type="text" name="referenceContactNumber" id="referenceContactNumber" <% if(reference !== "" && reference.length > 0 &&  reference[0].ContactNumber) {%> value="<%= reference[0].ContactNumber %>" <%} %>  >
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceRelation">Relation:</label>
+                        <input type="text" name="referenceRelation" id="referenceRelation" <% if(reference !== "" && reference.length > 0 &&  reference[0].Relation) {%> value="<%= reference[0].Relation %>" <%} %> >
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="referenceName2">Name:</label>
+                        <input type="text" name="referenceName" id="referenceName2" <% if(reference !== "" && reference.length > 1 &&  reference[1].FullName) {%> value="<%= reference[1].FullName %>" <%} %>  >
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceContactNumber2">Contact Number:</label>
+                        <input type="text" name="referenceContactNumber" id="referenceContactNumber2" <% if(reference !== "" && reference.length > 1 &&  reference[1].ContactNumber) {%> value="<%= reference[1].ContactNumber %>" <%} %> >
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceRelation2">Relation:</label>
+                        <input type="text" name="referenceRelation" id="referenceRelation2" <% if(reference !== "" && reference.length > 1 &&  reference[1].Relation) {%> value="<%= reference[1].Relation %>" <%} %> >
+                    </div>
+                </div>
+            </div>
+
+            <% if(preferences !== "") { %>
+                <% var ahmedabadIndex = preferences.findIndex( pref =>{ %>
+                    <% return pref.Location === "Ahmedabad"; %>
+                <% } ) %>
+
+                <% var gadhinagarIndex = preferences.findIndex( pref =>{ %>
+                    <% return pref.Location === "Gadhinagar"; %>
+                <% } ) %>
+
+                <% var suratIndex = preferences.findIndex( pref =>{ %>
+                    <% return pref.Location === "Surat"; %>
+                <% } ) %>
+
+            <% } %>
+    
+            <div id="preferences" class="mt-4 d-none">
+                <h4>Preferences</h4>
+                <div class="row mb-3 align-items-center">
+                    <div class="col-4">
+                        <label for="location">Location: <span class="mandatory-symbol">*</span></label>
+                        <select name="location" id="location" multiple>
+                            <option value="Ahmedabad" <% if(preferences !== "" && ahmedabadIndex !== -1 && preferences[ahmedabadIndex].Location === "Ahmedabad") {%> selected %>" <%} %> >Ahmedabad</option>
+                            <option value="Gadhinagar" <% if(preferences !== "" && gadhinagarIndex !== -1 &&   preferences[gadhinagarIndex].Location === "Gadhinagar") {%> selected %>" <%} %> >Gadhinagar</option>
+                            <option value="Surat" <% if(preferences !== "" && suratIndex !== -1 &&  preferences[suratIndex].Location === "Surat") {%> selected %>" <%} %> >Surat</option>    
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="department">Department: <span class="mandatory-symbol">*</span></label>
+                        <select name="department" id="department">
+                            <option value="Development" <% if(preferences !== "" && preferences[0].Department === "Development") {%> selected %>" <%} %> >Development</option>
+                            <option value="Marketing" <% if(preferences !== "" && preferences[0].Department === "Marketing") {%> selected %>" <%} %> >Marketing</option>    
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="noticePeriod">Notice Period: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="noticePeriod" id="noticePeriod"  class="require" <% if(preferences !== "" && preferences[0].NoticePeriod !== "") {%> value="<%= preferences[0].NoticePeriod %>" <%} %> >
+                    </div>
+                    <div class="col-4">
+                        <label for="expectedCTC">Expected CTC: <span class="mandatory-symbol">*</span></label>
+                        <input type="text" name="expectedCTC" id="expectedCTC" class="require" <% if(preferences !== "" && preferences[0].ExpectedCTC) {%> value="<%= preferences[0].ExpectedCTC %>" <%} %> >
+                    </div>
+                    <div class="col-4">
+                        <label for="currentCTC">Current CTC:</label>
+                        <input type="text" name="currentCTC" id="currentCTC" <% if(preferences !== "" && preferences[0].CurrentCTC !== "") {%> value="<%= preferences[0].CurrentCTC %>" <%} %>  >
+                    </div>
+                </div>
+            </div>
+    
+            <div id="controls" class="mt-5 d-flex justify-content-between">
+                <div class="btn btn-primary" onclick="handlePrevious(this)" id="previousBtn">Previous</div>
+                <div class="btn btn-primary" onclick="handleNext(this)" id="nextBtn">Next</div>
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+        let isValidLang = false;  
+        let error = "";
+        let workRows = 3;
+        let referenceRows = 2;
+        let radioChecked = false;
+        let radioElement = "";
+        let errrorElement = document.getElementsByClassName('error');
+        let data = {};
+        let rootId = 0;
+
+
+        let basicElement = document.getElementById("basicDetail");
+        let educationElement = document.getElementById("educationDetail");
+        let workElement = document.getElementById("workExperience");
+        let languageElement = document.getElementById("languageKnown");
+        let technologyElement = document.getElementById("technologies");
+        let referenceElement = document.getElementById("referenceContact");
+        let preferenceElement = document.getElementById("preferences");
+        let navigationErrorElement = document.getElementById("errorMesssage");
+        let nextElement = document.getElementById("nextBtn");
+
+        let basicTab = document.getElementById("basic");
+        let educationTab = document.getElementById("education");
+        let workTab = document.getElementById("work");
+        let languageTab = document.getElementById("language");
+        let technologyTab = document.getElementById("technology");
+        let referenceTab = document.getElementById("reference");
+        let preferenceTab = document.getElementById("preference");
+        
+        const handleLowerCase = ()=>{
+            let element = document.getElementById("email");
+            element.value = element.value.toLowerCase(); 
+        }
+
+        const isValidEmail = (emailInput)=>{
+            let regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(emailInput);
+        }
+
+        const isValidPhoneNumber = (phoneNumberInput)=>{
+            let number = /^\d{10}$/;
+            return number.test(phoneNumberInput);
+        }
+
+        const isValidZipCode = (zipcodeInput)=>{
+            let regex = /^\d{6}$/;
+            return regex.test(zipcodeInput);
+        }
+
+        const isValidDate = (dateInput)=>{
+            const date = new Date(dateInput);
+            if(Object.prototype.toString.call(date) === "[object Date]"){
+            if(isNaN(date.getTime())){
+                return false;
+            } else{
+                return true;
+            }
+            }
+        }
+
+        const isValidYear = (yearInput)=>{
+            let regex = /^\d{4}$/;
+            return regex.test(yearInput);
+        }
+
+        const isValidPercentage = (percentageInput)=>{
+           if(isNaN(parseFloat(percentageInput)) || parseFloat(percentageInput) < 0 || parseFloat(percentageInput) > 100){
+            return false;
+           }
+           return true;
+        }
+
+        const isValidMasterData = () =>{    
+            // console.log("Called Master");
+            let masterElement = document.getElementById("masterDegree");
+            let masterChildern = Array.from(masterElement.children);
+            masterChildern.filter( child =>{
+                return child.tagName !== "H6";
+            } ).forEach( element =>{
+                // console.log(element.children[1]);
+                if(element.children[1].value === ""){
+                    document.getElementById(`${element.children[1].id}`).style.border = "1px solid red";
+                    error += " Please fill all the details of the corresponding fields ";
+                }   
+            } )
+        }        
+
+        const isValidWorkExperienceData = () =>{
+            let workElement = document.getElementById("workExperience");
+            let workChildern = Array.from(workElement.children);
+
+            workChildern = workChildern.filter( workChild =>{
+                return workChild.classList.contains("row");
+            } );
+
+            workChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+                
+                inputParent.forEach( parent =>{
+                    parent.children[1].style.border = "";
+                } )
+            } )
+
+            workChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+                inputParent = inputParent.filter( parent =>{
+                    return parent.children[1].value === "";
+                } )
+
+                if(inputParent.length < 4){
+                    inputParent.forEach( parent =>{
+                        document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                        error += "Please fill all the details of the corresponding fields";
+                    } );
+                }             
+            } )
+        }
+
+        const isValidLanguageData = (indexofChildren) =>{
+            let lanElement = document.getElementById("languageKnown");
+            let isValidLangProficiency = false;
+            isValidLang = false;
+            
+            if(indexofChildren === -1){
+                //Logic to check at least one lanuague is selected
+                let lanAllChildern = Array.from(lanElement.children);
+                lanAllChildern.filter( lanChild =>{
+                    return lanChild.tagName !== "H4";
+                } ).forEach( lanChild =>{
+                    let parent = lanChild.children[0];
+                    if(parent){
+                        let inputElement = Array.from(parent.children);
+                        inputElement.filter( element =>{
+                            return element.tagName !== "LABEL";
+                        } ).forEach( element =>{
+                            if(element.name === "hindiLanguage" ){
+                                if(element.checked){
+                                    isValidLang = true;
+                                }
+                            } else if(element.name === "gujaratiLanguage"){
+                                if(element.checked){
+                                    isValidLang = true;
+                                }
+                            } else if(element.name === "englishLanguage"){
+                                if(element.checked){
+                                    isValidLang = true;
+                                }
+                            }
+                        } )
+                    }
+                    
+                } ); 
+            } else{
+                //Logic to check the selected language attribute
+               
+                let lanChildern = lanElement.children[indexofChildren+1];
+                let inputParent = Array.from(lanChildern.children);
+                inputParent.forEach( parent =>{
+                    let inputElement = Array.from(parent.children);
+                    inputElement.filter( element =>{
+                        return element.tagName !== "LABEL";
+                    } ).forEach( element =>{
+                        if(element.name === "hindiLanguage"){
+                            if(element.checked){
+                                isValidLang = true;
+                            }
+                        }else if(element.name === "gujaratiLanguage"){
+                            if(element.checked){
+                                isValidLang = true;
+                            }
+                        } else if(element.name === "englishLanguage"){ 
+                            if(element.checked){
+                                isValidLang = true;
+                            }
+                        }
+
+                        if(element.name !== "hindiLanguage" && element.name != "gujaratiLanguage" && element.name !== "englishLanguage"){
+                            if(element.checked){
+                                isValidLangProficiency = true;
+                            }
+                        } 
+                    } )
+                } )  
+
+
+                if(isValidLangProficiency === false && isValidLang === true){
+                    if(document.getElementById("languageKnown").lastElementChild.classList.contains("error") === false){
+                        let spanElement = document.createElement("span");
+                        let textNode = document.createTextNode(`At least one attribute is Required`);
+                        spanElement.appendChild(textNode);
+                        
+                        let element = document.getElementById("languageKnown");
+                        element.appendChild(spanElement);
+                        spanElement.classList.add("error");
+                        error += "Please fill all the details of the corresponding fields";
+                    } 
+                } else if(isValidLangProficiency === true && isValidLang === false){
+                    if(document.getElementById("languageKnown").lastElementChild.classList.contains("error") === false){
+                        let spanElement = document.createElement("span");
+                        let textNode = document.createTextNode(`Please Select the corresponding language`);
+                        spanElement.appendChild(textNode);
+                        
+                        let element = document.getElementById("languageKnown");
+                        element.appendChild(spanElement);
+                        spanElement.classList.add("error");
+                        error += "Please fill all the details of the corresponding fields";
+                    } 
+                }
+            }
+            
+        }
+
+        const isValidTechnology = (indexofChildren)=>{
+            let isValidTech = false;
+            let isValidTechDetail = false;
+            let techElement = document.getElementById("technologies");
+            let techChildern = techElement.children[indexofChildren+1];
+            let inputParent = Array.from(techChildern.children);
+            inputParent.forEach( parent =>{
+                let inputElement = Array.from(parent.children);
+                inputElement.filter( element =>{
+                    return element.tagName !== "LABEL";
+                } ).forEach( element =>{
+                    if(element.name === "phpTech" && element.checked){
+                        isValidTech = true;
+                    } else if(element.name === "mysqlTech" && element.checked){
+                        isValidTech = true; 
+                    } else if(element.name === "laravelTech" && element.checked){
+                        isValidTech = true; 
+                    } else if(element.name === "oracleTech" && element.checked){
+                        isValidTech = true; 
+                    }
+
+                    if(element.name !== "phpTech" && element.name !== "mysqlTech" && element.name !== "laravelTech" && element.name !== "oracleTech"){
+                        if(element.checked){
+                            isValidTechDetail = true;
+                        }
+                    }
+                } )
+            } )  
+            if(isValidTechDetail === false && isValidTech === true){
+                if(document.getElementById("technologies").lastElementChild.classList.contains("error") === false){
+                    let spanElement = document.createElement("span");
+                    let textNode = document.createTextNode(`Please select the technology details`);
+                    spanElement.appendChild(textNode);
+                    
+                    let element = document.getElementById("technologies");
+                    element.appendChild(spanElement);
+                    spanElement.classList.add("error");
+                    error += "Please fill all the details of the corresponding fields";
+                } 
+            }  else if(isValidTechDetail === true && isValidTech === false){
+                if(document.getElementById("technologies").lastElementChild.classList.contains("error") === false){
+                    let spanElement = document.createElement("span");
+                    let textNode = document.createTextNode(`Please Select the corresponding technology`);
+                    spanElement.appendChild(textNode);
+                    
+                    let element = document.getElementById("technologies");
+                    element.appendChild(spanElement);
+                    spanElement.classList.add("error");
+                    error += "Please fill all the details of the corresponding fields";
+                } 
+            }
+        }
+
+        const isValidReference = (indexofChildren)=>{
+            let refElement = document.getElementById("referenceContact");
+            let refChildern = Array.from(refElement.children);
+            
+            refChildern = refChildern.filter( refChild =>{
+                return refChild.classList.contains("row");
+            } )
+
+            refChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+
+                inputParent.forEach( parent =>{
+                    parent.children[1].style.border = "";
+                } )
+            });
+
+           
+
+            refChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+                inputParent = inputParent.filter( parent =>{
+                    return parent.children[1].value === "";
+                });
+
+                if(inputParent.length < 3){
+                    inputParent.forEach( parent =>{
+                        document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                        error += "Please fill all the details of the corresponding fields";
+                    } );
+                }
+            } );
+        }
+
+        const addRow = (componentElement)=>{
+            console.log("Add called");
+            if(componentElement.id === "addExperience"){
+                let workElement = document.getElementById("workExperience");
+                workRows++;
+                let workComponent = `<div class="row mt-3">
+                    <div class="col-3">
+                        <label for="companyName3">Company Name:</label>
+                        <input type="text" name="companyName" id="companyName${workRows}">
+                    </div>
+                    <div class="col-3">
+                        <label for="designation4">Designation:</label>
+                        <input type="text" name="designation2" id="designation${workRows+1}">
+                        </div>
+                        <div class="col-3">
+                            <label for="startDate3">Start Date:</label>
+                            <input type="text" name="startDate" id="startDate${workRows}" placeholder=" YYYY-MM-DD">
+                            </div>
+                            <div class="col-3">
+                        <label for="endDate3">End Date:</label>
+                        <input type="text" name="endDate" id="endDate${workRows}" placeholder=" YYYY-MM-DD">
+                        </div>
+                        </div>`;
+                workElement.insertAdjacentHTML('beforeend', workComponent);
+            } else{
+                let referenceElement = document.getElementById("referenceContact");
+                referenceRows++;
+                let referenceComponent = `<div class="row mt-3">
+                    <div class="col-4">
+                        <label for="referenceName">Name:</label>
+                        <input type="text" name="referenceName" id="referenceName${referenceRows}">
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceContactNumber">Contact Number:</label>
+                        <input type="text" name="referenceContactNumber" id="referenceContactNumber${referenceRows}">
+                    </div>
+                    <div class="col-4">
+                        <label for="referenceRelation">Relation:</label>
+                        <input type="text" name="referenceRelation" id="referenceRelation${referenceRows}">
+                    </div>
+                </div>`;
+                referenceElement.insertAdjacentHTML('beforeend', referenceComponent);
+            }           
+        } 
+
+        const removeRow = (componentElement)=>{
+            console.log("Remove called");
+            if(componentElement.id === "removeExperience"){
+                let workElement = document.getElementById("workExperience");
+                if(workElement.children.length > 5){
+                    workElement.lastElementChild.remove();
+                    workRows--;
+                }
+            } else{
+                let referenceElement = document.getElementById("referenceContact");
+                if(referenceElement.children.length > 4){
+                    referenceElement.lastElementChild.remove();
+                    referenceRows--;
+                }
+            }
+        }
+
+        const showBasic = ()=>{
+            basicElement.classList.remove("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.add("d-none");
+
+            if(!basicTab.classList.contains("active")){
+                basicTab.classList.add("active");
+            }
+
+            educationTab.classList.remove("active");
+            workTab.classList.remove("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.remove("active");
+        }
+
+        const showEducation = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.remove("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.add("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.add("active");
+            workTab.classList.remove("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.remove("active");
+        }
+
+        const showWork = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.remove("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.add("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.remove("active");
+            workTab.classList.add("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.remove("active");   
+        }
+        
+        const showLanguage = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.remove("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.add("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.remove("active");
+            workTab.classList.remove("active");
+            languageTab.classList.add("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.remove("active");  
+        }
+
+        const showTechnology = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.remove("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.add("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.remove("active");
+            workTab.classList.remove("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.add("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.remove("active");   
+        }
+
+        const showReference = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.remove("d-none");
+            preferenceElement.classList.add("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.remove("active");
+            workTab.classList.remove("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.add("active");
+            preferenceTab.classList.remove("active");   
+        }
+
+        const showPreferences = ()=>{
+            basicElement.classList.add("d-none");
+            educationElement.classList.add("d-none");
+            workElement.classList.add("d-none");
+            languageElement.classList.add("d-none");
+            technologyElement.classList.add("d-none");
+            referenceElement.classList.add("d-none");
+            preferenceElement.classList.remove("d-none");
+            
+            basicTab.classList.remove("active");
+            educationTab.classList.remove("active");
+            workTab.classList.remove("active");
+            languageTab.classList.remove("active");
+            technologyTab.classList.remove("active");
+            referenceTab.classList.remove("active");
+            preferenceTab.classList.add("active");   
+        }
+
+        const navigateFormSection = (element)=>{
+            nextElement.innerHTML = "Next";
+            navigationErrorElement.innerHTML = "";
+            if(element.id === "basic"){
+               showBasic();
+            } else if(element.id === "education"){
+                showEducation();
+            } else if(element.id === "work"){
+                showWork();
+            } else if(element.id === "language"){
+                showLanguage();
+            } else if(element.id === "technology"){
+                showTechnology();
+            } else if(element.id === "reference"){
+                showReference();
+            } else if(element.id === "preference"){
+                showPreferences();
+                nextElement.innerHTML = "Save";
+            }
+        }
+
+        const handlePrevious = (element)=>{
+            console.log("pre called");
+            navigationErrorElement.innerHTML = "";
+            nextElement.innerHTML = "Next";
+            if(basicTab.classList.contains("active")){
+                navigationErrorElement.innerHTML = "Can't go previous";
+            } else if(educationTab.classList.contains("active")){
+               showBasic();
+            } else if(workTab.classList.contains("active")){
+                showEducation();
+            } else if(languageTab.classList.contains("active")){
+                showWork();
+            } else if(technologyTab.classList.contains("active")){
+                showLanguage();
+            } else if(referenceTab.classList.contains("active")){
+                showTechnology();
+            } else if(preferenceTab.classList.contains("active")){
+                showReference();
+            }
+        }
+        
+        const handleNext = async (element) =>{
+            console.log("next called");
+            navigationErrorElement.innerHTML = "";
+            element.innerHTML = "Next";
+            error = "";
+
+            let form = document.getElementById("jobApplicationForm");
+            let formData = new FormData(form);
+
+            if(basicTab.classList.contains("active")){
+                isValidBasicData();
+                if(error === ""){
+                    data = {
+                        firstName : document.getElementById("firstName").value,
+                        lastName : document.getElementById("lastName").value,
+                        designation : document.getElementById("designation").value,
+                        address1 : document.getElementById("address1").value,
+                        email : document.getElementById("email").value,
+                        address2 : document.getElementById("address2").value,
+                        phoneNumber : document.getElementById("phoneNumber").value,
+                        city : document.getElementById("city").value,
+                        state: document.getElementById("state").value,
+                        relationship: document.getElementById("relationship").value,
+                        zipCode: document.getElementById("zipCode").value,
+                        dob: document.getElementById("dob").value,
+                    };
+                    if(document.getElementById("male").checked){
+                        data["gender"] = document.getElementById("male").value;
+                    } else if(document.getElementById("female").checked){
+                        data["gender"] = document.getElementById("female").value;
+                    }
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+
+                    console.log(data);
+                    const response = await callAPI("http://localhost:3000/task12/post-basic-details", data);
+                    if(response.id){
+                        rootId = response.id;
+                    }
+                    showEducation();
+                }
+            } else if(educationTab.classList.contains("active")){
+                isValidEducationData();
+                if(error === ""){
+                    data = {
+                        courseName : document.getElementById("courseName").value,
+                        boardName : document.getElementById("boardName").value,
+                        passingYear : document.getElementById("passingYear").value,
+                        percentage : document.getElementById("percentage").value,
+                        courseName2 : document.getElementById("courseName2").value,
+                        boardName2 : document.getElementById("boardName2").value,
+                        passingYear2 : document.getElementById("passingYear2").value,
+                        percentage2 : document.getElementById("percentage2").value,
+                        courseName3: document.getElementById("courseName3").value,
+                        university: document.getElementById("university").value,
+                        passingYear3: document.getElementById("passingYear3").value,
+                        percentage3: document.getElementById("percentage3").value,
+                        percentage2 : document.getElementById("percentage2").value,
+                        courseName4: document.getElementById("courseName4").value,
+                        university2: document.getElementById("university2").value,
+                        passingYear4: document.getElementById("passingYear4").value,
+                        percentage4: document.getElementById("percentage4").value,
+                        id: rootId
+                    };
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+
+                    console.log(data);
+                    const response = await callAPI("http://localhost:3000/task12/post-education-details", data);
+                    console.log(response);
+                    showWork();
+                }
+            } else if(workTab.classList.contains("active")){
+
+                isValidWorkExperienceData();
+                if(error === ""){
+                    data = {
+                        companyName : formData.getAll("companyName"),
+                        designation2 : formData.getAll("designation2"),
+                        startDate : formData.getAll("startDate"),
+                        endDate : formData.getAll("endDate"),
+                        id: rootId
+                    };
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+
+                    console.log(data);
+                    const response = await callAPI("http://localhost:3000/task12/post-work-details", data);
+                    console.log(response);
+                    showLanguage();
+                }
+            } else if(languageTab.classList.contains("active")){
+
+                //Clear all the previous error
+                if(errrorElement.length > 0){
+                    for(let i=errrorElement.length; i>0; i--){
+                        errrorElement[i-1].remove();
+                    }   
+                }
+
+                isValidLanguageData(-1);
+                if(isValidLang === false){
+                    if(document.getElementById("languageKnown").lastElementChild.classList.contains("error") === false){
+                        let spanElement = document.createElement("span");
+                        let textNode = document.createTextNode(`At least one language is Required`);
+                        spanElement.appendChild(textNode);
+                        
+                        let element = document.getElementById("languageKnown");
+                        element.appendChild(spanElement);
+                        spanElement.classList.add("error");
+                    } 
+                } else{
+                    isValidLanguageData(0);
+                    isValidLanguageData(1);
+                    isValidLanguageData(2);
+                    if(error === ""){
+                        data = {
+                            id: rootId
+                        };
+
+                        if(document.getElementById("hindiLanguage").checked){
+                            data["hindiLanguage"] =  document.getElementById("hindiLanguage").value;
+                        } 
+                        
+                        if(document.getElementById("hindiRead").checked){
+                            data["hindiRead"] = document.getElementById("hindiRead").value;
+                        } 
+                        
+                        if(document.getElementById("hindiWrite").checked){
+                            data["hindiWrite"] = document.getElementById("hindiWrite").value;
+                        } 
+                        
+                        if(document.getElementById("hindiSpeak").checked){
+                            data["hindiSpeak"] = document.getElementById("hindiSpeak").value;
+                        } 
+                        
+                        if(document.getElementById("gujaratiLanguage").checked){
+                            data["gujaratiLanguage"] = document.getElementById("gujaratiLanguage").value;
+                        } 
+                        
+                        if(document.getElementById("gujaratiRead").checked){
+                            data["gujaratiRead"] = document.getElementById("gujaratiRead").value;
+                        } 
+                        
+                        if(document.getElementById("gujaratiWrite").checked){
+                            data["gujaratiWrite"] = document.getElementById("gujaratiWrite").value;
+                        } 
+                        
+                        if(document.getElementById("gujaratiSpeak").checked){
+                            data["gujaratiSpeak"] = document.getElementById("gujaratiSpeak").value;
+                        } 
+                        
+                        if(document.getElementById("englishLanguage").checked){
+                            data["englishLanguage"] = document.getElementById("englishLanguage").value;
+                        } 
+                        
+                        if(document.getElementById("englishRead").checked){
+                            data["englishRead"] = document.getElementById("englishRead").value;
+                        } 
+                        
+                        if(document.getElementById("englishWrite").checked){
+                            data["englishWrite"] = document.getElementById("englishWrite").value;
+                        } 
+                        
+                        if(document.getElementById("englishSpeak").checked){
+                            data["englishSpeak"] = document.getElementById("englishSpeak").value;
+                        }
+
+                        if(formData.get("student") !== ""){
+                            data["student"] = formData.get("student");
+                        }
+
+                        console.log(data);
+                        const response = await callAPI("http://localhost:3000/task12/post-language-details", data);
+                        console.log(response);
+                        showTechnology();
+                    }
+                }
+
+            } else if(technologyTab.classList.contains("active")){
+                error = "";
+                //Clear all the previous error
+                 if(errrorElement.length > 0){
+                    for(let i=errrorElement.length; i>0; i--){
+                        errrorElement[i-1].remove();
+                    }   
+                }
+
+                isValidTechnology(0);
+                isValidTechnology(1);
+                isValidTechnology(2);
+                isValidTechnology(3);
+                // console.log(error, "tech");
+                if(error === ""){
+                    data = {
+                        id: rootId
+                    };
+
+                    if(document.getElementById("phpTech").checked){
+                        data["phpTech"] =  document.getElementById("phpTech").value;
+                    } 
+                    
+                    if(document.getElementById("phpBeginer").checked){
+                        data["php"] =  document.getElementById("phpBeginer").value;
+                    } 
+                    
+                    if(document.getElementById("phpMideator").checked){
+                        data["php"] =  document.getElementById("phpMideator").value;
+                    } 
+
+                    if(document.getElementById("phpExpert").checked){
+                        data["php"] =  document.getElementById("phpExpert").value;
+                    } 
+
+                    if(document.getElementById("mysqlTech").checked){
+                        data["mysqlTech"] =  document.getElementById("mysqlTech").value;
+                    } 
+
+                    if(document.getElementById("mysqlBeginer").checked){
+                        data["mysql"] =  document.getElementById("mysqlBeginer").value;
+                    } 
+
+                    if(document.getElementById("mysqlMideator").checked){
+                        data["mysql"] =  document.getElementById("mysqlMideator").value;
+                    } 
+
+                    if(document.getElementById("mysqlExpert").checked){
+                        data["mysql"] =  document.getElementById("mysqlExpert").value;
+                    } 
+
+                    if(document.getElementById("laravelTech").checked){
+                        data["laravelTech"] =  document.getElementById("laravelTech").value;
+                    } 
+                    
+                    if(document.getElementById("laravelBeginer").checked){
+                        data["laravel"] =  document.getElementById("laravelBeginer").value;
+                    } 
+
+                    if(document.getElementById("laravelMideator").checked){
+                        data["laravel"] =  document.getElementById("laravelMideator").value;
+                    } 
+
+                    if(document.getElementById("laravelExpert").checked){
+                        data["laravel"] =  document.getElementById("laravelExpert").value;
+                    } 
+
+                    if(document.getElementById("oracleTech").checked){
+                        data["oracleTech"] =  document.getElementById("oracleTech").value;
+                    } 
+                    
+                    if(document.getElementById("oracleBeginer").checked){
+                        data["oracle"] =  document.getElementById("oracleBeginer").value;
+                    } 
+
+                    if(document.getElementById("oracleMideator").checked){
+                        data["oracle"] =  document.getElementById("oracleMideator").value;
+                    } 
+
+                    if(document.getElementById("oracleExpert").checked){
+                        data["oracle"] =  document.getElementById("oracleExpert").value;
+                    } 
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+                    
+                    console.log(data);
+                    const response = await callAPI("http://localhost:3000/task12/post-technology-details", data);
+                    console.log(response);
+                    showReference();
+                }
+            } else if(referenceTab.classList.contains("active")){
+                error = "";
+                isValidReference();
+                console.log(error, "ref");
+                if(error === ""){
+                    data = {
+                        referenceName : formData.getAll("referenceName"),
+                        referenceContactNumber : formData.getAll("referenceContactNumber"),
+                        referenceRelation : formData.getAll("referenceRelation"),
+                        id: rootId
+                    };
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+
+                    console.log(data);
+                    const response = await callAPI("http://localhost:3000/task12/post-reference-details", data);
+                    console.log(response);
+                    showPreferences();
+                }
+                element.innerHTML = "Save";
+            } else if(preferenceTab.classList.contains("active")){
+                if(error === ""){
+                    data = {
+                        location : formData.getAll("location"),
+                        department : document.getElementById("department").value,
+                        noticePeriod : document.getElementById("noticePeriod").value,
+                        expectedCTC : document.getElementById("expectedCTC").value,
+                        currentCTC : document.getElementById("currentCTC").value,
+                        id: rootId
+                    };
+                    console.log(data);
+
+                    if(formData.get("student") !== ""){
+                        data["student"] = formData.get("student");
+                    }
+                    const response = await callAPI("http://localhost:3000/task12/post-preference-details", data);
+                    console.log(response);
+                    showPreferences();
+                }
+            }
+        }
+
+        const isValidBasicData = ()=>{  
+            let basicElement = document.getElementById("basicDetail");
+            let basicChildern = Array.from(basicElement.children);
+            error = "";
+
+            if(errrorElement.length > 0){
+                for(let i=errrorElement.length; i>0; i--){
+                    errrorElement[i-1].remove();
+                }
+            }
+
+            basicChildern = basicChildern.filter( basicChild =>{
+                return basicChild.classList.contains("row");
+            } );      
+            
+            //Clean the border of all element before checking the empty fields
+            basicChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+
+                inputParent.forEach( parent =>{
+                    parent.children[1].style.border = "";
+                } )
+            } );    
+
+            basicChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+
+                inputParent.forEach( parent =>{
+                    if(parent.children[1].type == "radio" && parent.children[1].name === "gender"){
+                        if(parent.children[1].checked || parent.children[3].checked){
+                            radioChecked = true;
+                        } 
+                        radioElement = parent.children[1].name;
+                    } else{
+                        if(radioChecked === false && radioElement !== ""){
+                            if(radioElement === "gender"){
+                                if(document.getElementById(`${radioElement}Comp`).lastElementChild.classList.contains("error") === false){
+                                    let spanElement = document.createElement("span");
+                                    let textNode = document.createTextNode(`${radioElement} is Required`);
+                                    spanElement.appendChild(textNode);
+
+                                    let element = document.getElementById(`${radioElement}Comp`);
+                                    element.appendChild(spanElement);
+                                    spanElement.classList.add("error");
+                                } 
+                            }
+                            error += " Check the radio button ";
+                            radioElement = "";
+                        } else{
+                            if(parent.children[1].value.trim() === "" && parent.children[1].classList.contains("require") ){
+                                document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                                error += " Fields are Complusory ";
+                            } else if(parent.children[1].name === "email"){
+                                let validateEmail = isValidEmail(parent.children[1].value);
+                                if(validateEmail === false){
+                                    document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                                    error += " Email is not valid ";
+                                }
+                            } else if(parent.children[1].name === "phoneNumber"){
+                                let validatePhoneNumber = isValidPhoneNumber(parent.children[1].value);
+                                if(validatePhoneNumber === false){
+                                    document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                                    error += " Phone Number is not valid ";
+                                }
+                            } else if(parent.children[1].name === "zipCode"){
+                                let validateZipCode = isValidZipCode(parent.children[1].value);
+                                if(validateZipCode === false){
+                                    document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                                    error += " Zip Code is not valid ";
+                                }
+                            } else if(parent.children[1].name === "dob"){
+                                let validateDate = isValidDate(parent.children[1].value);
+                                if(validateDate === false){
+                                    document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                                    error += " DOB is not valid ";
+                                }
+
+                            } 
+                        }   
+                    }
+
+                } );
+        
+            } )
+            console.log(error, "basic")
+        }
+
+        const isValidEducationData = ()=>{
+            let educationElement = document.getElementById("educationDetail");
+            let educationChildern = Array.from(educationElement.children);
+            error = "";
+
+            if(errrorElement.length > 0){
+                for(let i=errrorElement.length; i>0; i--){
+                    errrorElement[i-1].remove();
+                }
+            }
+
+            educationChildern = educationChildern.filter( educationChild =>{
+                return educationChild.classList.contains("row");
+            } );      
+            
+            //Clean the border of all element before checking the empty fields
+            educationChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+
+                inputParent = inputParent.filter(parent =>{
+                    return parent.tagName !== "H6";
+                })
+
+                inputParent.forEach( parent =>{
+                    // console.log(parent);
+                    parent.children[1].style.border = "";
+                } )
+            } );    
+
+            educationChildern.forEach( parent =>{
+                let inputParent = Array.from(parent.children);
+
+                inputParent = inputParent.filter(parent =>{
+                    return parent.tagName !== "H6";
+                })
+
+                inputParent.forEach( parent =>{
+                    if(parent.children[1].value.trim() === "" && parent.children[1].classList.contains("require") ){
+                        document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                        error += " Fields are Complusory ";
+                    } else if(parent.children[1].name === "passingYear" || parent.children[1].name === "passingYear2" || parent.children[1].name === "passingYear3" || parent.children[1].value.trim() !== "" && parent.children[1].name === "passingYear4"){
+                        let validateYear = isValidYear(parent.children[1].value);
+                        if(validateYear === false){
+                            document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                            error += " Year is not valid ";
+                        }
+                        
+                    }  else if(parent.children[1].name === "percentage" || parent.children[1].name === "percentage2" || parent.children[1].name === "percentage3" || parent.children[1].value.trim() !== "" && parent.children[1].name === "percentage4"){
+                        let validatePercentage = isValidPercentage(parent.children[1].value);
+                        if(validatePercentage === false){
+                            document.getElementById(`${parent.children[1].id}`).style.border = "1px solid red";
+                            error += " Percentage is not valid ";
+                        }
+                    }
+
+                    if (parent.children[1].name === "courseName4" || parent.children[1].name === "university2"  || parent.children[1].name === "passingYear4" || parent.children[1].name === "percentage4"){
+                        if(parent.children[1].value.trim() !== ""){
+                            isValidMasterData();
+                        }
+                    }
+                });
+            });
+
+
+            console.log(error, "education")
+        }
+
+        const callAPI = async (url, data)=>{
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return await response.json();
+        }
+
+
+    </script>
+</body>
+</html>
