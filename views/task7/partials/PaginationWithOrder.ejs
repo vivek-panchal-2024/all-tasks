@@ -39,8 +39,8 @@
             <button id="moveToFirstPage" <%= pg<=1 ? "disabled": "" %> ><a href="/task7/student-list?pg=1&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg<=1 ? 'disable-link' : '' %>">&lt;&lt;</a></button>
             <button id="pageDecrement" <%= pg<=1 ? "disabled" : "" %> ><a href="/task7/student-list?pg=<%= pg-1%>&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg<=1 ? 'disable-link' : '' %>">&lt;</a></button>
             <div id="pageNumber"><%= pg%></div>
-            <button id="pageIncrement" <%= pg>=250 ? "disabled" : ""%> ><a href="/task7/student-list?pg=<%= ++pg%>&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>250 ? 'disable-link' : '' %>">&gt;</a></button>
-            <button id="moveToLastPage" <%= pg>250 ? "disabled" : "" %>><a href="/task7/student-list?pg=250&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>250 ? 'disable-link' : '' %>">&gt;&gt;</a></button>
+            <button id="pageIncrement" <%= pg>=4 ? "disabled" : ""%> ><a href="/task7/student-list?pg=<%= ++pg%>&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>4 ? 'disable-link' : '' %>">&gt;</a></button>
+            <button id="moveToLastPage" <%= pg>4 ? "disabled" : "" %>><a href="/task7/student-list?pg=4&fieldName=<%= field%>&ordered_type=<%= type%>" class="<%= pg>4 ? 'disable-link' : '' %>">&gt;&gt;</a></button>
         </div>
     </div>
     
