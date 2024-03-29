@@ -12,11 +12,11 @@ const addStudent = (req, res)=>{
         let userData = [];
         let id = task6Util.generateId();
         req.body.id = id;
-        console.log(fs.existsSync(path.join(__dirname, filePath)));
+        // console.log(fs.existsSync(path.join(__dirname, filePath)));
         if(fs.existsSync(path.join(__dirname, filePath))){
             userData = fs.readFileSync(path.join(__dirname, filePath));
             userData = JSON.parse(userData);
-            console.log(userData, "addif");
+            // console.log(userData, "addif");
             userData.forEach( (data) =>{
                 if(data.id == req.body.id){
                     req.body.id = task6Util.generateId();

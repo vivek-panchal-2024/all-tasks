@@ -142,7 +142,7 @@ const activateUser = async (req, res)=>{
 const resetPassword = async (req, res)=>{
     try {
       let values = [req.params.code, req.body.pwd];
-      console.log(req.body);
+      // console.log(req.body);
       if(req.body.email){
         let sql = `select email, auth_code from users where email = '${req.body.email}'`;
         let getUser = await db.runQuery(sql);
@@ -163,7 +163,7 @@ const resetPassword = async (req, res)=>{
           let values = [hash_pwd, authCode] 
           sql = `update users set password = ? where auth_code = ?`;
           let resetPassword = await db.runParameterQuery(sql, values);
-          console.log(resetPassword);
+          // console.log(resetPassword);
           if(resetPassword.changedRows !== 0 || resetPassword.affectedRows !== 0){
             return res.render("./login/ResetPwd", {auth_code: "", error: "", successMessage: "Updated Password Successfully!"});
           } else{
