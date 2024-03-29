@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Component - 06/03/2024</title>
+    <style>
+        .container{
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+
+        h1{
+         text-align: center;   
+        }
+
+        h2{
+            text-align: center;
+            color: green;
+        }
+
+        h3{
+            text-align: center;
+            color: red;
+        }
+
+        form{
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        #compLabel{
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .result{
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .component{
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+        }
+
+        table{
+            border-collapse: collapse;
+            margin-top: 40px;
+        }
+
+        td, th{
+            border: 2px solid black;
+            padding: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivek Panchal - 24DEV070 - 06/03/24</h1>
+        <h2>Task - Generate Radiobox or Dropdown or Checkbox Component</h2>
+        <div class="error">
+            <% if(error) { %>
+                <h3><%= error %></h3>
+            <% } %>
+        </div>
+
+        <div class="component">
+            <div class="componentInfo">
+                <table>
+                    <tr>
+                        <th>Select Name</th>
+                        <th>Select Key</th>
+                    </tr>
+                    <tr>
+                        <td>Language Known</td>
+                        <td>Language_Combo</td>
+                    </tr>
+                    <tr>
+                        <td>Technologies</td>
+                        <td>Technology_Combo</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>Location_Combo</td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td>Department_Combo</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>Gender_Radio</td>
+                    </tr>
+                    <tr>
+                        <td>RelationShip</td>
+                        <td>Relation_Combo</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="result">
+                <div class="form">
+                    <form action="/task13/generate-component" method="POST">
+                        <input type="text" name="inputVaue" id="inputVaue">
+                        <input type="submit" value="Generate">
+                    </form>
+                </div>
+                <% if(result !== "" && error === "") { %>
+                    <label for="<%= result[0].Select_Name %>" id="compLabel"><%= result[0].Select_Name %>: </label>
+                    <% if(result[0].control_type === "radiobox" ||  result[0].control_type === "checkbox") {%>
+                        <% result.forEach( (input) =>{ %>
+                            <input type="<%= input.control_type === 'radiobox' ? input.control_type.slice(0, -3) :  input.control_type %>" id="<%= input.Option_Key%>" name="<%= input.Select_Name %>">
+                            <label for="<%= input.Option_Key%>"><%= input.Option_Key %></label>
+    
+                            <% if(input.control_type === "checkbox" && input.Select_Key === "Language_Combo" ) { %>
+                                <input type="checkbox" name="read<%= input.Option_Key %>" id="read<%= input.Option_Key %>">
+                                <label for="read<%= input.Option_Key %>">Read</label>
+                                <input type="checkbox" name="write<%= input.Option_Key %>" id="write<%= input.Option_Key %>">
+                                <label for="write<%= input.Option_Key %>">Write</label>
+                                <input type="checkbox" name="speak<%= input.Option_Key %>" id="speak<%= input.Option_Key %>">
+                                <label for="speak<%= input.Option_Key %>">Speak</label><br>
+                            <% } else if(input.control_type === "checkbox" && input.Select_Key === "Technology_Combo"){ %>
+                                <input type="radio" name="<%= input.Option_Key %>" id="beginer<%= input.Option_Key %>">
+                                <label for="beginer<%= input.Option_Key %>">Beginer</label>
+                                <input type="radio" name="<%= input.Option_Key %>" id="mideator<%= input.Option_Key %>">
+                                <label for="mideator<%= input.Option_Key %>">Mideator</label>
+                                <input type="radio" name="<%= input.Option_Key %>" id="expert<%= input.Option_Key %>">
+                                <label for="expert<%= input.Option_Key %>">Expert</label><br>
+                            <% } %>
+    
+    
+                        <% } ) %>
+                    <% } else if (result[0].control_type === "dropdown") {%>
+                            <select name="<%= result[0].Select_Name %>" id="<%= result[0].Select_Name %>" <%= result[0].allowed_multiple === '1' ? 'multiple' : '' %> >
+                                <% result.forEach ( (input) =>{ %>
+                                    <option value="<%= input.Option_Key%>"><%= input.Option_Key%></option>
+                                <% } ) %>    
+                            </select>
+    
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+
+        
+
+       
+    </div>
+</body>
+</html>
