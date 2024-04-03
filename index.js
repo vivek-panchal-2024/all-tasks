@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname + "/views")));
-app.use("/", routes)
+app.use('/', routes);
 app.set('view engine', 'ejs');
 
 app.listen(PORT, (error) => {

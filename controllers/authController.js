@@ -85,7 +85,7 @@ const loginUser = async (req, res)=>{
             }
           }
           let token = jwt.sign(payLoad, jwtSecretKey);
-          res.cookie('token', token, {httpOnly: true});
+          res.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60});
           res.redirect("/dashboard");
         } else if(pwd === login[0].password){
           res.render("./login/Dashboard", {error: 'Please activate your account first.'});
