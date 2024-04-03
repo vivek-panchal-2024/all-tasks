@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `attendance_records_27thFeb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `attendance_records_27thFeb` (
-  `student_id` int DEFAULT NULL,
-  `DOA` date DEFAULT NULL,
-  `Attendance` char(1) DEFAULT NULL
+  `student_id` int NOT NULL,
+  `DOA` date NOT NULL,
+  `Attendance` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `basic_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `basic_details` (
-  `Id` int NOT NULL DEFAULT '0',
+  `Id` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
   `Designation` varchar(20) NOT NULL,
@@ -62,8 +62,9 @@ CREATE TABLE `basic_details` (
   `State` varchar(25) NOT NULL,
   `ZipCode` varchar(6) NOT NULL,
   `RelationShipStatus` varchar(10) NOT NULL,
-  `DOB` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `DOB` date NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +73,7 @@ CREATE TABLE `basic_details` (
 
 LOCK TABLES `basic_details` WRITE;
 /*!40000 ALTER TABLE `basic_details` DISABLE KEYS */;
-INSERT INTO `basic_details` VALUES (1,'test','test','SDL','test@test.com',1234567890,'Male','Bengaluru','Bengaluru','Bengaluru','Karnataka','530068','Single','2003-12-13'),(2,'test2','test2','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-12-13'),(3,'test3','test3','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-12-13'),(4,'test4','test4','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-06-28'),(5,'test5','test5','SDL','test5@test.com',9898808080,'Female','Mehsana','Mehsana','Mehsana','Gujarat','382333','Single','2003-12-12'),(6,'Vivek','Panchal','SDL1','vivek@gmail.com',9898807231,'Male','Naroda','Naroda','Ahmedabad','Gujarat','382333','Single','2003-06-29');
+INSERT INTO `basic_details` VALUES (1,'test','test','SDL','test@test.com',1234567890,'Male','Bengaluru','Bengaluru','Bengaluru','Karnataka','530068','Single','2003-12-13'),(2,'test2','test2','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-12-13'),(3,'test3','test3','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-12-13'),(4,'test4','test4','SDL','test2@test.com',9876543210,'Male','Sola','Sola','Ahmedabad','Gujarat','382333','Single','2003-06-28'),(5,'test5','test5','SDL','test5@test.com',9898808080,'Female','Mehsana','Mehsana','Mehsana','Gujarat','382333','Single','2003-12-12'),(6,'Vivek','Panchal','SDL1','vivek@gmail.com',9898807231,'Male','Naroda','Naroda','Ahmedabad','Gujarat','382333','Single','2003-06-29'),(14,'demo','demo','SDL','demo@demo.com',1234567890,'Female','Sola','Sola','Ahmedabad','Gujarat','123456','Married','2003-06-28'),(15,'demo2','demo2','SDL','demo2@demo.com',1234569871,'Male','Sola','Sola','Ahmedabad','Gujarat','654321','Single','2003-12-13'),(16,'testing','testing','SDL','testing@test.com',1234567890,'Male','Sola','Sola','Ahmedabad','Gujarat','382330','Single','2003-06-28'),(17,'testing2','testing2','SDL1','test7@test.com',9898807232,'Female','Naroda','Naroda','Ahmedabad','Gujarat','530068','Single','2003-06-28');
 /*!40000 ALTER TABLE `basic_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,11 +85,12 @@ DROP TABLE IF EXISTS `cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cities` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
   `city_name` varchar(30) NOT NULL,
   `state_id` int NOT NULL,
-  `created_at` timestamp(4) NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_at` timestamp(4) NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=619 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,9 +113,9 @@ DROP TABLE IF EXISTS `education_details`;
 CREATE TABLE `education_details` (
   `CandidateId` int NOT NULL,
   `BoardORUniversity` varchar(20) NOT NULL,
-  `PassingYear` varchar(4) NOT NULL,
   `Percentage` tinyint NOT NULL,
-  `CourseName` varchar(20) NOT NULL
+  `CourseName` varchar(20) NOT NULL,
+  `PassingYear` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -123,7 +125,7 @@ CREATE TABLE `education_details` (
 
 LOCK TABLES `education_details` WRITE;
 /*!40000 ALTER TABLE `education_details` DISABLE KEYS */;
-INSERT INTO `education_details` VALUES (1,'GSEB','2018',98,'SSC'),(1,'GSEB','2020',76,'HSC'),(1,'Silver Oak ','2024',87,'Bachelor'),(1,'Silver Oak ','2026',81,'Master'),(2,'GSEB','2018',89,'SSC'),(2,'GSEB','2020',75,'HSC'),(2,'GTU','2024',70,'Bachelor'),(3,'GSEB','2018',89,'SSC'),(3,'GSEB','2020',75,'HSC'),(3,'GTU','2024',70,'Bachelor'),(4,'GSEB','2018',98,'SSC'),(4,'GSEB','2020',57,'HSC'),(4,'GTU','2024',65,'Bachelor'),(5,'GSEB','2018',78,'SSC'),(5,'GSEB','2020',75,'HSC'),(5,'Silver Oak','2024',89,'Bachelor'),(6,'GSEB','2018',98,'SSC'),(6,'GSEB','2020',76,'HSC'),(6,'Silver Oak','2024',87,'Bachelor');
+INSERT INTO `education_details` VALUES (1,'GSEB',98,'SSC','2018'),(1,'GSEB',76,'HSC','2020'),(1,'Nirma University',87,'Bachelor','2024'),(1,'Silver Oak ',81,'Master','2026'),(2,'GSEB',89,'SSC','2018'),(2,'GSEB',75,'HSC','2020'),(2,'GTU',70,'Bachelor','2024'),(3,'GSEB',89,'SSC','2018'),(3,'GSEB',75,'HSC','2020'),(3,'GTU',70,'Bachelor','2024'),(4,'GSEB',98,'SSC','2018'),(4,'GSEB',57,'HSC','2020'),(4,'GTU',65,'Bachelor','2024'),(5,'GSEB',78,'SSC','2018'),(5,'GSEB',75,'HSC','2020'),(5,'Silver Oak',89,'Bachelor','2024'),(6,'GSEB',98,'SSC','2018'),(6,'GSEB',76,'HSC','2020'),(6,'Silver Oak',87,'Bachelor','2024'),(14,'GSEB',72,'SSC','2012'),(14,'GSEB',75,'HSC','2014'),(14,'GSEB',85,'Bachelor','2018'),(15,'GSEB',89,'SSC','2015'),(15,'GSEB',85,'HSC','2017'),(15,'Nirma University',85,'Bachelor','2021'),(16,'GSEB',78,'SSC','2018'),(16,'GSEB',75,'HSC','2020'),(16,'Silver Oak',87,'Bachelor','2024'),(17,'GSEB',98,'SSC','2016'),(17,'GSEB',78,'HSC','2018'),(17,'Silver Oak',70,'Bachelor','2022');
 /*!40000 ALTER TABLE `education_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +137,7 @@ DROP TABLE IF EXISTS `exam_records_27thFeb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `exam_records_27thFeb` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL,
   `ExamType` varchar(25) NOT NULL,
   `Subject_id` int NOT NULL,
   `Student_id` int NOT NULL,
@@ -179,7 +181,7 @@ CREATE TABLE `language_records` (
 
 LOCK TABLES `language_records` WRITE;
 /*!40000 ALTER TABLE `language_records` DISABLE KEYS */;
-INSERT INTO `language_records` VALUES (1,'English','Read','Write','Speak'),(1,'Gujarati','Read','Write','Speak'),(2,'Gujarati','Read','Write','Speak'),(3,'Gujarati','Read','Write','Speak'),(3,'Hindi','Read','Write',''),(3,'English','Read','',''),(2,'English','Read','',''),(2,'Hindi','Read','',''),(4,'Gujarati','Read','Write','Speak'),(4,'English','Read',NULL,NULL),(5,'Hindi','Read','Write','Speak'),(5,'Gujarati','Read','Write','Speak'),(6,'Gujarati','Read','',''),(6,'Hindi','Read','',''),(6,'English',NULL,'Write',NULL);
+INSERT INTO `language_records` VALUES (1,'English','Read','Write','Speak'),(1,'Gujarati','Read','Write','Speak'),(2,'Gujarati','Read','Write','Speak'),(3,'Gujarati','Read','Write','Speak'),(3,'Hindi','Read','Write',''),(3,'English','Read','',''),(2,'English','Read','',''),(2,'Hindi','Read','',''),(4,'Gujarati','Read','Write','Speak'),(4,'English','Read',NULL,NULL),(5,'Hindi','Read','Write','Speak'),(5,'Gujarati','Read','Write','Speak'),(6,'Gujarati','Read','',''),(6,'Hindi','Read','',''),(6,'English',NULL,'Write',NULL),(14,'Gujarati','Read','Write','Speak'),(14,'Hindi','Read','',''),(15,'Gujarati','Read','Write','Speak'),(16,'Gujarati','Read','Write','Speak'),(17,'Hindi','Read','Write','Speak'),(17,'',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `language_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,11 +193,12 @@ DROP TABLE IF EXISTS `option_master`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `option_master` (
-  `Id` int NOT NULL DEFAULT '0',
+  `Id` int NOT NULL AUTO_INCREMENT,
   `S_id` int NOT NULL,
   `Option_Key` varchar(30) NOT NULL,
-  `Option_Value` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Option_Value` varchar(30) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +234,7 @@ CREATE TABLE `preferances` (
 
 LOCK TABLES `preferances` WRITE;
 /*!40000 ALTER TABLE `preferances` DISABLE KEYS */;
-INSERT INTO `preferances` VALUES (1,'Surat',1,950000,800000,'Marketing'),(2,'Ahmedabad',1,1500000,NULL,'Development'),(2,'Gadhinagar',1,1500000,NULL,'Development'),(2,'Surat',1,1500000,NULL,'Development'),(3,'Ahmedabad',0,1500000,NULL,'Development'),(3,'Gadhinagar',0,1500000,NULL,'Development'),(3,'Surat',0,1500000,NULL,'Development'),(4,'Ahmedabad',0,1500000,NULL,'Development'),(4,'Gadhinagar',0,1500000,NULL,'Development'),(4,'Surat',0,1500000,NULL,'Development'),(5,'Gadhinagar',0,450000,NULL,'Development'),(6,'Ahmedabad',2,550000,NULL,'Marketing'),(1,'Ahmedabad',1,950000,800000,'Marketing'),(1,'Gadhinagar',1,950000,800000,'Marketing');
+INSERT INTO `preferances` VALUES (1,'Surat',1,950000,800000,'Marketing'),(2,'Ahmedabad',1,1500000,NULL,'Development'),(2,'Gadhinagar',1,1500000,NULL,'Development'),(2,'Surat',1,1500000,NULL,'Development'),(3,'Ahmedabad',0,1500000,NULL,'Development'),(3,'Gadhinagar',0,1500000,NULL,'Development'),(3,'Surat',0,1500000,NULL,'Development'),(4,'Ahmedabad',0,1500000,NULL,'Development'),(4,'Gadhinagar',0,1500000,NULL,'Development'),(4,'Surat',0,1500000,NULL,'Development'),(5,'Gadhinagar',0,450000,NULL,'Development'),(6,'Ahmedabad',2,550000,NULL,'Marketing'),(1,'Ahmedabad',1,950000,800000,'Marketing'),(1,'Gadhinagar',1,950000,800000,'Marketing'),(14,'Ahmedabad',0,450000,NULL,'Marketing'),(14,'Gadhinagar',0,450000,NULL,'Marketing'),(15,'Ahmedabad',0,1500000,NULL,'Marketing'),(16,'Ahmedabad',0,1500000,NULL,'Development'),(16,'Gadhinagar',0,1500000,NULL,'Development'),(16,'Surat',0,1500000,NULL,'Development'),(17,'Ahmedabad',2,550000,NULL,'Marketing');
 /*!40000 ALTER TABLE `preferances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +259,7 @@ CREATE TABLE `reference_contact` (
 
 LOCK TABLES `reference_contact` WRITE;
 /*!40000 ALTER TABLE `reference_contact` DISABLE KEYS */;
-INSERT INTO `reference_contact` VALUES (3,'test2',1234567891,'test'),(4,'test2',1234567891,'test'),(2,'test2',1234567891,'test'),(6,'test2',9876543210,'test2'),(1,'test2',9876543210,'test2');
+INSERT INTO `reference_contact` VALUES (3,'test2',1234567891,'test'),(4,'test2',1234567891,'test'),(2,'test2',1234567891,'test'),(6,'test2',9876543210,'test2'),(1,'test2',9876543210,'test2'),(15,'Chintan Gor',1234567891,'CTO'),(17,'Chintan Gor',9898808888,'CTO');
 /*!40000 ALTER TABLE `reference_contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,12 +271,13 @@ DROP TABLE IF EXISTS `select_master`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `select_master` (
-  `Id` int NOT NULL DEFAULT '0',
+  `Id` int NOT NULL AUTO_INCREMENT,
   `Select_Name` varchar(30) NOT NULL,
   `Select_Key` varchar(30) NOT NULL,
   `allowed_multiple` varchar(1) NOT NULL,
-  `control_type` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `control_type` varchar(10) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,10 +298,11 @@ DROP TABLE IF EXISTS `states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `states` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
   `state_name` varchar(25) NOT NULL,
-  `created_at` timestamp(4) NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_at` timestamp(4) NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,7 +323,7 @@ DROP TABLE IF EXISTS `student_26thFeb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `student_26thFeb` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
   `Gender` varchar(1) NOT NULL,
@@ -329,8 +334,9 @@ CREATE TABLE `student_26thFeb` (
   `City` varchar(45) NOT NULL,
   `State` varchar(45) NOT NULL,
   `Hobby` varchar(45) NOT NULL,
-  `Created_At` datetime(4) NOT NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Created_At` datetime(4) NOT NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=801 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +357,7 @@ DROP TABLE IF EXISTS `student_27thFeb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `student_27thFeb` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
   `Gender` varchar(1) NOT NULL,
@@ -364,7 +370,7 @@ CREATE TABLE `student_27thFeb` (
   `Hobby` varchar(45) NOT NULL,
   `Created_At` datetime(4) NOT NULL DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +391,7 @@ DROP TABLE IF EXISTS `subject_master_27thFeb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subject_master_27thFeb` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL,
   `SubjectName` varchar(45) NOT NULL,
   `Created_At` datetime(4) DEFAULT CURRENT_TIMESTAMP(4) ON UPDATE CURRENT_TIMESTAMP(4)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -421,7 +427,7 @@ CREATE TABLE `technologies` (
 
 LOCK TABLES `technologies` WRITE;
 /*!40000 ALTER TABLE `technologies` DISABLE KEYS */;
-INSERT INTO `technologies` VALUES (1,'PHP','Mideator'),(1,'MySQL','Mideator'),(1,'Laravel','Mideator'),(1,'Oracle','Mideator'),(2,'PHP','Beginer'),(2,'MySQL','Mideator'),(2,'Oracle','Beginer'),(3,'PHP','Beginer'),(3,'MySQL','Mideator'),(4,'PHP','Beginer'),(4,'MySQL','Mideator'),(4,'Laravel','Beginer'),(4,'Oracle','Beginer'),(5,'PHP','Beginer'),(5,'MySQL','Beginer');
+INSERT INTO `technologies` VALUES (1,'PHP','Mideator'),(1,'MySQL','Mideator'),(1,'Laravel','Mideator'),(1,'Oracle','Mideator'),(2,'PHP','Beginer'),(2,'MySQL','Mideator'),(2,'Oracle','Beginer'),(3,'PHP','Beginer'),(3,'MySQL','Mideator'),(4,'PHP','Beginer'),(4,'MySQL','Mideator'),(4,'Laravel','Beginer'),(4,'Oracle','Beginer'),(5,'PHP','Beginer'),(5,'MySQL','Beginer'),(14,'PHP','Beginer'),(14,'MySQL','Beginer'),(15,'PHP','Expert'),(16,'PHP','Mideator'),(17,'MySQL','Expert');
 /*!40000 ALTER TABLE `technologies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -433,7 +439,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -441,8 +447,9 @@ CREATE TABLE `users` (
   `salt` varchar(4) NOT NULL,
   `auth_code` varchar(16) DEFAULT NULL,
   `created_at` timestamp(4) NULL DEFAULT CURRENT_TIMESTAMP(4),
-  `activate_status` tinyint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `activate_status` tinyint DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,7 +458,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Vivek','Panchal','vivek@gmail.com','fyAhEM5LmAdwYojwTewwhA==','Fq0i','3JOk43S1bfQNBCj1','2024-03-21 11:34:25.7599',1),(2,'Ayush','Mehta','ayush@gamil.com','fAUrtOHSYyP7NGjAD+zUHg==','KEjp','G6yaemEgteZDS31z','2024-03-21 10:09:31.2099',1),(4,'Rushikesh','Falak','rushi@gmail.com','ICy5YqxZB1uWSwcVLSNLcA==','R431','Z0TaygaiPrzrTaTC','2024-03-21 11:03:59.3765',1),(6,'Diya','Patel','diya@gmail.com','GdlQ2WPoaQs190SRPiQQbQ==','YbBH','euwb1YJrf86mFZE6','2024-03-21 11:07:43.0196',1),(10,'Shailesh','Chaudhari','shailesh@gmail.com','i3f8qcETyMWQZRIWbT4ELA==','3P4r','OlFukjQUK8bTcgiK','2024-03-21 11:26:46.5087',1),(13,'test','test','test@test.com','+cVChLrlz0RH5rAUz463CQ==','BBSC','8LfmjvHT4vvYvAtz','2024-03-21 12:17:23.0331',1),(32,'test2','test2','test2@test.com','5jH1MZZp5qRXJC2iYQTqMg==','3Goe','n6EMEHN2GvgBtqpA','2024-03-22 09:10:42.3860',1),(35,'test4','test4','test4@test.com','N1SKW+D1Vw5JZADPNvfVmg==','tVwc','UxD2Osnb5yXu4fTm','2024-03-22 09:33:37.8520',0),(36,'test5','test5','test5@test.com','cDzADl8rWKZz2f7qmTWO9g==','iGsr','hceyfJ39vdOLbyss','2024-03-27 11:20:21.8759',1);
+INSERT INTO `users` VALUES (1,'Vivek','Panchal','vivek@gmail.com','fyAhEM5LmAdwYojwTewwhA==','Fq0i','3JOk43S1bfQNBCj1','2024-03-21 11:34:25.7599',1),(2,'Ayush','Mehta','ayush@gamil.com','fAUrtOHSYyP7NGjAD+zUHg==','KEjp','G6yaemEgteZDS31z','2024-03-21 10:09:31.2099',1),(4,'Rushikesh','Falak','rushi@gmail.com','ICy5YqxZB1uWSwcVLSNLcA==','R431','Z0TaygaiPrzrTaTC','2024-03-21 11:03:59.3765',1),(6,'Diya','Patel','diya@gmail.com','GdlQ2WPoaQs190SRPiQQbQ==','YbBH','euwb1YJrf86mFZE6','2024-03-21 11:07:43.0196',1),(10,'Shailesh','Chaudhari','shailesh@gmail.com','i3f8qcETyMWQZRIWbT4ELA==','3P4r','OlFukjQUK8bTcgiK','2024-03-21 11:26:46.5087',1),(13,'test','test','test@test.com','+cVChLrlz0RH5rAUz463CQ==','BBSC','8LfmjvHT4vvYvAtz','2024-03-21 12:17:23.0331',1),(32,'test2','test2','test2@test.com','5jH1MZZp5qRXJC2iYQTqMg==','3Goe','n6EMEHN2GvgBtqpA','2024-03-22 09:10:42.3860',1),(35,'test4','test4','test4@test.com','N1SKW+D1Vw5JZADPNvfVmg==','tVwc','UxD2Osnb5yXu4fTm','2024-03-22 09:33:37.8520',0),(36,'test5','test5','test5@test.com','cDzADl8rWKZz2f7qmTWO9g==','iGsr','hceyfJ39vdOLbyss','2024-03-27 11:20:21.8759',1),(39,'demo','demo','demo@demo.com','1cVx5+fY5WeFfbZBV26WRA==','3Drh','cGm1R9G2haUyvqqP','2024-04-03 11:13:05.4238',1),(40,'Testing  234','Testing','testing@test.com','zeFTKDn5licADtnyIM1Q8Q==','rhVf','NqSdZI6DMX7dJ0qw','2024-04-03 12:51:07.0663',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,7 +484,7 @@ CREATE TABLE `work_experience` (
 
 LOCK TABLES `work_experience` WRITE;
 /*!40000 ALTER TABLE `work_experience` DISABLE KEYS */;
-INSERT INTO `work_experience` VALUES (6,'eSparkbiz','SDL','2023-05-10','2024-02-29');
+INSERT INTO `work_experience` VALUES (6,'eSparkbiz','SDL','2023-05-10','2024-02-29'),(17,'eSparkbiz','SDL-1','2023-05-10','2003-12-28');
 /*!40000 ALTER TABLE `work_experience` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -490,4 +497,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-29 18:25:23
+-- Dump completed on 2024-04-03 19:13:48
