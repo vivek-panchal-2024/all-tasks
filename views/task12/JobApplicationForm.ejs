@@ -526,7 +526,7 @@
                     <div class="col-4">
                         <label for="location">Location: <span class="mandatory-symbol">*</span></label>
                         <select name="location" id="location" multiple>
-                            <option value="Ahmedabad" <% if(preferences !== "" && ahmedabadIndex !== -1 && preferences[ahmedabadIndex].Location === "Ahmedabad") {%> selected %>" <%} %> >Ahmedabad</option>
+                            <option value="Ahmedabad" <% if(preferences !== "" && ahmedabadIndex !== -1 && preferences[ahmedabadIndex].Location === "Ahmedabad") {%> selected %>" <%} %> <% if(student === "") {%> selected %>" <%} %>  >Ahmedabad</option>
                             <option value="Gadhinagar" <% if(preferences !== "" && gadhinagarIndex !== -1 &&   preferences[gadhinagarIndex].Location === "Gadhinagar") {%> selected %>" <%} %> >Gadhinagar</option>
                             <option value="Surat" <% if(preferences !== "" && suratIndex !== -1 &&  preferences[suratIndex].Location === "Surat") {%> selected %>" <%} %> >Surat</option>    
                         </select>

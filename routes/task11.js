@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const task11 = require("../controllers/task11Controller");
+const task11 = require("../controllers/fetchPromiseController");
 const passport = require("passport");
 require("../middleware/passport");
 const router = Router();
