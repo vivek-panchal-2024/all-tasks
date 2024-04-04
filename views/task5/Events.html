@@ -1,205 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JavaScript Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <style>
-        th, td{
-            border: 2px solid black;
-            color: grey;
-            background-color: whitesmoke;
-            padding: 15px;
-        }
+      th,
+      td {
+        border: 2px solid black;
+        color: grey;
+        background-color: whitesmoke;
+        padding: 15px;
+      }
     </style>
-</head>
-<body onload="handleLoad()" onoffline="handleOffline()" ononline="handleOnline()" onpageshow="handlePageShow()" onresize="handleResize()">
+  </head>
+  <body
+    onload="handleLoad()"
+    onoffline="handleOffline()"
+    ononline="handleOnline()"
+    onpageshow="handlePageShow()"
+    onresize="handleResize()"
+  >
     <table class="d-flex justify-content-center">
-        <h1 class="text-center mt-4">Vivek Panchal - 24DEV070 - 31/01/2024</h1>
-        <h3 class="text-center mt-2 mb-2">JavaScript Events</h3>
-        <tr>
-            <td>
-                <label for="fullName">Name: - onChange</label>
-                <input type="text" name="fullName" id="fullName" onchange="handleChange()">
-            </td>
-            <td>
-                <label for="city">City: - onBlur</label>
-                <input type="text" name="city" id="city" onblur="handleBlur()">
-            </td>
-            <td>
-                <label for="state">State: - onFocus</label>
-                <input type="text" name="state" id="state" onfocus="handleFocus()" value="Gujarat">
-            </td>
-            <td>
-                <div oncontextmenu="handleMenu()" class="text-secondary">Menu - oncontextmenu</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="phoneNumber">Phone Number: - onInput</label>
-                <input type="text" name="phoneNumber" id="phoneNumber" oninput="handleInput()" >
-                <p id="inputText"></p>
-            </td>
-            <form onreset="handleReset()">
-                <td class="text-center">
-                    <input type="reset" name="resetBtn" id="resetBtn">
-                </td>
-            </form>
-            <td>
-                <input type="search" name="searchField" id="searchField" onsearch="handleSearch()" placeholder="onSearch Event">
-                <p id="searchInput"></p>
-            </td>
-            <td>
-                <input type="text" name="inputField" id="inputField" onselect="handleSelect()" placeholder="onSelect Event" >
-            </td>
-        </tr>
-        <tr>
-            <form onsubmit="handleSubmit()">
-                <td class="text-center">
-                    <input type="submit" name="submitBtn" id="submitBtn">
-                </td>
-            </form> 
-            <td>
-                <input type="text" placeholder="onKeyDown Event" onkeydown="handleKeyDown()">
-            </td>
-            <td>
-                <input type="text" placeholder="onKeyPress Event" onkeypress="handleKeyPress()">
-            </td>
-            <td>
-                <input type="text" placeholder="onKeyUp Event" onkeyup="handleKeyUp()">
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center"><button  onclick="handleClick()" id="clickMe">Click Me!</button></td>
-            <td class="text-center"><button  ondblclick="handleDoubleClick()">Click Me Twice!</button></td>
-            <td class="text-center"><p id="mouseDownText" onmousedown="handleMouseDown()" >Hello! I am Mouse Down</p></td>
-            <td class="text-center"><p id="mouseUpText" onmouseup="handleMouseUp()" >Hello! I am Mouse Up</p></td>
-        </tr>
-        <tr>
-            <td class="text-center"><p onmousemove="handleMouseMove()">Mouse Move</p></td>
-            <td class="text-center"><p onmouseout="handleMouseOut()">Mouse Out</p></td>
-            <td class="text-center"><p onmouseover="handleMouseOver()">Mouse Over</p></td>
-            <td class="text-center"><p onwheel="handleMouseWheel()">Mouse Wheel</p></td>
-        </tr>
-        <tr>
-            <td class="text-center"><p onmouseenter="handleMouseEnter()">Mouse Enter</p></td>
-            <td class="text-center"><p onmouseleave="handleMouseLeave()">Mouse Leave</p></td>
-            <td class="text-center">
-                <p>Cities - onScroll</p>
-                <select name="cities" id="cities" size="5" onscroll="handleScroll()">
-                        <option value="Ahmedabad">Ahmedabad</option>
-                        <option value="Gadhinagar">Gadhinagar</option>
-                        <option value="Surat">Surat</option>
-                        <option value="Surat">Bhavnagar</option>
-                        <option value="Surat">Patan</option>
-                        <option value="Surat">Mehsana</option>
-                        <option value="Surat">Sabarkatha</option>
-                        <option value="Surat">Banaskatha</option>
-                        <option value="Surat">Aravali</option>
-                </select> 
-            </td>
-        </tr>
+      <h1 class="text-center mt-4">Vivek Panchal - 24DEV070 - 31/01/2024</h1>
+      <h3 class="text-center mt-2 mb-2">JavaScript Events</h3>
+      <tr>
+        <td>
+          <label for="fullName">Name: - onChange</label>
+          <input
+            type="text"
+            name="fullName"
+            id="fullName"
+            onchange="handleChange()"
+          />
+        </td>
+        <td>
+          <label for="city">City: - onBlur</label>
+          <input type="text" name="city" id="city" onblur="handleBlur()" />
+        </td>
+        <td>
+          <label for="state">State: - onFocus</label>
+          <input
+            type="text"
+            name="state"
+            id="state"
+            onfocus="handleFocus()"
+            value="Gujarat"
+          />
+        </td>
+        <td>
+          <div oncontextmenu="handleMenu()" class="text-secondary">
+            Menu - oncontextmenu
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="phoneNumber">Phone Number: - onInput</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            id="phoneNumber"
+            oninput="handleInput()"
+          />
+          <p id="inputText"></p>
+        </td>
+        <form onreset="handleReset()">
+          <td class="text-center">
+            <input type="reset" name="resetBtn" id="resetBtn" />
+          </td>
+        </form>
+        <td>
+          <input
+            type="search"
+            name="searchField"
+            id="searchField"
+            onsearch="handleSearch()"
+            placeholder="onSearch Event"
+          />
+          <p id="searchInput"></p>
+        </td>
+        <td>
+          <input
+            type="text"
+            name="inputField"
+            id="inputField"
+            onselect="handleSelect()"
+            placeholder="onSelect Event"
+          />
+        </td>
+      </tr>
+      <tr>
+        <form onsubmit="handleSubmit()">
+          <td class="text-center">
+            <input type="submit" name="submitBtn" id="submitBtn" />
+          </td>
+        </form>
+        <td>
+          <input
+            type="text"
+            placeholder="onKeyDown Event"
+            onkeydown="handleKeyDown()"
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            placeholder="onKeyPress Event"
+            onkeypress="handleKeyPress()"
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            placeholder="onKeyUp Event"
+            onkeyup="handleKeyUp()"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <button onclick="handleClick()" id="clickMe">Click Me!</button>
+        </td>
+        <td class="text-center">
+          <button ondblclick="handleDoubleClick()">Click Me Twice!</button>
+        </td>
+        <td class="text-center">
+          <p id="mouseDownText" onmousedown="handleMouseDown()">
+            Hello! I am Mouse Down
+          </p>
+        </td>
+        <td class="text-center">
+          <p id="mouseUpText" onmouseup="handleMouseUp()">
+            Hello! I am Mouse Up
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <p onmousemove="handleMouseMove()">Mouse Move</p>
+        </td>
+        <td class="text-center">
+          <p onmouseout="handleMouseOut()">Mouse Out</p>
+        </td>
+        <td class="text-center">
+          <p onmouseover="handleMouseOver()">Mouse Over</p>
+        </td>
+        <td class="text-center">
+          <p onwheel="handleMouseWheel()">Mouse Wheel</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <p onmouseenter="handleMouseEnter()">Mouse Enter</p>
+        </td>
+        <td class="text-center">
+          <p onmouseleave="handleMouseLeave()">Mouse Leave</p>
+        </td>
+        <td class="text-center">
+          <p>Cities - onScroll</p>
+          <select name="cities" id="cities" size="5" onscroll="handleScroll()">
+            <option value="Ahmedabad">Ahmedabad</option>
+            <option value="Gadhinagar">Gadhinagar</option>
+            <option value="Surat">Surat</option>
+            <option value="Surat">Bhavnagar</option>
+            <option value="Surat">Patan</option>
+            <option value="Surat">Mehsana</option>
+            <option value="Surat">Sabarkatha</option>
+            <option value="Surat">Banaskatha</option>
+            <option value="Surat">Aravali</option>
+          </select>
+        </td>
+      </tr>
     </table>
     <script>
-        document.getElementById("clickMe").addEventListener("click", handleClickSecond);
-        console.log("Called");
-        function handleChange(){
-            let text = document.getElementById("fullName").value;
-            alert("On Change Occurred"+ " - "+ text);
-        }
-        
-        function handleBlur(){
-            let text = document.getElementById("city").value;
-            alert("On Blur Event Occurred"+ " - "+ text);
-        }
-        function handleFocus(){
-            let element = document.getElementById("state");
-            element.style.color = "red";
-        }
-        function handleMenu(){
-            alert("On Context Menu Occurred");
-        }
-        function handleInput(){
-            let text = document.getElementById("phoneNumber").value;
-            document.getElementById("inputText").innerHTML= text; 
-        }
-        function handleReset(){
-            alert("onReset Occurred");
-        }
-        function handleSearch(){
-            let text = document.getElementById("searchField").value;
-            document.getElementById("searchInput").innerHTML= text; 
-        }
-        function handleSelect(){
-            alert("onSelect Occurred"); 
-        }
-        function handleSubmit(){
-            alert("onSubmit Occurred"); 
-        }
-        function handleKeyDown(){
-            alert("onKeyDown Occurred"); 
-        }
-        function handleKeyPress(){
-            alert("onKeyPress Occurred"); 
-        }
-        function handleKeyUp(){
-            alert("onKeyUp Occurred"); 
-        }
-        function handleClick(){
-            alert("onClick Occurred"); 
-        }
-        function handleClickSecond(){
-            alert("onClick-2 Occurred"); 
-        }
-        function handleDoubleClick(){
-            alert("onDoubleClick Occurred"); 
-        }
-        function handleMouseDown(){
-            let element = document.getElementById("mouseDownText");
-            element.style.color= "red";
-        }
-        function handleMouseUp(){
-            let element = document.getElementById("mouseUpText");
-            element.style.color= "green";
-        }
-        function handleMouseMove(){
-            alert("onMouseMove Occurred");
-        }
-        function handleMouseOut(){
-           alert("onMouseOut Occurred");
-        }
-        function handleMouseOver(){
-           alert("onMouseOver Occurred");
-        }
-        function handleMouseWheel(){
-           alert("onMouseWheel Occurred");
-        }
-        function handleMouseEnter(){
-           alert("onMouseEnter Occurred");
-        }
-        function handleMouseLeave(){
-           alert("onMouseLeave Occurred");
-        }
-        function handleScroll(){
-           alert("onScroll Occurred");
-        }
-        function handleLoad(){
-           alert("onLoad Occurred");
-        }
-        function handleOffline(){
-           alert("onOffline Occurred");
-        }
-        function handleOnline(){
-           alert("onOline Occurred");
-        }
-        function handlePageShow(){
-           alert("onPageShow Occurred");
-        }
-        function handleResize(){
-           alert("onResize Occurred");
-        }
+      console.log("Called");
+      function handleChange() {
+        let text = document.getElementById("fullName").value;
+        alert("On Change Occurred" + " - " + text);
+      }
 
+      function handleBlur() {
+        let text = document.getElementById("city").value;
+        alert("On Blur Event Occurred" + " - " + text);
+      }
+      function handleFocus() {
+        let element = document.getElementById("state");
+        element.style.color = "red";
+      }
+      function handleMenu() {
+        alert("On Context Menu Occurred");
+      }
+      function handleInput() {
+        let text = document.getElementById("phoneNumber").value;
+        document.getElementById("inputText").innerHTML = text;
+      }
+      function handleReset() {
+        alert("onReset Occurred");
+      }
+      function handleSearch() {
+        let text = document.getElementById("searchField").value;
+        document.getElementById("searchInput").innerHTML = text;
+      }
+      function handleSelect() {
+        alert("onSelect Occurred");
+      }
+      function handleSubmit() {
+        alert("onSubmit Occurred");
+      }
+      function handleKeyDown() {
+        alert("onKeyDown Occurred");
+      }
+      function handleKeyPress() {
+        alert("onKeyPress Occurred");
+      }
+      function handleKeyUp() {
+        alert("onKeyUp Occurred");
+      }
+      function handleClick() {
+        alert("onClick Occurred");
+      }
+      function handleDoubleClick() {
+        alert("onDoubleClick Occurred");
+      }
+      function handleMouseDown() {
+        let element = document.getElementById("mouseDownText");
+        element.style.color = "red";
+      }
+      function handleMouseUp() {
+        let element = document.getElementById("mouseUpText");
+        element.style.color = "green";
+      }
+      function handleMouseMove() {
+        alert("onMouseMove Occurred");
+      }
+      function handleMouseOut() {
+        alert("onMouseOut Occurred");
+      }
+      function handleMouseOver() {
+        alert("onMouseOver Occurred");
+      }
+      function handleMouseWheel() {
+        alert("onMouseWheel Occurred");
+      }
+      function handleMouseEnter() {
+        alert("onMouseEnter Occurred");
+      }
+      function handleMouseLeave() {
+        alert("onMouseLeave Occurred");
+      }
+      function handleScroll() {
+        alert("onScroll Occurred");
+      }
+      function handleLoad() {
+        alert("onLoad Occurred");
+      }
+      function handleOffline() {
+        alert("onOffline Occurred");
+      }
+      function handleOnline() {
+        alert("onOline Occurred");
+      }
+      function handlePageShow() {
+        alert("onPageShow Occurred");
+      }
+      function handleResize() {
+        alert("onResize Occurred");
+      }
     </script>
-</body>
+  </body>
 </html>

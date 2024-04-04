@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quick Sort</title>
     <style>
-        .container{
-            width: 1200px;
-            margin: 5px auto;
-            text-align: center;
-        }
+      .container {
+        width: 1200px;
+        margin: 5px auto;
+        text-align: center;
+      }
 
-        #result{
-            color: green;
-        }
+      #result {
+        color: green;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Vivek Panchal - 24DEV070 - 05/02/2024</h1>
-        <h2>The Given Array is - [7, 6, 10, 5, 9, 2, 1, 15]</h2>
-        <h2>Sorted Array is - <span id="result"></span></h2>
-        <button onclick="printArray()">Sort Array</button>
+      <h1>Vivek Panchal - 24DEV070 - 05/02/2024</h1>
+      <h2>The Given Array is - [7, 6, 10, 5, 9, 2, 1, 15]</h2>
+      <h2>Sorted Array is - <span id="result"></span></h2>
+      <button onclick="printArray()">Sort Array</button>
     </div>
     <script>
-        function partition(arr, l , r){
-            let pivot = arr[l];
-            let left = l;
-            let right = r;  
+      function partition(arr, l, r) {
+        let pivot = arr[l];
+        let left = l;
+        let right = r;
 
-            while(left <= right){
-                while(arr[left] <= pivot){
-                    left++;
-                }
-    
-                while(arr[right] > pivot){
-                    right--;
-                }
-                
-                if(left <= right){
-                    let temp = arr[right];
-                    arr[right] = arr[left];
-                    arr[left] = temp;
-                }
-            }
-            let temp2 = arr[right];
-            arr[right] = arr[l];
-            arr[l] = temp2;
-            return right;
+        while (left <= right) {
+          while (arr[left] <= pivot) {
+            left++;
+          }
+
+          while (arr[right] > pivot) {
+            right--;
+          }
+
+          if (left <= right) {
+            let temp = arr[right];
+            arr[right] = arr[left];
+            arr[left] = temp;
+          }
         }
+        let temp2 = arr[right];
+        arr[right] = arr[l];
+        arr[l] = temp2;
+        return right;
+      }
 
-        function quickSort(arr, left, right){
-            if(left < right){
-                let partitionIndex = partition(arr, left, right);
-                quickSort(arr, left, partitionIndex-1);
-                quickSort(arr, partitionIndex+1, right);
-            }
-            
+      function quickSort(arr, left, right) {
+        if (left < right) {
+          let partitionIndex = partition(arr, left, right);
+          quickSort(arr, left, partitionIndex - 1);
+          quickSort(arr, partitionIndex + 1, right);
         }
+      }
 
-        function printArray(){
-            array.forEach((element) => {
-                document.getElementById("result").innerHTML += (element + ", ")
-            })
-        }
+      function printArray() {
+        array.forEach((element) => {
+          document.getElementById("result").innerHTML += element + ", ";
+        });
+      }
 
-        var array = [7, 6, 10, 5, 9, 2, 1, 15];
-        quickSort(array, 0, array.length-1);
-
+      var array = [7, 6, 10, 5, 9, 2, 1, 15];
+      quickSort(array, 0, array.length - 1);
     </script>
-</body>
+  </body>
 </html>

@@ -1,105 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
     <div class="container">
+      <% if(error === ""){ %>
+      <h1 class="text-center mt-5">Vivek Panchal - 24DEV070 - 27/03/2024</h1>
+      <h2 class="text-center text-success mb-5">Welcome, You are logged in!</h2>
+      <table class="table table-hover table-bordered text-center border-dark">
+        <tHead>
+          <th>Task</th>
+          <th>Link</th>
+          <th>End points</th>
+        </tHead>
+        <tbody>
+          <tr>
+            <td>Dynamic Table</td>
+            <td><a href="/task1/dynamic-table" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Kuku Kube Game</td>
+            <td><a href="/task2/kuku-kube-game" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Tic Tac Toe Game</td>
+            <td><a href="/task3/tic-tac-toe-game" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Sorting</td>
+            <td><a href="/task4/sorting" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>JS Events</td>
+            <td><a href="/task5/js-events" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Student Form</td>
+            <td><a href="/task6/student-form" target="_blank">View</a></td>
+            <td>
+              <a href="/task6/list-of-all-student" target="_blank"
+                >List of Students</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Pagination</td>
+            <td><a href="/task7/student-list" target="_blank">View</a></td>
+            <td>
+              <a href="/task7/generate-grid" target="_blank">Dynamic Grid</a> |
+              <a href="/task7/pagination-component" target="_blank"
+                >Pagination Component</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Student System</td>
+            <td>
+              <a href="/task8/student-attendance" target="_blank">View</a>
+            </td>
+            <td>
+              <a href="/task8/student-result" target="_blank">Student Result</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Delimiter Search</td>
+            <td><a href="/task9/student-search" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Job Application Form</td>
+            <td><a href="/task10/job-application" target="_blank">View</a></td>
+            <td>
+              <a href="/task10/job-application?student=1" target="_blank"
+                >Update Job Application</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Fetch/Promise</td>
+            <td><a href="/task11/posts" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Job Application Form (AJAX)</td>
+            <td><a href="/task12/job-application" target="_blank">View</a></td>
+            <td>
+              <a href="/task12/job-application?student=1" target="_blank"
+                >Update Job Application</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Generate Input Component</td>
+            <td>
+              <a href="/task13/generate-component" target="_blank">View</a>
+            </td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>City State (AJAX)</td>
+            <td><a href="/task14/city-state" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Time Zone Converter</td>
+            <td><a href="/task15/time-zone" target="_blank">View</a></td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <% if(error === ""){ %>
-            <h1 class="text-center mt-5">Vivek Panchal - 24DEV070 - 27/03/2024</h1>
-            <h2 class="text-center text-success mb-5">Welcome, You are logged in!</h2>
-            <table class="table table-hover table-bordered text-center border-dark ">
-                <tHead>
-                    <th>Task</th>
-                    <th>Link</th>
-                    <th>End points</th>
-                </tHead>
-                <tbody>
-                    <tr>
-                        <td>Dynamic Table</td>
-                        <td><a href="/task1/dynamic-table" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Kuku Kube Game</td>
-                        <td><a href="/task2/kuku-kube-game" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Tic Tac Toe Game</td>
-                        <td><a href="/task3/tic-tac-toe-game" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Sorting</td>
-                        <td><a href="/task4/sorting" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>JS Events</td>
-                        <td><a href="/task5/js-events" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Student Form</td>
-                        <td><a href="/task6/student-form" target="_blank">View</a></td>
-                        <td><a href="/task6/list-of-all-student" target="_blank">List of Students</a></td>
-                    </tr>
-                    <tr>
-                        <td>Pagination</td>
-                        <td><a href="/task7/student-list" target="_blank">View</a></td>
-                        <td><a href="/task7/generate-grid" target="_blank">Dynamic Grid</a> | <a href="/task7/pagination-component" target="_blank">Pagination Component</a></td>
-                    </tr>
-                    <tr>
-                        <td>Student System</td>
-                        <td><a href="/task8/student-attendance" target="_blank">View</a></td>
-                        <td><a href="/task8/student-result"  target="_blank">Student Result</a></td>
-                    </tr>
-                    <tr>
-                        <td>Delimiter Search</td>
-                        <td><a href="/task9/student-search" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Job Application Form</td>
-                        <td><a href="/task10/job-application" target="_blank">View</a></td>
-                        <td><a href="/task10/job-application?student=1" target="_blank">Update Job Application</a></td>
-                    </tr>
-                    <tr>
-                        <td>Fetch/Promise</td>
-                        <td><a href="/task11/posts" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Job Application Form (AJAX)</td>
-                        <td><a href="/task12/job-application" target="_blank">View</a></td>
-                        <td><a href="/task12/job-application?student=1" target="_blank">Update Job Application</a></td>
-                    </tr>
-                    <tr>
-                        <td>Generate Input Component</td>
-                        <td><a href="/task13/generate-component" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>City State (AJAX)</td>
-                        <td><a href="/task14/city-state" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Time Zone Converter</td>
-                        <td><a href="/task15/time-zone" target="_blank">View</a></td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        <% } else { %>
-            <h4 class="text-danger mt-5 text-center"><%= error%></h4>
-        <% } %>
+      <% } else { %>
+      <h4 class="text-danger mt-5 text-center"><%= error%></h4>
+      <% } %>
     </div>
-</body>
+  </body>
 </html>

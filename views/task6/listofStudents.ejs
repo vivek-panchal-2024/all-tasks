@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List of Student</title>
     <style>
-        .container{
-            max-width: 1390px;
-            margin: 20px auto;
-            text-align: center;
-        }
+      .container {
+        max-width: 1390px;
+        margin: 20px auto;
+        text-align: center;
+      }
 
-        td, th{
-            border: 2px solid black;
-            padding: 10px;
-        }
+      td,
+      th {
+        border: 2px solid black;
+        padding: 10px;
+      }
 
-        table{
-            border-collapse: collapse;
-            display: flex;
-            justify-content: center;
-        }
+      table {
+        border-collapse: collapse;
+        display: flex;
+        justify-content: center;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h2>List of Students</h2>
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Details</th>
-            </tr>
-            <% formattedData.forEach( (data) =>{ %>
-                <tr>
-                    <td><%= data.firstName %></td>
-                    <td><%= data.lastName %></td>
-                    <td><%= data.email %></td>
-                    <td><%= data.conatactNumeber %></td>
-                    <td><a href="/task6/get-all-details/<%= data.id%>">Click Here for More Info.</a></td>
-                </tr>
-                
-            <%});%>
-        </table>
-    </div>
-    <script>
+      <h2>List of Students</h2>
+      <table>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Details</th>
+        </tr>
+        <% formattedData.forEach( (data) =>{ %>
+        <tr>
+          <td><%= data.firstName %></td>
+          <td><%= data.lastName %></td>
+          <td><%= data.email %></td>
+          <td><%= data.conatactNumeber %></td>
+          <td>
+            <a href="/task6/get-all-details/<%= data.id%>"
+              >Click Here for More Info.</a
+            >
+          </td>
+        </tr>
 
-    </script>
-</body>
+        <%});%>
+      </table>
+    </div>
+    <script></script>
+  </body>
 </html>

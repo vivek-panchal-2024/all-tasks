@@ -1,9 +1,13 @@
-const {Router} = require("express");
+const { Router } = require("express");
 const task4 = require("../controllers/sortingController");
 const passport = require("passport");
 require("../middleware/passport");
 const router = Router();
 
-router.get("/sorting", passport.authenticate('jwt', {session: false, failureRedirect: "/login"}), task4.renderTask4View);
+router.get(
+  "/sorting",
+  passport.authenticate("jwt", { session: false, failureRedirect: "/login" }),
+  task4.renderTask4View
+);
 
-module.exports = router;   
+module.exports = router;

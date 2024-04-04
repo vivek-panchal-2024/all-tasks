@@ -1,154 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Specific User Posts</title>
     <style>
-        *{
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        .container{
-            max-width: 1390px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 1390px;
+        margin: 0 auto;
+      }
 
-        table{
-            border-collapse: collapse;
-        }
+      table {
+        border-collapse: collapse;
+      }
 
-        td, th{
-            border: 2px solid black;
-            padding: 15px;
-        }
+      td,
+      th {
+        border: 2px solid black;
+        padding: 15px;
+      }
 
-        h1{
-            text-align: center;
-        }
+      h1 {
+        text-align: center;
+      }
 
-        button{
-            margin: 20px;
-        }
+      button {
+        margin: 20px;
+      }
 
-        .row{
-            display: flex;
-            flex-wrap: wrap;
-        }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+      }
 
-        .col{
-            width: calc(100%/3);
-            padding: 0 15px;
-            margin-top: 10px;
-        }
-        
-        .card{
-            padding: 10px;
-            height: 100%;
-            background-color:  #dddddd;
-        }
+      .col {
+        width: calc(100% / 3);
+        padding: 0 15px;
+        margin-top: 10px;
+      }
+
+      .card {
+        padding: 10px;
+        height: 100%;
+        background-color: #dddddd;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container" id="userPosts">
-        <h1>User Post Details</h1>
+      <h1>User Post Details</h1>
     </div>
 
-    <div class="container" id="comments">
-       
-    </div>
+    <div class="container" id="comments"></div>
 
     <script>
-        let postId = window.location.href;
-        let isVisibleComment = false;
-        postId = postId.split("?post=")[1];
+      let postId = window.location.href;
+      let isVisibleComment = false;
+      postId = postId.split("?post=")[1];
 
-        const fetchData = async ()=>{
-            const data = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-            const jsonData = await data.json();
-            // console.log(jsonData);
-            return jsonData;
-        } 
+      const fetchData = async () => {
+        const data = await fetch(
+          `https://jsonplaceholder.typicode.com/posts/${postId}`
+        );
+        const jsonData = await data.json();
+        // console.log(jsonData);
+        return jsonData;
+      };
 
-        const generateGrid = async ()=>{
-            let data = await fetchData();
-            console.log(data);
+      const generateGrid = async () => {
+        let data = await fetchData();
+        console.log(data);
 
-            if(Object.keys(data).length > 0){
-            
-                //Creating a table
-                const table = document.createElement("table");
-                table.setAttribute("id", "myTable");
-                const container = document.getElementById("userPosts");
-                container.appendChild(table);
-                
-                const headerRow = document.createElement("tr");
-                headerRow.setAttribute("id", "header-row");
-                table.appendChild(headerRow);
-                
-                for(let header in data){
-                    let headerCol = document.createElement("th");
-                    const headerColText = document.createTextNode(`${header}`);
-                    headerCol.appendChild(headerColText);
-                    
-                    headerRow.appendChild(headerCol);
-                };      
+        if (Object.keys(data).length > 0) {
+          //Creating a table
+          const table = document.createElement("table");
+          table.setAttribute("id", "myTable");
+          const container = document.getElementById("userPosts");
+          container.appendChild(table);
 
+          const headerRow = document.createElement("tr");
+          headerRow.setAttribute("id", "header-row");
+          table.appendChild(headerRow);
 
-                
-                let row = document.createElement("tr");
-                for(let user in data){
-                    let column = document.createElement("td");
-                    let columnText = document.createTextNode(data[user]);
-                    column.appendChild(columnText);
-                    row.appendChild(column);
-                }
-                
-                table.appendChild(row);
+          for (let header in data) {
+            let headerCol = document.createElement("th");
+            const headerColText = document.createTextNode(`${header}`);
+            headerCol.appendChild(headerColText);
 
-                let button = document.createElement("button");
-                let buttonText = document.createTextNode("Show Comments");
-                button.appendChild(buttonText);
-                container.appendChild(button);
-                button.onclick = showComments;
-            }
+            headerRow.appendChild(headerCol);
+          }
+
+          let row = document.createElement("tr");
+          for (let user in data) {
+            let column = document.createElement("td");
+            let columnText = document.createTextNode(data[user]);
+            column.appendChild(columnText);
+            row.appendChild(column);
+          }
+
+          table.appendChild(row);
+
+          let button = document.createElement("button");
+          let buttonText = document.createTextNode("Show Comments");
+          button.appendChild(buttonText);
+          container.appendChild(button);
+          button.onclick = showComments;
         }
+      };
 
-        const showComments = async ()=>{
-            if(isVisibleComment === false){
-                const container = document.getElementById("comments");
-                let comments = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
-                let jsonData = await comments.json();
-                console.log(jsonData);
-                
-                const rowElement = document.createElement("div");
-                rowElement.classList.add("row");
+      const showComments = async () => {
+        if (isVisibleComment === false) {
+          const container = document.getElementById("comments");
+          let comments = await fetch(
+            `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+          );
+          let jsonData = await comments.json();
+          console.log(jsonData);
 
-                jsonData.forEach( postComments => {
-                        let colElement = document.createElement("div");
-                        colElement.classList.add("col");
-                        rowElement.appendChild(colElement);
+          const rowElement = document.createElement("div");
+          rowElement.classList.add("row");
 
-                        let cardElement = document.createElement("div");
-                        cardElement.classList.add("card");
-                        colElement.appendChild(cardElement);
+          jsonData.forEach((postComments) => {
+            let colElement = document.createElement("div");
+            colElement.classList.add("col");
+            rowElement.appendChild(colElement);
 
-                        for(let comment in postComments){
-                            let headingElement = document.createElement("h3");
-                            let headingText = document.createTextNode(`${comment}: ${postComments[comment]}`);
-                            headingElement.appendChild(headingText);
-                            
-                            cardElement.appendChild(headingElement);
-                        }
-                });
-                
-                container.appendChild(rowElement);
-                isVisibleComment = true;
+            let cardElement = document.createElement("div");
+            cardElement.classList.add("card");
+            colElement.appendChild(cardElement);
+
+            for (let comment in postComments) {
+              let headingElement = document.createElement("h3");
+              let headingText = document.createTextNode(
+                `${comment}: ${postComments[comment]}`
+              );
+              headingElement.appendChild(headingText);
+
+              cardElement.appendChild(headingElement);
             }
-           
-        }
+          });
 
-        generateGrid();
+          container.appendChild(rowElement);
+          isVisibleComment = true;
+        }
+      };
+
+      generateGrid();
     </script>
-</body>
+  </body>
 </html>

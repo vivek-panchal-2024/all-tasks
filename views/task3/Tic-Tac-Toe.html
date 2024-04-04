@@ -1,137 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <style>
-        td{
-            width: 100px;
-            height: 100px;
-            border: 5px solid rgb(61, 61, 61);
-            font-size: 48px;
-        }
+      td {
+        width: 100px;
+        height: 100px;
+        border: 5px solid rgb(61, 61, 61);
+        font-size: 48px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container text-center d-flex flex-column align-items-center">
-        <h1 class="mt-4">Vivek Panchal - 24DEV070 - 05/02/2024</h1>
-        <h3 class="mt-4 mb-4 text-success">Tic-Tac-Toe Game</h3>
-        <h4 class="mb-4">Game Result - <span id="result"></span></h4>
-        <table id="myTabl">
-            <tr>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-            </tr>
-            <tr>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-            </tr>
-            <tr>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-                <td onclick="handleOperation(this)"></td>
-            </tr>
-        </table>
+      <h1 class="mt-4">Vivek Panchal - 24DEV070 - 05/02/2024</h1>
+      <h3 class="mt-4 mb-4 text-success">Tic-Tac-Toe Game</h3>
+      <h4 class="mb-4">Game Result - <span id="result"></span></h4>
+      <table id="myTabl">
+        <tr>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+          <td onclick="handleOperation(this)"></td>
+        </tr>
+      </table>
     </div>
-    
+
     <script>
-        var player1 = true;
-        var player2 = false;
+      var player1 = true;
+      var player2 = false;
 
-        function handleOperation(element){
-            if(document.getElementById("result").innerHTML === ""){
-                if(player1 === true){
-                    element.innerHTML = "O";
-                    player2 = true;
-                    player1 = false;
-                } else{
-                    element.innerHTML = "X";
-                    player1 = true;
-                    player2 = false;
-                }
-            } 
-            gameEnd()
+      function handleOperation(element) {
+        if (document.getElementById("result").innerHTML === "") {
+          if (player1 === true) {
+            element.innerHTML = "O";
+            player2 = true;
+            player1 = false;
+          } else {
+            element.innerHTML = "X";
+            player1 = true;
+            player2 = false;
+          }
         }
+        gameEnd();
+      }
 
-        function gameEnd(){
-            console.log("Called");
-            var cells = document.getElementsByTagName("td");
-            if(cells[0].innerHTML !== "" && cells[1].innerHTML !== "" && cells[2].innerHTML !== "" && cells[0].innerHTML === cells[1].innerHTML && cells[1].innerHTML === cells[2].innerHTML){
-                    console.log("1");
-                    if(cells[0].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if( cells[3].innerHTML !== "" && cells[4].innerHTML !== "" && cells[5].innerHTML !== "" && cells[3].innerHTML === cells[4].innerHTML && cells[4].innerHTML === cells[5].innerHTML){
-                    if(cells[3].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if( cells[6].innerHTML !== "" && cells[7].innerHTML !== "" && cells[8].innerHTML !== "" && cells[6].innerHTML === cells[7].innerHTML && cells[7].innerHTML === cells[8].innerHTML){
-                    console.log("3");
-                    if(cells[6].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if(cells[0].innerHTML !== "" && cells[3].innerHTML !== "" && cells[6].innerHTML !== "" && cells[0].innerHTML === cells[3].innerHTML && cells[3].innerHTML === cells[6].innerHTML){
-                    console.log("4");
-                    if(cells[0].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if(cells[1].innerHTML !== "" && cells[4].innerHTML !== "" && cells[7].innerHTML !== "" && cells[1].innerHTML === cells[4].innerHTML && cells[4].innerHTML === cells[7].innerHTML){
-                    console.log("5");
-                    if(cells[1].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if(cells[2].innerHTML !== "" && cells[5].innerHTML !== "" && cells[8].innerHTML !== "" && cells[2].innerHTML === cells[5].innerHTML && cells[5].innerHTML === cells[8].innerHTML){
-                    console.log("6");
-                    if(cells[2].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if(cells[0].innerHTML !== "" && cells[4].innerHTML !== "" && cells[8].innerHTML !== "" && cells[0].innerHTML === cells[4].innerHTML && cells[4].innerHTML === cells[8].innerHTML){
-                    console.log("7");
-                    if(cells[0].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else if(cells[2].innerHTML !== "" && cells[4].innerHTML !== "" && cells[6].innerHTML !== "" && cells[2].innerHTML === cells[4].innerHTML && cells[4].innerHTML === cells[6].innerHTML){
-                    console.log("8");
-                    if(cells[2].innerHTML === "X"){
-                        document.getElementById("result").innerHTML = "X - Won the Game!";
-                    } else{
-                        document.getElementById("result").innerHTML = "O - Won the Game!";
-                    }
-                    document.getElementById("result").style.color = "green";
-            } else{
-                console.log("9");
-                if(cells[0].innerHTML !== "" && cells[1].innerHTML !== "" && cells[2].innerHTML !== "" && cells[3].innerHTML !== "" && cells[4].innerHTML !== "" && cells[5].innerHTML !== "" && cells[6].innerHTML !== "" && cells[7].innerHTML !== "" && cells[8].innerHTML !== ""){
-                    console.log("10");
-                    document.getElementById("result").innerHTML = "Draw the Game! Better Luck Next Time!";
-                    document.getElementById("result").style.color = "red";
-                }
-            }
+      function gameEnd() {
+        console.log("Called");
+        var cells = document.getElementsByTagName("td");
+        if (
+          cells[0].innerHTML !== "" &&
+          cells[1].innerHTML !== "" &&
+          cells[2].innerHTML !== "" &&
+          cells[0].innerHTML === cells[1].innerHTML &&
+          cells[1].innerHTML === cells[2].innerHTML
+        ) {
+          console.log("1");
+          if (cells[0].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[3].innerHTML !== "" &&
+          cells[4].innerHTML !== "" &&
+          cells[5].innerHTML !== "" &&
+          cells[3].innerHTML === cells[4].innerHTML &&
+          cells[4].innerHTML === cells[5].innerHTML
+        ) {
+          if (cells[3].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[6].innerHTML !== "" &&
+          cells[7].innerHTML !== "" &&
+          cells[8].innerHTML !== "" &&
+          cells[6].innerHTML === cells[7].innerHTML &&
+          cells[7].innerHTML === cells[8].innerHTML
+        ) {
+          console.log("3");
+          if (cells[6].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[0].innerHTML !== "" &&
+          cells[3].innerHTML !== "" &&
+          cells[6].innerHTML !== "" &&
+          cells[0].innerHTML === cells[3].innerHTML &&
+          cells[3].innerHTML === cells[6].innerHTML
+        ) {
+          console.log("4");
+          if (cells[0].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[1].innerHTML !== "" &&
+          cells[4].innerHTML !== "" &&
+          cells[7].innerHTML !== "" &&
+          cells[1].innerHTML === cells[4].innerHTML &&
+          cells[4].innerHTML === cells[7].innerHTML
+        ) {
+          console.log("5");
+          if (cells[1].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[2].innerHTML !== "" &&
+          cells[5].innerHTML !== "" &&
+          cells[8].innerHTML !== "" &&
+          cells[2].innerHTML === cells[5].innerHTML &&
+          cells[5].innerHTML === cells[8].innerHTML
+        ) {
+          console.log("6");
+          if (cells[2].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[0].innerHTML !== "" &&
+          cells[4].innerHTML !== "" &&
+          cells[8].innerHTML !== "" &&
+          cells[0].innerHTML === cells[4].innerHTML &&
+          cells[4].innerHTML === cells[8].innerHTML
+        ) {
+          console.log("7");
+          if (cells[0].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else if (
+          cells[2].innerHTML !== "" &&
+          cells[4].innerHTML !== "" &&
+          cells[6].innerHTML !== "" &&
+          cells[2].innerHTML === cells[4].innerHTML &&
+          cells[4].innerHTML === cells[6].innerHTML
+        ) {
+          console.log("8");
+          if (cells[2].innerHTML === "X") {
+            document.getElementById("result").innerHTML = "X - Won the Game!";
+          } else {
+            document.getElementById("result").innerHTML = "O - Won the Game!";
+          }
+          document.getElementById("result").style.color = "green";
+        } else {
+          console.log("9");
+          if (
+            cells[0].innerHTML !== "" &&
+            cells[1].innerHTML !== "" &&
+            cells[2].innerHTML !== "" &&
+            cells[3].innerHTML !== "" &&
+            cells[4].innerHTML !== "" &&
+            cells[5].innerHTML !== "" &&
+            cells[6].innerHTML !== "" &&
+            cells[7].innerHTML !== "" &&
+            cells[8].innerHTML !== ""
+          ) {
+            console.log("10");
+            document.getElementById("result").innerHTML =
+              "Draw the Game! Better Luck Next Time!";
+            document.getElementById("result").style.color = "red";
+          }
         }
+      }
     </script>
-</body>
+  </body>
 </html>

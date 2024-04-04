@@ -1,14 +1,27 @@
 <div id="search-panel-2">
-    <form action="/task8/filter-student-attendance?attendance=<%= attendance %>" method="POST">
-        <input type="text" name="studentName" id="studentId" placeholder=" Student Name">
-        <input type="text" name="presentDays" id="presentDays" placeholder="Present Days">
-        <select name="percentage" id="percentage">
-            <option value="0">Percentage</option>
-            <option value="1">75-100%</option>
-            <option value="2">50-75%</option>
-            <option value="3">25-50%</option>
-            <option value="4">0-25%</option>
-        </select>
-        <input type="submit" value="Go">
-    </form>
+  <form
+    action="/task8/filter-student-attendance?attendance=<%= attendance %>"
+    method="POST"
+  >
+    <input
+      type="text"
+      name="studentName"
+      id="studentId"
+      placeholder=" Student Name"
+    />
+    <input
+      type="text"
+      name="presentDays"
+      id="presentDays"
+      placeholder="Present Days"
+    />
+    <select name="percentage" id="percentage">
+      <option value="0">Percentage</option>
+      <option value="1">75-100%</option>
+      <option value="2">50-75%</option>
+      <option value="3">25-50%</option>
+      <option value="4">0-25%</option>
+    </select>
+    <input type="submit" value="Go" />
+  </form>
 </div>

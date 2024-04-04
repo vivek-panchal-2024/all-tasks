@@ -1,56 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List of Student</title>
     <style>
-        .container{
-            max-width: 1390px;
-            margin: 20px auto;
-            text-align: center;
-        }
+      .container {
+        max-width: 1390px;
+        margin: 20px auto;
+        text-align: center;
+      }
 
-        td, th{
-            border: 2px solid black;
-            padding: 10px;
-        }
+      td,
+      th {
+        border: 2px solid black;
+        padding: 10px;
+      }
 
-        table{
-            border-collapse: collapse;
-            display: flex;
-            justify-content: center;
-        }
+      table {
+        border-collapse: collapse;
+        display: flex;
+        justify-content: center;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h2><%= data.firstName%> all details</h2>
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age</th>
-                <th>Contact Number</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Hobbies</th>
-                <th>Address</th>
-            </tr>
-            <tr>
-                <td><%= data.firstName %></td>
-                <td><%= data.lastName %></td>
-                <td><%= data.age %></td>
-                <td><%= data.conatactNumeber %></td>
-                <td><%= data.email %></td>
-                <td><%= data.gender %></td>
-                <td><%= data.hobby %></td>
-                <td><%= data.address %></td>
-            </tr>
-        </table>
+      <h2><%= data.firstName%> all details</h2>
+      <table>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Contact Number</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Hobbies</th>
+          <th>Address</th>
+        </tr>
+        <tr>
+          <td><%= data.firstName %></td>
+          <td><%= data.lastName %></td>
+          <td><%= data.age %></td>
+          <td><%= data.conatactNumeber %></td>
+          <td><%= data.email %></td>
+          <td><%= data.gender %></td>
+          <td><%= data.hobby %></td>
+          <td><%= data.address %></td>
+        </tr>
+      </table>
     </div>
-    <script>
-
-    </script>
-</body>
+    <script></script>
+  </body>
 </html>

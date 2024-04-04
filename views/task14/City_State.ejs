@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>City & State Dropdown - 18/03/24</title>
     <style>
-        .container{
-            max-width:  1390px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 1390px;
+        margin: 0 auto;
+      }
 
-        h1, h2{
-            text-align: center;
-        }
+      h1,
+      h2 {
+        text-align: center;
+      }
 
-        .drop-down{
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
+      .drop-down {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Vivek Panchal - 24DEV070 - 18/03/24</h1>
-        <h2>Task - Display corrsponding cities of selected state</h2>
-        <% if(error !== "") {%>
-            <h4><%= error %></h4>
-        <% } %>
-        <div class="drop-down">
-            <select name="states" id="state" onchange="displayCities(this)">
-                <% if(states !== "" ) {%>
-                    <option value="">Select State</option>
-                    <% states.forEach( state => { %>
-                        <option value="<%= stateCount++ %>"><%= state.state_name%></option>
-                    <% }) %>
-                <% } %>
-            </select>
-            <select name="cities" id="cities">
-                <% if(states !== "" ) {%>
-                    <option value="">Select City</option>
-                <% } %>
-            </select>
-        </div>
+      <h1>Vivek Panchal - 24DEV070 - 18/03/24</h1>
+      <h2>Task - Display corrsponding cities of selected state</h2>
+      <% if(error !== "") {%>
+      <h4><%= error %></h4>
+      <% } %>
+      <div class="drop-down">
+        <select name="states" id="state" onchange="displayCities(this)">
+          <% if(states !== "" ) {%>
+          <option value="">Select State</option>
+          <% states.forEach( state => { %>
+          <option value="<%= stateCount++ %>"><%= state.state_name%></option>
+          <% }) %> <% } %>
+        </select>
+        <select name="cities" id="cities">
+          <% if(states !== "" ) {%>
+          <option value="">Select City</option>
+          <% } %>
+        </select>
+      </div>
     </div>
 
     <script>
-        const displayCities = async (state) =>{
-            let cityElement = document.getElementById("cities");
-            let children = Array.from(cityElement.children);
+      const displayCities = async (state) => {
+        let cityElement = document.getElementById("cities");
+        let children = Array.from(cityElement.children);
 
-            if(children.length > 1){
-                children.filter( optionElement =>{
-                    return optionElement.value !== "";
-                } ).forEach( optionElement =>{
-                    optionElement.remove();
-                } ); 
-            }
-
-            if(state.value !== ""){
-                let getCities = await fetch(`http://localhost:3000/task14/generate-city?state=${state.value}`);
-                let data = await getCities.json();
-                data.cities.forEach( city =>{
-                    let optionElement = document.createElement("option");
-                    optionElement.value = city.city_name;
-                    optionElement.innerHTML = city.city_name;
-                    cityElement.appendChild(optionElement);
-                } )
-            }
+        if (children.length > 1) {
+          children
+            .filter((optionElement) => {
+              return optionElement.value !== "";
+            })
+            .forEach((optionElement) => {
+              optionElement.remove();
+            });
         }
+
+        if (state.value !== "") {
+          let getCities = await fetch(
+            `http://localhost:3000/task14/generate-city?state=${state.value}`
+          );
+          let data = await getCities.json();
+          data.cities.forEach((city) => {
+            let optionElement = document.createElement("option");
+            optionElement.value = city.city_name;
+            optionElement.innerHTML = city.city_name;
+            cityElement.appendChild(optionElement);
+          });
+        }
+      };
     </script>
-</body>
+  </body>
 </html>

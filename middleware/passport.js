@@ -14,15 +14,20 @@ const cookieExtractor = (req) => {
   return token;
 };
 
-passport.use(new JWTStrategy({
+passport.use(
+  new JWTStrategy(
+    {
       jwtFromRequest: cookieExtractor,
       secretOrKey: jwtSecretKey,
-}, async (jwtPayload, done) => {
-    let sql = `select email from users where email= ?`;
-    let findUser = await db.runParameterQuery(sql, [jwtPayload.user.email]);
-    if(findUser !== undefined){
+    },
+    async (jwtPayload, done) => {
+      let sql = `select email from users where email= ?`;
+      let findUser = await db.runParameterQuery(sql, [jwtPayload.user.email]);
+      if (findUser !== undefined) {
         // console.log(jwtPayload, "payload");
         return done(null, findUser);
+      }
+      return done(null, false);
     }
-    return done(null, false);
-}));
+  )
+);

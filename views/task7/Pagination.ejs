@@ -1,109 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pagination Component</title>
     <style>
-        a{
-            text-decoration: none;
-            color: black;
-        }
+      a {
+        text-decoration: none;
+        color: black;
+      }
 
-        button{
-            width: 100px;
-        }
+      button {
+        width: 100px;
+      }
 
-        .row{
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 60px 0;
-        }
+      .row {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 60px 0;
+      }
 
-        .container{
-            max-width: 1420px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 1420px;
+        margin: 0 auto;
+      }
     </style>
-   
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <div class="row">
-
-            <button id="moveToFirstPage" onclick="moveToFirstPage()"><a href="#">&lt;&lt;</a></button>
-            <button id="pageDecrement"  onclick="handleDecrement()"><a href="#">&lt;</a></button>
-            <div id="pageNumber">1</div>
-            <button id="pageIncrement"  onclick="handleIncrement()"><a href="#">&gt;</a></button>
-            <button id="moveToLastPage"  onclick="moveToLastPage()"><a href="#">&gt;&gt;</a></button>
-        </div>
+      <div class="row">
+        <button id="moveToFirstPage" onclick="moveToFirstPage()">
+          <a href="#">&lt;&lt;</a>
+        </button>
+        <button id="pageDecrement" onclick="handleDecrement()">
+          <a href="#">&lt;</a>
+        </button>
+        <div id="pageNumber">1</div>
+        <button id="pageIncrement" onclick="handleIncrement()">
+          <a href="#">&gt;</a>
+        </button>
+        <button id="moveToLastPage" onclick="moveToLastPage()">
+          <a href="#">&gt;&gt;</a>
+        </button>
+      </div>
     </div>
 
     <script>
-        let pageNumber = 1;
+      let pageNumber = 1;
+      document.getElementById("moveToFirstPage").disabled = true;
+      document.getElementById("pageDecrement").disabled = true;
+
+      const moveToFirstPage = () => {
+        // console.log("1");
+        pageNumber = 1;
+        document.getElementById("pageNumber").innerHTML = pageNumber;
+
         document.getElementById("moveToFirstPage").disabled = true;
         document.getElementById("pageDecrement").disabled = true;
 
-        const moveToFirstPage = ()=>{
-            // console.log("1");
-            pageNumber = 1;
-            document.getElementById("pageNumber").innerHTML = pageNumber;
+        document.getElementById("moveToLastPage").disabled = false;
+        document.getElementById("pageIncrement").disabled = false;
+      };
 
-            document.getElementById("moveToFirstPage").disabled = true;
-            document.getElementById("pageDecrement").disabled = true;
-
-            document.getElementById("moveToLastPage").disabled = false;
-            document.getElementById("pageIncrement").disabled = false;
+      const handleDecrement = () => {
+        // console.log("2");
+        console.log(pageNumber);
+        if (pageNumber > 2 && pageNumber <= 250) {
+          document.getElementById("moveToFirstPage").disabled = false;
+          document.getElementById("pageDecrement").disabled = false;
+          document.getElementById("moveToLastPage").disabled = false;
+          document.getElementById("pageIncrement").disabled = false;
+          pageNumber = pageNumber - 1;
+        } else {
+          document.getElementById("moveToFirstPage").disabled = true;
+          document.getElementById("pageDecrement").disabled = true;
+          pageNumber = pageNumber - 1;
         }
+        document.getElementById("pageNumber").innerHTML = pageNumber;
+      };
 
-        const handleDecrement = ()=>{
-            // console.log("2");
-            console.log(pageNumber);
-            if(pageNumber > 2 && pageNumber <= 250){
-                document.getElementById("moveToFirstPage").disabled = false;
-                document.getElementById("pageDecrement").disabled = false;
-                document.getElementById("moveToLastPage").disabled = false;
-                document.getElementById("pageIncrement").disabled = false;
-                pageNumber = pageNumber-1;
-            } else{
-                document.getElementById("moveToFirstPage").disabled = true;
-                document.getElementById("pageDecrement").disabled = true;
-                pageNumber = pageNumber-1;
-            }
-            document.getElementById("pageNumber").innerHTML = pageNumber;
+      const handleIncrement = () => {
+        // console.log("3");
+        if (pageNumber >= 1 && pageNumber < 250) {
+          document.getElementById("moveToFirstPage").disabled = false;
+          document.getElementById("pageDecrement").disabled = false;
+          document.getElementById("moveToLastPage").disabled = false;
+          document.getElementById("pageIncrement").disabled = false;
+          pageNumber += 1;
+        } else {
+          document.getElementById("moveToLastPage").disabled = true;
+          document.getElementById("pageIncrement").disabled = true;
         }
+        document.getElementById("pageNumber").innerHTML = pageNumber;
+      };
+      const moveToLastPage = () => {
+        // console.log("4");
+        pageNumber = 250;
+        document.getElementById("pageNumber").innerHTML = pageNumber;
 
-        const handleIncrement = ()=>{
-            // console.log("3");
-            if(pageNumber >= 1 && pageNumber < 250 ){
-                document.getElementById("moveToFirstPage").disabled = false;
-                document.getElementById("pageDecrement").disabled = false;
-                document.getElementById("moveToLastPage").disabled = false;
-                document.getElementById("pageIncrement").disabled = false;
-                pageNumber +=1;
-            } else{
-                document.getElementById("moveToLastPage").disabled = true;
-                document.getElementById("pageIncrement").disabled = true;
-            }
-            document.getElementById("pageNumber").innerHTML = pageNumber;
-            
-        }
-        const moveToLastPage = ()=>{
-            // console.log("4");
-            pageNumber = 250;
-            document.getElementById("pageNumber").innerHTML = pageNumber;
+        document.getElementById("moveToLastPage").disabled = true;
+        document.getElementById("pageIncrement").disabled = true;
 
-            document.getElementById("moveToLastPage").disabled = true;
-            document.getElementById("pageIncrement").disabled = true;
-
-            document.getElementById("moveToFirstPage").disabled = false;
-            document.getElementById("pageDecrement").disabled = false;
-            
-        }
-
+        document.getElementById("moveToFirstPage").disabled = false;
+        document.getElementById("pageDecrement").disabled = false;
+      };
     </script>
-    
-</body>
+  </body>
 </html>

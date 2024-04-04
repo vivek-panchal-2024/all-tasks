@@ -1,4 +1,4 @@
-const {Router} = require("express");
+const { Router } = require("express");
 
 const auth = require("./auth");
 const task1 = require("./task1");
@@ -19,21 +19,21 @@ const task15 = require("./task15");
 
 const router = Router();
 
-router.use('/', auth);
-router.use('/task1', task1);
-router.use('/task2', task2);
-router.use('/task3', task3);
-router.use('/task4', task4);
-router.use('/task5', task5);
-router.use('/task6', task6);
-router.use('/task7', task7);
-router.use('/task8', task8);
-router.use('/task9', task9);
-router.use('/task10', task10);
-router.use('/task11', task11);
-router.use('/task12', task12);
-router.use('/task13', task13);
-router.use('/task14', task14);
-router.use('/task15', task15);
+router.use("/", auth);
+router.use("/task1", task1);
+router.use("/task2", task2);
+router.use("/task3", task3);
+router.use("/task4", task4);
+router.use("/task5", task5);
+router.use("/task6", task6);
+router.use("/task7", task7);
+router.use("/task8", task8);
+router.use("/task9", task9);
+router.use("/task10", task10);
+router.use("/task11", task11);
+router.use("/task12", task12);
+router.use("/task13", task13);
+router.use("/task14", task14);
+router.use("/task15", task15);
 
 module.exports = router;

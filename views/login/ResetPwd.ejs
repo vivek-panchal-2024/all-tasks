@@ -1,103 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reset Password</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
     <style>
-        body{
-            background-color: #f5f5f5 !important;
-        }
+      body {
+        background-color: #f5f5f5 !important;
+      }
 
-        .register{
-            max-width: 390px;
-        }
-      
+      .register {
+        max-width: 390px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container d-flex flex-column pt-5 ps-5 pe-5">
-        <h1 class="text-center mt-2">Vivek Panchal - 24DEV070 - 21/03/24</h1>
-        <h2 class="text-center ">Task - Login</h2>
+      <h1 class="text-center mt-2">Vivek Panchal - 24DEV070 - 21/03/24</h1>
+      <h2 class="text-center">Task - Login</h2>
 
-        <% if(auth_code !== "" || ( successMessage !== "" || error !== "" )) {%>
-            <div class="register w-100 m-auto mt-5">
-                <h4 class="text-center mb-4 text-primary">Reset Password</h4>
-                <% if( error !== ""){ %>
-                    <h4 class="text-danger text-center"><%= error %></h4>
-                <% } %>
-
-                <% if( successMessage !== ""){ %>
-                    <h4 class="text-success text-center"><%= successMessage %></h4> 
-                <% } %>
-
-                <form action="/reset-password"  method="post" onsubmit="return validation()" id="resetPwd">
-                    <div class="mb-3 form-floating">
-                        <input type="hidden" name="authCode" value="<%= auth_code %>">
-                        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="example@example.com">
-                        <label for="pwd">Create Password</label>
-                    </div>
-                    <div class="mb-3 form-floating">
-                        <input type="password" class="form-control" name="cpwd" id="cpwd" placeholder="example@example.com">
-                        <label for="cpwd">Confirm Password</label>
-                    </div>
-                    <input type="submit" class="btn btn-lg btn-primary w-100" value="Verify">
-                </form>
-            </div>
-        <% } else {%>
-            <div class="register w-100 m-auto mt-5">
-                <h4 class="text-center mb-4 text-primary">Reset Password</h4>
-                <form action="/reset-password"  method="post">
-                    <div class="mb-3 form-floating">
-                        <input type="text" class="form-control" name="email" id="email" placeholder="example@example.com">
-                        <label for="email">Email address</label>
-                    </div>
-                    <input type="submit" class="btn btn-lg btn-primary w-100" value="Verify">
-                </form>
-                <% if(error !== "") {%>
-                    <h4 class="text-danger text-center mt-4"><%= error %></h4>
-                <% } %>
-            </div>
+      <% if(auth_code !== "" || ( successMessage !== "" || error !== "" )) {%>
+      <div class="register w-100 m-auto mt-5">
+        <h4 class="text-center mb-4 text-primary">Reset Password</h4>
+        <% if( error !== ""){ %>
+        <h4 class="text-danger text-center"><%= error %></h4>
+        <% } %> <% if( successMessage !== ""){ %>
+        <h4 class="text-success text-center"><%= successMessage %></h4>
         <% } %>
 
-        
-        </div>
+        <form
+          action="/reset-password"
+          method="post"
+          onsubmit="return validation()"
+          id="resetPwd"
+        >
+          <div class="mb-3 form-floating">
+            <input type="hidden" name="authCode" value="<%= auth_code %>" />
+            <input
+              type="password"
+              class="form-control"
+              name="pwd"
+              id="pwd"
+              placeholder="example@example.com"
+            />
+            <label for="pwd">Create Password</label>
+          </div>
+          <div class="mb-3 form-floating">
+            <input
+              type="password"
+              class="form-control"
+              name="cpwd"
+              id="cpwd"
+              placeholder="example@example.com"
+            />
+            <label for="cpwd">Confirm Password</label>
+          </div>
+          <input
+            type="submit"
+            class="btn btn-lg btn-primary w-100"
+            value="Verify"
+          />
+        </form>
+      </div>
+      <% } else {%>
+      <div class="register w-100 m-auto mt-5">
+        <h4 class="text-center mb-4 text-primary">Reset Password</h4>
+        <form action="/reset-password" method="post">
+          <div class="mb-3 form-floating">
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              id="email"
+              placeholder="example@example.com"
+            />
+            <label for="email">Email address</label>
+          </div>
+          <input
+            type="submit"
+            class="btn btn-lg btn-primary w-100"
+            value="Verify"
+          />
+        </form>
+        <% if(error !== "") {%>
+        <h4 class="text-danger text-center mt-4"><%= error %></h4>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
 
-        <script>
-            const validation = ()=>{
-                let form = document.getElementById('resetPwd');
-                let error = "";
-                
-                Array.from(form.elements).filter( (element) =>{
-                    return element.type !== "submit";
-                } ).forEach( (element) =>{
-                    element.style.border = "";
-                });
+    <script>
+      const validation = () => {
+        let form = document.getElementById("resetPwd");
+        let error = "";
 
-                Array.from(form.elements).filter( (element) =>{
-                    return element.type !== "submit";
-                } ).forEach( (element) =>{
-                    if(element.value.trim() === ""){
-                        console.log(element.id);
-                        document.getElementById(`${element.id}`).style.border = "1px solid red";
-                        error += " Fields are Complusory ";
-                    } else if(element.name === "pwd"){
-                        if(element.value !== document.getElementById("cpwd").value){
-                            document.getElementById(`cpwd`).style.border = "1px solid red";
-                            error += " Password not matching ";
-                        }
-                    }
-                });
-                
-                console.log(error);
+        Array.from(form.elements)
+          .filter((element) => {
+            return element.type !== "submit";
+          })
+          .forEach((element) => {
+            element.style.border = "";
+          });
 
-                if(error === ""){
-                    return true;
-                } else{
-                    return false;
-                }
+        Array.from(form.elements)
+          .filter((element) => {
+            return element.type !== "submit";
+          })
+          .forEach((element) => {
+            if (element.value.trim() === "") {
+              console.log(element.id);
+              document.getElementById(`${element.id}`).style.border =
+                "1px solid red";
+              error += " Fields are Complusory ";
+            } else if (element.name === "pwd") {
+              if (element.value !== document.getElementById("cpwd").value) {
+                document.getElementById(`cpwd`).style.border = "1px solid red";
+                error += " Password not matching ";
+              }
+            }
+          });
+
+        console.log(error);
+
+        if (error === "") {
+          return true;
+        } else {
+          return false;
         }
-        </script>
-    </body>
+      };
+    </script>
+  </body>
 </html>

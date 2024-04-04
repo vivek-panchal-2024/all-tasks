@@ -1,130 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Color Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <style>
-        body{
-            background-color: aliceblue;
-        }
-        td{
-            padding: 15px;
-            border: 5px solid rgb(236, 235, 235);
-            width: 80px;
-            height: 80px;
-            background-color: blue;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
-        #firstCell{
-            opacity: 0.8;
-        }
+      body {
+        background-color: aliceblue;
+      }
+      td {
+        padding: 15px;
+        border: 5px solid rgb(236, 235, 235);
+        width: 80px;
+        height: 80px;
+        background-color: blue;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+      }
+      #firstCell {
+        opacity: 0.8;
+      }
     </style>
 
     <script>
-        var seconds = 10;
-        var colLen =2;
-        var score =0;
+      var seconds = 10;
+      var colLen = 2;
+      var score = 0;
 
-        var time = setInterval(function (){
-            if(seconds == 0){
-                alert("Time Out & Your score is " + score + ". To play agian refresh the page.");
-                clearInterval(time);
-                score =0;
-                seconds = 10
-            } else{
-                seconds = seconds -1;
-            }
-            document.getElementById("result").innerHTML = score;
-            document.getElementById("time").innerHTML = seconds;
-        }, 1000);
-
-        function handleOperation(){
-            if(colLen === 2){
-                document.getElementById("firstCell").onclick = null;
-            }
-            var cellsCollection = document.getElementsByTagName("td");
-            for(let i=0; i<cellsCollection.length; i++){
-                cellsCollection[i].style.opacity =1;
-                cellsCollection[i].removeEventListener("click", handleOperation);
-            }
-            
-            var randomCell = generateRandomCell();
-            document.getElementById("firstCell").style.opacity =1;
-            
-            if(colLen <9){
-                var table = document.getElementById("myTable");
-                var row = table.insertRow(-1);
-                var rowLen = table.rows.length;
-                colLen = colLen +1;
-                // console.log(colLen);
-                for(let i=1; i<=colLen; i++){
-                    var cell = row.insertCell(-1);
-                } 
-                for(let i=0; i<rowLen-1; i++){
-                    var row1 = table.rows[i];
-                    var cell1 = row1.insertCell(-1);
-                } 
-            }
-
-            var cells = document.getElementsByTagName("td");
-            // console.log(cells);
-            var randomColor = generateRandomColor();
-            for(let i=0; i<cells.length; i++){
-                cells[i].style.backgroundColor = randomColor;
-            }
-            score++;
+      var time = setInterval(function () {
+        if (seconds == 0) {
+          alert(
+            "Time Out & Your score is " +
+              score +
+              ". To play agian refresh the page."
+          );
+          clearInterval(time);
+          score = 0;
+          seconds = 10;
+        } else {
+          seconds = seconds - 1;
         }
-        
-        var hexCharacters = [0, 1, 2 ,3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
-        function getChar(index){
-            return hexCharacters[index];
+        document.getElementById("result").innerHTML = score;
+        document.getElementById("time").innerHTML = seconds;
+      }, 1000);
+
+      function handleOperation() {
+        if (colLen === 2) {
+          document.getElementById("firstCell").onclick = null;
+        }
+        var cellsCollection = document.getElementsByTagName("td");
+        for (let i = 0; i < cellsCollection.length; i++) {
+          cellsCollection[i].style.opacity = 1;
+          cellsCollection[i].removeEventListener("click", handleOperation);
         }
 
-        function generateRandomColor(){ 
-            let hexColor = "#"
-            for(let i=0; i<6; i++){
-                let randomIndex = Math.floor(Math.random() * hexCharacters.length)
-                hexColor += getChar(randomIndex);
-            }
-            return hexColor;
+        var randomCell = generateRandomCell();
+        document.getElementById("firstCell").style.opacity = 1;
 
+        if (colLen < 9) {
+          var table = document.getElementById("myTable");
+          var row = table.insertRow(-1);
+          var rowLen = table.rows.length;
+          colLen = colLen + 1;
+          // console.log(colLen);
+          for (let i = 1; i <= colLen; i++) {
+            var cell = row.insertCell(-1);
+          }
+          for (let i = 0; i < rowLen - 1; i++) {
+            var row1 = table.rows[i];
+            var cell1 = row1.insertCell(-1);
+          }
         }
 
-        function generateRandomCell(){
-            let rowLen = document.getElementById("myTable").rows.length;
-            let cells = document.getElementsByTagName("td");
-            let randomNumber = Math.floor(Math.random() * (rowLen *  colLen));
-            if(randomNumber === 0) randomNumber++;
-            cells[randomNumber].style.opacity = 0.8;
-            cells[randomNumber].addEventListener("click", handleOperation);
-            return randomNumber
+        var cells = document.getElementsByTagName("td");
+        // console.log(cells);
+        var randomColor = generateRandomColor();
+        for (let i = 0; i < cells.length; i++) {
+          cells[i].style.backgroundColor = randomColor;
         }
+        score++;
+      }
 
+      var hexCharacters = [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+      ];
+      function getChar(index) {
+        return hexCharacters[index];
+      }
+
+      function generateRandomColor() {
+        let hexColor = "#";
+        for (let i = 0; i < 6; i++) {
+          let randomIndex = Math.floor(Math.random() * hexCharacters.length);
+          hexColor += getChar(randomIndex);
+        }
+        return hexColor;
+      }
+
+      function generateRandomCell() {
+        let rowLen = document.getElementById("myTable").rows.length;
+        let cells = document.getElementsByTagName("td");
+        let randomNumber = Math.floor(Math.random() * (rowLen * colLen));
+        if (randomNumber === 0) randomNumber++;
+        cells[randomNumber].style.opacity = 0.8;
+        cells[randomNumber].addEventListener("click", handleOperation);
+        return randomNumber;
+      }
     </script>
-</head>
-<body>
-    <div class="container mt-4 text-center d-flex flex-column align-items-center">
-        <h1>Vivek Panchal - 24DEV070 - 02/02/2024</h1>
-        <h2 class="text-success mt-4">Color Game</h2>
-        <div class="mt-4">
-            <h4 class="mb-3">Time : <span id="time"></span> </h4>
-            <h4 >Score: <span id="result"></span></h4>
-        </div>
-        <table class="mt-5" id="myTable">
-            <tr>
-                <td onclick="handleOperation()" id="firstCell"></td>
-                <td ></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+  </head>
+  <body>
+    <div
+      class="container mt-4 text-center d-flex flex-column align-items-center"
+    >
+      <h1>Vivek Panchal - 24DEV070 - 02/02/2024</h1>
+      <h2 class="text-success mt-4">Color Game</h2>
+      <div class="mt-4">
+        <h4 class="mb-3">Time : <span id="time"></span></h4>
+        <h4>Score: <span id="result"></span></h4>
+      </div>
+      <table class="mt-5" id="myTable">
+        <tr>
+          <td onclick="handleOperation()" id="firstCell"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
     </div>
-</body>
+  </body>
 </html>
