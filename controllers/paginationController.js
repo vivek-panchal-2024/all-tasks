@@ -1,10 +1,10 @@
 const db = require("../db");
-var offsetValue = 0;
-var fieldName = "FirstName";
-var ordered_type = "asc";
-var inputQuery = "";
-var lastPageNumber = 1;
-var deafaultLimit = 50;
+let offsetValue = 0;
+let fieldName = "FirstName";
+let ordered_type = "asc";
+let inputQuery = "";
+let lastPageNumber = 1;
+let deafaultLimit = 50;
 
 const getStudents = (req, res) => {
   let sql = "";
@@ -150,8 +150,8 @@ const generateGrid = (req, res) => {
         }
       });
     } else if (inputQuery != "" && inputQuery.split("limit")[1] !== undefined) {
-      let limit = Number(inputQuery.split(", ")[1].split(";")[0]);
-      let offSet = Number(inputQuery.split("limit")[1].split(",")[0]);
+      let limit = Number(inputQuery.split(", ")[1].split(";")[0]) || 0;
+      let offSet = Number(inputQuery.split("limit")[1].split(",")[0]) || 0;
 
       //Logic to set the offset value for limit query
       if (req.query.pg === 1 || req.query.pg === undefined) {
@@ -168,7 +168,7 @@ const generateGrid = (req, res) => {
       }
 
       if (limit > deafaultLimit) {
-        var formattedQuery = `${
+        formattedQuery = `${
           inputQuery.split("limit")[0]
         } limit ${offsetValue}, ${deafaultLimit};`;
       } else {
@@ -179,7 +179,7 @@ const generateGrid = (req, res) => {
 
       db.connection.query(formattedQuery, (error, result, fields) => {
         if (error) {
-          res.render("./task7/DynamicGrid", {
+          return res.render("./task7/DynamicGrid", {
             result: "",
             fields: "",
             query: "",
@@ -195,7 +195,7 @@ const generateGrid = (req, res) => {
             inputQuery = "";
           }
 
-          res.render("./task7/DynamicGrid", {
+          return res.render("./task7/DynamicGrid", {
             result,
             fields,
             query: inputQuery,
@@ -205,7 +205,7 @@ const generateGrid = (req, res) => {
             error: "",
           });
         } else {
-          res.render("./task7/DynamicGrid", {
+          return res.render("./task7/DynamicGrid", {
             result,
             fields,
             query: inputQuery,
@@ -217,7 +217,7 @@ const generateGrid = (req, res) => {
         }
       });
     } else {
-      res.render("./task7/DynamicGrid", {
+      return res.render("./task7/DynamicGrid", {
         result: "",
         fields: "",
         query: "",
@@ -228,7 +228,15 @@ const generateGrid = (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    return res.render("./task7/DynamicGrid", {
+      result: "",
+      fields: "",
+      query: "",
+      pg: 0,
+      url: { 1: req.url.split("?")[0] },
+      lastPageNumber: 0,
+      error: "Something Went Wrong",
+    });
   }
 };
 

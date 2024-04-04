@@ -1,9 +1,9 @@
 const db = require("../db");
-var offsetValue = 0;
-var lastPageNumber = 1;
-var fieldName = "id";
-var ordered_type = "asc";
-var days = 0;
+let offsetValue = 0;
+let lastPageNumber = 1;
+let fieldName = "id";
+let ordered_type = "asc";
+let days = 0;
 
 const getAttendance = (req, res) => {
   let sql = "";

@@ -44,8 +44,8 @@
     </div>
 
     <script>
-      var player1 = true;
-      var player2 = false;
+      let player1 = true;
+      let player2 = false;
 
       function handleOperation(element) {
         if (document.getElementById("result").innerHTML === "") {
@@ -64,7 +64,7 @@
 
       function gameEnd() {
         console.log("Called");
-        var cells = document.getElementsByTagName("td");
+        let cells = document.getElementsByTagName("td");
         if (
           cells[0].innerHTML !== "" &&
           cells[1].innerHTML !== "" &&

@@ -28,21 +28,21 @@
       }
     </style>
     <script>
-      var colLen = 2;
-      var rowNumber = 2;
+      let colLen = 2;
+      let rowNumber = 2;
 
       function handleAddCol() {
         colLen++;
-        var table1 = document.getElementById("dynamicTable");
-        var rowLen1 = table1.rows.length;
-        var flag = false;
+        let table1 = document.getElementById("dynamicTable");
+        let rowLen1 = table1.rows.length;
+        let flag = false;
         if (colLen % 2 === 0) {
           flag = true;
         } else {
           flag = false;
         }
         for (let i = 0; i < rowLen1; i++) {
-          var row1 = table1.rows.item(i);
+          let row1 = table1.rows.item(i);
           let cell1 = row1.insertCell();
           if (flag === true) {
             cell1.style.backgroundColor = "rgb(159 157 157)";
@@ -54,13 +54,14 @@
         }
         console.log("Column Added!");
       }
+
       function handleRemoveCol() {
-        var table2 = document.getElementById("dynamicTable");
-        var rowLen2 = table2.rows.length;
+        let table2 = document.getElementById("dynamicTable");
+        let rowLen2 = table2.rows.length;
         if (colLen > 2) {
           console.log(rowLen2);
           for (let i = 0; i < rowLen2; i++) {
-            var row2 = table2.rows[i];
+            let row2 = table2.rows[i];
             console.log(row2);
             row2.deleteCell(-1);
           }
@@ -68,10 +69,11 @@
         }
         console.log("Column Removed!");
       }
+
       function handleAddRow() {
-        var table3 = document.getElementById("dynamicTable");
-        var row3 = table3.insertRow(-1);
-        var flag = false;
+        let table3 = document.getElementById("dynamicTable");
+        let row3 = table3.insertRow(-1);
+        let flag = false;
         rowNumber++;
         console.log("Row" + rowNumber);
         if (rowNumber % 2 === 0) {
@@ -81,7 +83,7 @@
         }
         console.log(colLen);
         for (let i = 1; i <= colLen; i++) {
-          var cell3 = row3.insertCell(-1);
+          let cell3 = row3.insertCell(-1);
           if (flag === true) {
             cell3.style.backgroundColor = "rgb(159,157,157)";
             flag = false;
@@ -92,9 +94,10 @@
         }
         console.log("Row Added!");
       }
+
       function handleRemoveRow() {
-        var table4 = document.getElementById("dynamicTable");
-        var rowLen3 = table4.rows.length;
+        let table4 = document.getElementById("dynamicTable");
+        let rowLen3 = table4.rows.length;
         if (rowLen3 > 2) {
           table4.deleteRow(rowLen3 - 1);
           rowNumber--;

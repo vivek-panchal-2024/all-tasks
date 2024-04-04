@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Grid</title>
     <style>
-         h1, h3{
+         h1, h3, h4{
             text-align: center;
         }
 
@@ -61,26 +61,29 @@
         <% if(error){ %>
             <h3><%= error%></h3>
         <% } %>
+
+        <h4 class="">Following are the sample queries :</h4>
+        <h4 class="">select * from student_26thFeb</h4>
+        <h4 class="">select * from student_26thFeb limit 10, 27</h4>
+        <h4 class="">select * from basic_details</h4>
         
-
-
-        <% if(result != "" && fields != "" && pg>=1 ){%>
+        <% if(error === "" && result != "" && fields != "" && pg>=1 ){%>
             <%- include("./partials/PaginationDynamicComp")%>
-        <table>
-                <tr>
-                    <% for(let i=0; i<fields.length; i++){ %>
-                        <th><%= fields[i].name%></th>
-                    <% } %>
-                </tr>
-                
-                <% for(let i=0; i<result.length; i++ ){%>
+            <table>
                     <tr>
-                        <% for(let j=0; j<fields.length; j++){ %>
-                            <td><%= result[i][fields[j].name] %></td>
+                        <% for(let i=0; i<fields.length; i++){ %>
+                            <th><%= fields[i].name%></th>
                         <% } %>
                     </tr>
-                <% } %>
-        </table>
+                    
+                    <% for(let i=0; i<result.length; i++ ){%>
+                        <tr>
+                            <% for(let j=0; j<fields.length; j++){ %>
+                                <td><%= result[i][fields[j].name] %></td>
+                            <% } %>
+                        </tr>
+                    <% } %>
+            </table>
         <% } %>
         
     </div>

@@ -1,5 +1,5 @@
-var fs = require("fs");
-var path = require("path");
+const fs = require("fs");
+const path = require("path");
 const task6Util = require("../utils/task6/task6Util");
 const filePath = "../utils/task6/studentData.json";
 

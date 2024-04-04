@@ -31,11 +31,11 @@
     </style>
 
     <script>
-      var seconds = 10;
-      var colLen = 2;
-      var score = 0;
+      let seconds = 10;
+      let colLen = 2;
+      let score = 0;
 
-      var time = setInterval(function () {
+      let time = setInterval(function () {
         if (seconds == 0) {
           alert(
             "Time Out & Your score is " +
@@ -56,40 +56,40 @@
         if (colLen === 2) {
           document.getElementById("firstCell").onclick = null;
         }
-        var cellsCollection = document.getElementsByTagName("td");
+        let cellsCollection = document.getElementsByTagName("td");
         for (let i = 0; i < cellsCollection.length; i++) {
           cellsCollection[i].style.opacity = 1;
           cellsCollection[i].removeEventListener("click", handleOperation);
         }
 
-        var randomCell = generateRandomCell();
+        let randomCell = generateRandomCell();
         document.getElementById("firstCell").style.opacity = 1;
 
         if (colLen < 9) {
-          var table = document.getElementById("myTable");
-          var row = table.insertRow(-1);
-          var rowLen = table.rows.length;
+          let table = document.getElementById("myTable");
+          let row = table.insertRow(-1);
+          let rowLen = table.rows.length;
           colLen = colLen + 1;
           // console.log(colLen);
           for (let i = 1; i <= colLen; i++) {
-            var cell = row.insertCell(-1);
+            let cell = row.insertCell(-1);
           }
           for (let i = 0; i < rowLen - 1; i++) {
-            var row1 = table.rows[i];
-            var cell1 = row1.insertCell(-1);
+            let row1 = table.rows[i];
+            let cell1 = row1.insertCell(-1);
           }
         }
 
-        var cells = document.getElementsByTagName("td");
+        let cells = document.getElementsByTagName("td");
         // console.log(cells);
-        var randomColor = generateRandomColor();
+        let randomColor = generateRandomColor();
         for (let i = 0; i < cells.length; i++) {
           cells[i].style.backgroundColor = randomColor;
         }
         score++;
       }
 
-      var hexCharacters = [
+      let hexCharacters = [
         0,
         1,
         2,

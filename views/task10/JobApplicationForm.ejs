@@ -130,22 +130,22 @@
                 </div>
             </div>
             
-
+            <% let sscIndex = -1,  hscIndex = -1, bachelorIndex = -1, masterIndex = -1 %>
             <!-- Logic to find the course index -->
             <% if(educationDetails !== "") { %>
-                <% var sscIndex = educationDetails.findIndex( education =>{ %>
+                <% sscIndex = educationDetails.findIndex( education =>{ %>
                     <% return education.CourseName === "SSC"; %>
                 <% } ) %>
     
-                <% var hscIndex = educationDetails.findIndex( education =>{ %>
+                <% hscIndex = educationDetails.findIndex( education =>{ %>
                     <% return education.CourseName === "HSC"; %>
                 <% } ) %>
     
-                <% var bachelorIndex = educationDetails.findIndex( education =>{ %>
+                <% bachelorIndex = educationDetails.findIndex( education =>{ %>
                     <% return education.CourseName === "Bachelor"; %>
                 <% } ) %>
     
-                <% var masterIndex = educationDetails.findIndex( education =>{ %>
+                <% masterIndex = educationDetails.findIndex( education =>{ %>
                     <% return education.CourseName === "Master"; %>
                 <% } ) %>
             <% } %>
@@ -318,17 +318,18 @@
             </div>
             
 
+            <% let hindiIndex = -1,  gujaratiIndex = -1, englishIndex = -1 %>
             <!-- Logic to find the language index -->
             <% if(language !== "") { %>
-                <% var hindiIndex = language.findIndex( lang =>{ %>
+                <% hindiIndex = language.findIndex( lang =>{ %>
                     <% return lang.LanguageName === "Hindi"; %>
                 <% } ) %>
     
-                <% var gujaratiIndex = language.findIndex( lang =>{ %>
+                <% gujaratiIndex = language.findIndex( lang =>{ %>
                     <% return lang.LanguageName === "Gujarati"; %>
                 <% } ) %>
     
-                <% var englishIndex = language.findIndex( lang =>{ %>
+                <% englishIndex = language.findIndex( lang =>{ %>
                     <% return lang.LanguageName === "English"; %>
                 <% } ) %>
             <% } %>
@@ -376,21 +377,22 @@
                 </div>
             </div>
             
+            <% let phpIndex = -1,  mysqlIndex = -1, laravelIndex = -1, oracleIndex = -1 %>
             <!-- Logic to find the language index -->
             <% if(technology !== "") { %>
-                <% var phpIndex = technology.findIndex( tech =>{ %>
+                <% phpIndex = technology.findIndex( tech =>{ %>
                     <% return tech.TechnologyName === "PHP"; %>
                 <% } ) %>
 
-                <% var mysqlIndex = technology.findIndex( tech =>{ %>
+                <% mysqlIndex = technology.findIndex( tech =>{ %>
                     <% return tech.TechnologyName === "MySQL"; %>
                 <% } ) %>
 
-                <% var laravelIndex = technology.findIndex( tech =>{ %>
+                <% laravelIndex = technology.findIndex( tech =>{ %>
                     <% return tech.TechnologyName === "Laravel"; %>
                 <% } ) %>
 
-                <% var oracleIndex = technology.findIndex( tech =>{ %>
+                <% oracleIndex = technology.findIndex( tech =>{ %>
                     <% return tech.TechnologyName === "Oracle"; %>
                 <% } ) %>
             <% } %>
@@ -483,16 +485,17 @@
                 </div>
             </div>
 
+            <% let ahmedabadIndex = -1,  gadhinagarIndex = -1, suratIndex = -1%>
             <% if(preferences !== "") { %>
-                <% var ahmedabadIndex = preferences.findIndex( pref =>{ %>
+                <% ahmedabadIndex = preferences.findIndex( pref =>{ %>
                     <% return pref.Location === "Ahmedabad"; %>
                 <% } ) %>
 
-                <% var gadhinagarIndex = preferences.findIndex( pref =>{ %>
+                <% gadhinagarIndex = preferences.findIndex( pref =>{ %>
                     <% return pref.Location === "Gadhinagar"; %>
                 <% } ) %>
 
-                <% var suratIndex = preferences.findIndex( pref =>{ %>
+                <% suratIndex = preferences.findIndex( pref =>{ %>
                     <% return pref.Location === "Surat"; %>
                 <% } ) %>
 
